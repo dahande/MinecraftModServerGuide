@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>コマンド一覧 – のんびりサバイバル鯖</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrapper">
+    <header>
+      <h1>コマンド一覧</h1>
+      <p class="backlink"><a href="./index.html">← タイトルへ戻る</a></p>
+      <div class="hr"></div>
+    </header>
+
+    <div class="table-tools">
+      <input id="cmd-filter" class="input" type="text" placeholder="キーワードで絞り込み（例: home, tpa, party）">
+    </div>
+
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr><th>コマンド</th><th>意味 / 使い方</th><th>例</th></tr>
+        </thead>
+        <tbody id="cmd-body">
+<tr>
+  <td><code>/trigger all_setting</code></td>
+  <td>一括破壊コマンドの設定メニューを開く（オフ/オン、範囲などを調整）</td>
+  <td><code>/trigger all_setting</code></td>
+</tr>
+<tr>
+  <td><code>/trigger sethome add &lt;n&gt;</code></td>
+  <td>チェックポイント <em>n</em> を登録（例: 1～9など任意のスロット番号）</td>
+  <td><code>/trigger sethome add 1</code></td>
+</tr>
+<tr>
+  <td><code>/trigger home set &lt;n&gt;</code></td>
+  <td>登録済みのチェックポイント <em>n</em> に移動</td>
+  <td><code>/trigger home set 1</code></td>
+</tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="footer">© のんびりサバイバル鯖</footer>
+  </main>
+
+  <script>
+    // 超簡易フィルタ
+    const input = document.getElementById('cmd-filter');
+    const body  = document.getElementById('cmd-body');
+    input?.addEventListener('input', () => {
+      const q = input.value.toLowerCase();
+      [...body.querySelectorAll('tr')].forEach(tr => {
+        tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
