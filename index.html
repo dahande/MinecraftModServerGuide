@@ -3,38 +3,65 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>のんびりサバイバル鯖 – タイトル</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>のんびりサバイバル鯖</title>
+  <link rel="stylesheet" href="cssFile/Styles.css"/>
 </head>
+
 <body>
   <main class="wrapper home">
+
     <header class="home-header">
       <h1>のんびりサバイバル鯖</h1>
-      <p class="subtitle">ようこそ！ここから各ガイドへ移動できます</p>
+      <p class="subtitle">ゲームサーバー一覧</p>
     </header>
 
-    <section class="home-grid">
-      <a class="card nav-card" href="./connect.html">
-        <div class="nav-card__title">接続手順</div>
-        <p class="nav-card__desc">初めての方はこちら。スクショ付きの導線で迷わない。</p>
-        <span class="btn btn-primary">開く</span>
-      </a>
 
-      <a class="card nav-card" href="./commands.html">
-        <div class="nav-card__title">コマンド一覧</div>
-        <p class="nav-card__desc">よく使うコマンドを一枚に。検索しやすい表形式。</p>
-        <span class="btn btn-primary">開く</span>
-      </a>
+    <section class="section">
+      <h2 class="section-title">🎮 ゲームサーバー</h2>
 
-      <a class="card nav-card" href="./mods.html">
-        <div class="nav-card__title">Mod更新手順</div>
-        <p class="nav-card__desc">まだ未対応。</p>
-        <!-- <p class="nav-card__desc">最新Modpackのダウンロードと更新履歴はこちら。</p> -->
-        <span class="btn btn-primary">開く</span>
-      </a>
+      <div class="home-grid">
+
+        <!-- Minecraft -->
+        <a class="card nav-card" href="./server/MinecraftConnect.html">
+          <div class="nav-card__title">Minecraft</div>
+          <p class="nav-card__desc">
+            Minecraft　サーバー接続手順
+          </p>
+          <span class="btn btn-primary">詳細を見る</span>
+        </a>
+
+        <!-- ARK -->
+        <a class="card nav-card" href="./server/ARKConnect.html">
+          <div class="nav-card__title">ARK</div>
+          <p class="nav-card__desc">
+            ARK Survival　サーバー接続手順
+          </p>
+          <span class="btn btn-primary">詳細を見る</span>
+        </a>
+
+      </div>
     </section>
 
-    <footer class="footer">© のんびりサバイバル鯖 / だぁ～さん</footer>
+
+    <section class="section">
+      <h2 class="section-title">📖 ガイド</h2>
+
+      <div class="home-grid">
+
+        <a class="card nav-card" href="./server/MinecraftCommands.html">
+          <div class="nav-card__title">Minecraft コマンド一覧</div>
+          <p class="nav-card__desc">よく使うコマンド一覧</p>
+          <span class="btn btn-primary">開く</span>
+        </a>
+
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      © のんびりサバイバル鯖 / だぁ～さん
+    </footer>
+
   </main>
 </body>
 </html>
