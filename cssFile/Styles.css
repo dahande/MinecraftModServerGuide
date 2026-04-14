@@ -470,6 +470,108 @@ ul.bullet-list li::before { content: '→'; color: var(--page-accent); margin-ri
 .download-meta { font-size: 13px; color: var(--muted); }
 
 /* ============================================
+   DISCORD BANNER
+   ============================================ */
+.discord-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(135deg, #3a3d8f 0%, #5865f2 55%, #7289da 100%);
+  border: 1px solid rgba(88, 101, 242, 0.45);
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin-bottom: 44px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.discord-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 90% 50%, rgba(255,255,255,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* dot grid */
+.discord-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.discord-banner__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.discord-banner__icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  color: #fff;
+  opacity: .92;
+}
+
+.discord-banner__title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.discord-banner__desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.discord-banner__btn {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 11px 22px;
+  background: #fff;
+  color: #5865f2;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform .15s, filter .15s;
+}
+
+.discord-banner__btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.discord-banner:hover .discord-banner__btn {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+@media (max-width: 580px) {
+  .discord-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 22px 20px;
+  }
+  .discord-banner__left { flex-direction: column; gap: 10px; }
+  .discord-banner__btn { width: 100%; text-align: center; }
+}
+
+/* ============================================
    BACKLINK
    ============================================ */
 .backlink { margin: 12px 0; }
