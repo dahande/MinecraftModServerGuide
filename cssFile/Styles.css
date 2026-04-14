@@ -296,6 +296,102 @@ ul.check-list li::before  { content: '✓'; color: #4ade80; margin-right: 10px; 
 ul.bullet-list li::before { content: '→'; color: var(--page-accent); margin-right: 10px; font-weight: 600; }
 
 /* ============================================
+   STATUS BADGE
+   ============================================ */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.status-badge--online {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.10);
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.status-badge--online::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.status-badge--offline {
+  color: var(--muted);
+  background: rgba(86, 104, 128, 0.10);
+  border-color: rgba(86, 104, 128, 0.25);
+}
+
+.status-badge--offline::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--muted);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50%       { box-shadow: 0 0 0 4px rgba(74, 222, 128, 0); }
+}
+
+/* Offline card: dimmed */
+.nav-card[data-status="offline"] {
+  opacity: 0.55;
+  filter: grayscale(25%);
+  transition: opacity .2s, filter .2s, transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.nav-card[data-status="offline"]:hover {
+  opacity: 0.85;
+  filter: grayscale(0%);
+}
+
+/* ============================================
+   SERVER FILTER
+   ============================================ */
+.server-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  border-color: var(--border-hi);
+  color: var(--ink-2);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: #07090f;
+  border-color: var(--accent);
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 .footer {
