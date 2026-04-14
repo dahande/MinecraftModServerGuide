@@ -16,9 +16,6 @@
       <h1 class="hero-title">のんびり<br>サバイバル鯖</h1>
       <p class="hero-sub">みんなで気軽に楽しめるゲームサーバー</p>
       <div class="hero-games">
-        <span class="game-tag game-tag--mc">⛏️ Minecraft</span>
-        <span class="game-tag game-tag--ark">🦕 ARK</span>
-        <span class="game-tag game-tag--icarus">🚀 Icarus</span>
         <span class="game-tag game-tag--7dtd">🧟 7 Days to Die</span>
       </div>
     </div>
@@ -30,30 +27,6 @@
 
       <div class="home-grid">
 
-        <!-- Minecraft -->
-        <a class="card nav-card nav-card--mc" href="./server/MinecraftConnect.html">
-          <div class="nav-card__icon">⛏️</div>
-          <div class="nav-card__title">Minecraft</div>
-          <p class="nav-card__desc">MODサーバー接続手順<br>Java Edition 対応</p>
-          <span class="btn">詳細を見る</span>
-        </a>
-
-        <!-- ARK -->
-        <a class="card nav-card nav-card--ark" href="./server/ARKConnect.html">
-          <div class="nav-card__icon">🦕</div>
-          <div class="nav-card__title">ARK</div>
-          <p class="nav-card__desc">ARK Survival Evolved<br>サーバー接続手順</p>
-          <span class="btn">詳細を見る</span>
-        </a>
-
-        <!-- Icarus -->
-        <a class="card nav-card nav-card--icarus" href="./server/IcarusConnect.html">
-          <div class="nav-card__icon">🚀</div>
-          <div class="nav-card__title">Icarus</div>
-          <p class="nav-card__desc">Icarus 専用サーバー<br>接続手順</p>
-          <span class="btn">詳細を見る</span>
-        </a>
-
         <!-- 7 Days to Die -->
         <a class="card nav-card nav-card--7dtd" href="./server/7DaysToDieConnect.html">
           <div class="nav-card__icon">🧟</div>
@@ -61,6 +34,12 @@
           <p class="nav-card__desc">7 Days to Die サーバー<br>接続手順</p>
           <span class="btn">詳細を見る</span>
         </a>
+
+        <!-- Minecraft・ARK・Icarus は現在停止中のため非表示
+        <a class="card nav-card nav-card--mc" href="./server/MinecraftConnect.html">...</a>
+        <a class="card nav-card nav-card--ark" href="./server/ARKConnect.html">...</a>
+        <a class="card nav-card nav-card--icarus" href="./server/IcarusConnect.html">...</a>
+        -->
 
       </div>
     </section>
@@ -72,19 +51,25 @@
 
       <div class="home-grid">
 
-        <a class="card nav-card" href="./server/MinecraftCommands.html">
+        <!-- 7DTD コマンド一覧 -->
+        <a class="card nav-card nav-card--7dtd" href="./server/7DaysCommands.html">
           <div class="nav-card__icon">📋</div>
-          <div class="nav-card__title">Minecraft コマンド一覧</div>
-          <p class="nav-card__desc">よく使うコマンドまとめ。キーワード検索対応</p>
+          <div class="nav-card__title">7DTD コマンド一覧</div>
+          <p class="nav-card__desc">チャットコマンドの使い方と一覧。キーワード検索対応</p>
           <span class="btn">開く</span>
         </a>
 
+        <!-- Drone Locator -->
         <a class="card nav-card nav-card--7dtd" href="./server/7DaysDroneLocator.html">
           <div class="nav-card__icon">🤖</div>
           <div class="nav-card__title">Drone Locator</div>
-          <p class="nav-card__desc">7DTD MOD: 行方不明のドローンを<br>コマンドで即座に見つける方法</p>
+          <p class="nav-card__desc">行方不明のドローンを<br>コマンドで即座に見つける方法</p>
           <span class="btn">開く</span>
         </a>
+
+        <!-- Minecraft コマンドは現在非表示
+        <a class="card nav-card" href="./server/MinecraftCommands.html">...</a>
+        -->
 
       </div>
     </section>
