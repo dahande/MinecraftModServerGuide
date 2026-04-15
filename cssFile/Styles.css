@@ -625,6 +625,83 @@ ul.bullet-list li::before { content: '→'; color: var(--page-accent); margin-ri
 .table-tools { margin: 16px 0; }
 
 /* ============================================
+   GUIDE INDEX PAGE（ゲーム別ガイド一覧）
+   ============================================ */
+.guide-section-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 28px 0 12px;
+  padding-left: 12px;
+  border-left: 3px solid var(--page-accent);
+}
+
+.guide-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.guide-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--page-accent);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s, border-color .15s, transform .15s;
+}
+
+.guide-card:hover {
+  background: var(--card);
+  border-color: var(--page-accent);
+  transform: translateX(4px);
+}
+
+.guide-card__icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.guide-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.guide-card__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.guide-card__desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.guide-card__arrow {
+  font-size: 18px;
+  color: var(--page-accent);
+  flex-shrink: 0;
+  transition: transform .15s;
+}
+
+.guide-card:hover .guide-card__arrow {
+  transform: translateX(4px);
+}
+
+/* ============================================
    HOME PAGE
    ============================================ */
 
