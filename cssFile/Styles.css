@@ -810,6 +810,8 @@ ul.bullet-list li::before { content: '→'; color: var(--page-accent); margin-ri
 }
 
 .game-tag:hover { transform: translateY(-2px); }
+.game-tag.is-dim { opacity: .45; }
+.game-tag.is-dim:hover { opacity: .75; }
 
 .game-tag--mc     { color: var(--c-mc);     border-color: var(--c-mc);     background: rgba(74,  222, 128, 0.08); }
 .game-tag--ark    { color: var(--c-ark);    border-color: var(--c-ark);    background: rgba(251, 146,  60, 0.08); }

@@ -1,2 +1,3 @@
-下記からサイト
-https://dahande.github.io/MinecraftModServerGuide/
+# のんびりサバイバル鯖
+
+公開サイト: https://dahande.github.io/MinecraftModServerGuide/
