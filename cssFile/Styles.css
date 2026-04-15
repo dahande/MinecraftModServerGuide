@@ -927,6 +927,93 @@ ul.bullet-list li::before { content: '→'; color: var(--page-accent); margin-ri
 }
 
 /* ============================================
+   HERO NEWS PANEL
+   ============================================ */
+.hero-news {
+  position: relative;
+  z-index: 1;
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 580px;
+  background: rgba(7, 9, 15, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-align: left;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.hero-news__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.hero-news__label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.hero-news__more {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color .15s;
+}
+
+.hero-news__more:hover { color: #7ec8ff; }
+
+.hero-news__items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero-news__item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background .15s;
+}
+
+.hero-news__item:hover { background: rgba(255, 255, 255, 0.09); }
+
+.hero-news__date {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Consolas', monospace;
+  flex-shrink: 0;
+  min-width: 38px;
+}
+
+.hero-news__title {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 680px) {
+  .hero-news { max-width: 100%; }
+  .hero-news__title { font-size: 12px; }
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 680px) {
