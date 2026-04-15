@@ -16,7 +16,6 @@
   <h1>📡 サーバーステータス</h1>
   <div class="meta">
     <div>リアルタイム接続状況</div>
-    <div>データ提供: BattleMetrics</div>
   </div>
   <p class="backlink">
     <a href="../index.html" class="btn">← ホームへ戻る</a>
@@ -32,7 +31,8 @@
   <div class="download-card__title">🧟 【JP/PvP/日本公式鯖】血祭だぁ！</div>
   <div class="download-card__actions">
     <div class="server-info-row">
-      <b>IP:</b>&nbsp;<span class="server-info-value" style="color:var(--muted);">未定（Discordで確認）</span>
+      <b>IP:</b>&nbsp;<span class="server-info-value">220.158.24.94</span>
+      <button class="copy-btn" data-copy="220.158.24.94">📋 コピー</button>
     </div>
     <div class="server-info-row">
       <b>Port:</b>&nbsp;<span class="server-info-value">26900</span>
@@ -61,7 +61,7 @@
     <div class="player-count-display">
       <span class="cnt-now" id="player-now">0</span>
       <span class="cnt-sep">/</span>
-      <span class="cnt-max" id="player-max">8</span>
+      <span class="cnt-max" id="player-max">64</span>
       <span class="cnt-unit">人</span>
     </div>
 
@@ -86,19 +86,6 @@
     <p style="color:var(--muted); font-size:14px; margin:0;">現在サーバーは停止中です。</p>
   </div>
 
-  <!-- 予定・未発見 -->
-  <div class="status-state" id="state-notfound" style="display:none;">
-    <span class="status-badge status-badge--scheduled" style="font-size:13px; padding:5px 16px;">予定</span>
-    <div class="status-notice" style="max-width:380px;">
-      🕐 <b>4/17（金）21:00 より稼働開始予定</b><br>
-      サーバーが起動すると自動でステータスが表示されます。<br><br>
-      BattleMetrics でも確認できます：<br>
-      <a href="https://www.battlemetrics.com/servers/7dtd?filter[search]=Nonbiri"
-         target="_blank" rel="noopener"
-         style="color:var(--page-accent);">BattleMetrics で検索 →</a>
-    </div>
-  </div>
-
   <!-- エラー -->
   <div class="status-state" id="state-error" style="display:none;">
     <p style="color:var(--muted); font-size:14px; margin:0;">⚠️ データの取得に失敗しました</p>
@@ -117,7 +104,40 @@
 </div>
 
 
-<!-- ========== 接続方法リンク ========== -->
+<!-- ========== ログイン履歴 ========== -->
+<div style="margin-top: 36px;">
+  <h2 class="guide-section-label">🕐 ログイン履歴</h2>
+
+  <div id="sessions-loading" style="text-align:center; padding:20px; color:var(--muted); font-size:14px;">
+    <div class="status-spinner" style="margin:0 auto 10px;"></div>
+    履歴を取得中…
+  </div>
+
+  <div id="sessions-error" style="display:none;" class="tips tips--warn">
+    ⚠️ ログイン履歴の取得に失敗しました。
+  </div>
+
+  <div id="sessions-empty" style="display:none; text-align:center; padding:20px; color:var(--muted); font-size:14px;">
+    まだ履歴がありません。
+  </div>
+
+  <div class="session-table-wrap" id="sessions-wrap" style="display:none;">
+    <table class="session-table">
+      <thead>
+        <tr>
+          <th>プレイヤー</th>
+          <th>ログイン</th>
+          <th>ログアウト</th>
+          <th>プレイ時間</th>
+        </tr>
+      </thead>
+      <tbody id="sessions-body"></tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ========== 関連ページ ========== -->
 <div style="margin-top: 32px;">
   <h2 class="guide-section-label">🔗 関連ページ</h2>
   <div class="guide-grid">
@@ -145,34 +165,28 @@
 
 
 <footer class="footer">
-  © のんびりサバイバル鯖 / だぁ～さん ―
-  ステータスデータ:
-  <a href="https://www.battlemetrics.com/servers/7dtd" target="_blank" rel="noopener"
-     style="color:var(--page-accent);">BattleMetrics</a>
-  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+  © のんびりサバイバル鯖
 </footer>
 
 </main>
 
 <script>
   /* =====================================================
-     サーバーステータス取得（BattleMetrics API）
+     BattleMetrics API – サーバーID 38692738
      ===================================================== */
-  const SERVER_PORT = 26900;
-  /* IP が確定したらここに設定 */
-  const SERVER_IP   = null; /* 例: '123.456.789.0' */
-  const BM_API = 'https://api.battlemetrics.com/servers'
-    + '?filter[game]=7dtd'
-    + '&filter[search]=%E8%A1%80%E7%A5%AD%E3%81%A0%E3%81%81'  /* 血祭だぁ */
-    + '&page[size]=10'
-    + '&include=player';
+  const BM_SERVER   = 'https://api.battlemetrics.com/servers/38692738?include=player';
+  const BM_SESSIONS = 'https://api.battlemetrics.com/sessions'
+    + '?filter[servers]=38692738'
+    + '&page[size]=50'
+    + '&include=player'
+    + '&sort=-start';
 
   const REFRESH_SEC = 60;
   let cdTimer, cdVal = REFRESH_SEC;
 
   /* --- 表示切替 --- */
   function showState(id) {
-    ['loading', 'online', 'offline', 'notfound', 'error'].forEach(s => {
+    ['loading', 'online', 'offline', 'error'].forEach(s => {
       const el = document.getElementById('state-' + s);
       if (el) el.style.display = (s === id) ? '' : 'none';
     });
@@ -190,65 +204,78 @@
     }, 1000);
   }
 
-  /* --- メイン取得 --- */
+  /* --- 時間フォーマット --- */
+  function fmtTime(isoStr) {
+    if (!isoStr) return '—';
+    const d = new Date(isoStr);
+    return d.toLocaleString('ja-JP', {
+      month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
+
+  function fmtDuration(sec) {
+    if (!sec || sec <= 0) return '—';
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    if (h > 0) return `${h}h ${m}m`;
+    return `${m}m`;
+  }
+
+  /* --- HTML エスケープ --- */
+  function escHtml(str) {
+    return String(str).replace(/[&<>"']/g, c =>
+      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])
+    );
+  }
+
+  /* --- ステータス取得 --- */
   async function fetchStatus() {
     showState('loading');
     document.getElementById('refresh-btn').disabled = true;
 
     try {
-      const res = await fetch(BM_API, { cache: 'no-store' });
+      const res  = await fetch(BM_SERVER, { cache: 'no-store' });
       if (!res.ok) throw new Error('http ' + res.status);
       const data = await res.json();
 
-      /* サーバーを絞り込む（IP確定後は IP+ポートで特定） */
-      const server = (data.data || []).find(s =>
-        SERVER_IP
-          ? (s.attributes.ip === SERVER_IP && s.attributes.port === SERVER_PORT)
-          : s.attributes.port === SERVER_PORT
-      );
+      const attr = data.data?.attributes;
+      if (!attr) throw new Error('no data');
 
-      if (!server) {
-        showState('notfound');
-      } else {
-        const attr = server.attributes;
+      if (attr.status === 'online') {
+        const now = attr.players    ?? 0;
+        const max = attr.maxPlayers ?? 64;
+        const pct = max > 0 ? Math.round(now / max * 100) : 0;
 
-        if (attr.status === 'online') {
-          /* プレイヤー数 */
-          const now = attr.players    ?? 0;
-          const max = attr.maxPlayers ?? 8;
-          const pct = max > 0 ? Math.round(now / max * 100) : 0;
+        document.getElementById('player-now').textContent   = now;
+        document.getElementById('player-now-2').textContent = now;
+        document.getElementById('player-max').textContent   = max;
+        const bar = document.getElementById('player-bar');
+        bar.style.width = pct + '%';
+        bar.classList.toggle('full', pct >= 100);
 
-          document.getElementById('player-now').textContent  = now;
-          document.getElementById('player-now-2').textContent = now;
-          document.getElementById('player-max').textContent  = max;
-          const bar = document.getElementById('player-bar');
-          bar.style.width = pct + '%';
-          bar.classList.toggle('full', pct >= 100);
-
-          /* プレイヤーリスト */
-          const players = (data.included || []).filter(i => i.type === 'player');
-          const listEl  = document.getElementById('player-list');
-          const listSec = document.getElementById('player-list-section');
-          if (players.length > 0) {
-            listEl.innerHTML = players.map(p =>
-              `<div class="player-row">${escHtml(p.attributes.name)}</div>`
-            ).join('');
-            listSec.style.display = '';
-          } else {
-            listSec.style.display = 'none';
-          }
-
-          showState('online');
+        /* 現在プレイヤーリスト */
+        const players  = (data.included || []).filter(i => i.type === 'player');
+        const listEl   = document.getElementById('player-list');
+        const listSec  = document.getElementById('player-list-section');
+        if (players.length > 0) {
+          listEl.innerHTML = players.map(p =>
+            `<div class="player-row">${escHtml(p.attributes.name)}</div>`
+          ).join('');
+          listSec.style.display = '';
         } else {
-          showState('offline');
+          listSec.style.display = 'none';
         }
+
+        showState('online');
+      } else {
+        showState('offline');
       }
 
-      /* 更新時刻 */
       document.getElementById('last-updated').textContent =
         new Date().toLocaleTimeString('ja-JP');
 
-    } catch (err) {
+    } catch {
       showState('error');
     }
 
@@ -256,14 +283,57 @@
     startCountdown();
   }
 
-  function escHtml(str) {
-    return str.replace(/[&<>"']/g, c =>
-      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])
-    );
+  /* --- セッション履歴取得 --- */
+  async function fetchSessions() {
+    try {
+      const res = await fetch(BM_SESSIONS, { cache: 'no-store' });
+      if (!res.ok) throw new Error('http ' + res.status);
+      const data = await res.json();
+
+      const sessions = data.data || [];
+      const players  = {};
+      (data.included || []).forEach(i => {
+        if (i.type === 'player') players[i.id] = i.attributes.name;
+      });
+
+      document.getElementById('sessions-loading').style.display = 'none';
+
+      if (sessions.length === 0) {
+        document.getElementById('sessions-empty').style.display = '';
+        return;
+      }
+
+      const tbody = document.getElementById('sessions-body');
+      tbody.innerHTML = sessions.map(s => {
+        const pid      = s.relationships?.player?.data?.id;
+        const name     = players[pid] ?? '不明';
+        const start    = s.attributes.start;
+        const stop     = s.attributes.stop;
+        const duration = s.attributes.timePlayed;
+
+        const stopCell = stop
+          ? `<span>${escHtml(fmtTime(stop))}</span>`
+          : `<span class="session-online-now">接続中</span>`;
+
+        return `<tr>
+          <td><span class="session-player-name">${escHtml(name)}</span></td>
+          <td style="font-size:12px; font-family:monospace; color:var(--muted);">${escHtml(fmtTime(start))}</td>
+          <td style="font-size:12px; font-family:monospace; color:var(--muted);">${stopCell}</td>
+          <td><span class="session-duration">${escHtml(fmtDuration(duration))}</span></td>
+        </tr>`;
+      }).join('');
+
+      document.getElementById('sessions-wrap').style.display = '';
+
+    } catch {
+      document.getElementById('sessions-loading').style.display = 'none';
+      document.getElementById('sessions-error').style.display   = '';
+    }
   }
 
   /* 初回実行 */
   fetchStatus();
+  fetchSessions();
 </script>
 
 </body>

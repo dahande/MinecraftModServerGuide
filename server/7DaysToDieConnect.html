@@ -13,39 +13,74 @@
 <main class="wrapper">
 
 <header>
-  <h1>7 Days to Die サーバー接続手順</h1>
+  <h1>🧟 7 Days to Die サーバー接続手順</h1>
+
+  <div class="mod-badges">
+    <span class="mod-badge mod-badge--server">🌏 JP サーバー</span>
+    <span class="mod-badge mod-badge--eac">🛡️ EAC オン</span>
+    <span class="mod-badge mod-badge--client">⚔️ PvP</span>
+  </div>
 
   <div class="meta">
     <div>対象: 7 Days to Die (Steam版)</div>
-    <div>最終更新: 2026-04-14</div>
+    <div>最終更新: 2026-04-15</div>
   </div>
 
   <p class="backlink">
-    <a href="../index.html" class="btn">← タイトルへ戻る</a>
+    <a href="../index.html" class="btn">← ホームへ戻る</a>
+    &nbsp;
+    <a href="./7DaysServerInfo.html" class="btn">サーバー情報</a>
+    &nbsp;
+    <a href="./7DaysStatus.html" class="btn">📡 ステータス確認</a>
   </p>
 
   <div class="hr"></div>
 </header>
 
 
+<!-- ========== 接続情報カード ========== -->
+<div class="download-card" style="border-color: var(--c-7dtd); margin-bottom: 28px;">
+  <div class="download-card__title">🔌 接続情報</div>
+  <div class="download-card__actions">
+    <div class="server-info-row">
+      <b>サーバー名:</b>&nbsp;<span class="server-info-value">【JP/PvP/日本公式鯖】血祭だぁ！</span>
+    </div>
+    <div class="server-info-row">
+      <b>IP:</b>&nbsp;<span class="server-info-value">220.158.24.94</span>
+      <button class="copy-btn" data-copy="220.158.24.94">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>ポート:</b>&nbsp;<span class="server-info-value">26900</span>
+      <button class="copy-btn" data-copy="26900">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>PW:</b>&nbsp;<span class="server-info-value">なし</span>
+    </div>
+  </div>
+</div>
+
+<div class="tips" style="margin-bottom: 28px;">
+  ✅ パスワード不要でそのまま参加できます。以下の手順に従って接続してください。
+</div>
+
+
 <!-- Step 1 -->
 <section class="step">
-  <div class="step-title">7 Days to Dieを起動</div>
+  <div class="step-title">7 Days to Die を起動</div>
   <p class="step-desc">
-    7 Days to Dieを起動して「ゲームに参加」をクリックします。
+    7 Days to Die を起動して <b>「ゲームに参加」</b> をクリックします。
   </p>
-
   <figure class="frame">
-    <img src="../image/img/7dtd_img/step1.jpg" alt="7dtdを起動">
+    <img src="../image/img/7dtd_img/step1.jpg" alt="7DTD を起動してゲームに参加をクリック">
   </figure>
 </section>
 
 
 <!-- Step 2 -->
 <section class="step">
-  <div class="step-title">IPに接続</div>
+  <div class="step-title">「IP に接続」を選択</div>
   <p class="step-desc">
-    フィルターの <b>「IPに接続」</b> を選択します。
+    フィルターの <b>「IP に接続」</b> を選択します。
   </p>
   <figure class="frame">
     <img src="../image/img/7dtd_img/step2.jpg" alt="IPに接続を選択">
@@ -55,31 +90,54 @@
 
 <!-- Step 3 -->
 <section class="step">
-  <div class="step-title">IPに接続</div>
+  <div class="step-title">IP とポートを入力して接続</div>
   <p class="step-desc">
-    IPに「220.158.24.94」、ポートに「26900」を入力して接続します。
+    IP に <b>「220.158.24.94」</b>、ポートに <b>「26900」</b> を入力して接続します。
   </p>
   <figure class="frame">
-    <img src="../image/img/7dtd_img/step3.jpg" alt="IPに接続を選択">
+    <img src="../image/img/7dtd_img/step3.jpg" alt="IPとポートを入力">
   </figure>
 </section>
 
 
-<!-- 関連ガイド -->
-<section class="step">
-  <div class="step-title">関連ガイド</div>
-  <p class="step-desc">サーバーに追加されているMODのガイドはこちら：</p>
-  <a class="card nav-card nav-card--7dtd" href="./7DaysDroneLocator.html" style="max-width:320px; display:flex; flex-direction:column; gap:6px; border:1px solid var(--border); border-top:3px solid var(--c-7dtd); border-radius:14px; padding:18px; text-decoration:none; color:inherit; background:var(--card);">
-    <div style="font-size:26px;">🤖</div>
-    <div style="font-weight:700; font-size:16px; color:var(--ink);">Drone Locator MOD</div>
-    <p style="font-size:13px; color:var(--muted); margin:0;">行方不明のドローンをコマンドで即座に発見</p>
-    <span class="btn" style="margin-top:10px; text-align:center; border-color:var(--c-7dtd); color:var(--c-7dtd);">ガイドを見る</span>
-  </a>
-</section>
+<!-- ========== 関連ガイド ========== -->
+<div class="related-section">
+  <div class="related-section__title">関連ガイド</div>
+  <div class="guide-grid">
+
+    <a class="guide-card" href="./7DaysGuide.html">
+      <div class="guide-card__icon">📖</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">7DTD ガイド一覧</div>
+        <p class="guide-card__desc">MOD・コマンド・サーバー情報など関連ガイドまとめ。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
+
+    <a class="guide-card" href="./7DaysDroneLocator.html">
+      <div class="guide-card__icon">🤖</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">Drone Locator MOD</div>
+        <p class="guide-card__desc">行方不明のドローンをコマンドで即座に発見。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
+
+    <a class="guide-card" href="./7DaysAECEndgame.html">
+      <div class="guide-card__icon">⚔️</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">AEC Endgame Overhaul</div>
+        <p class="guide-card__desc">エンドゲーム拡張MODのティア・ボス・ギア解説。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
 
 <footer class="footer">
-  © のんびりサバイバル鯖 / だぁ～さん
-  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+  © のんびりサバイバル鯖
 </footer>
 
 </main>
