@@ -135,6 +135,13 @@
           <span class="btn">詳細を見る</span>
         </a>
 
+        <!-- 空状態メッセージ -->
+        <div class="server-empty" id="server-empty" style="display:none;">
+          <div class="server-empty__icon">🔍</div>
+          <p class="server-empty__title">現在該当するサーバーはありません</p>
+          <p class="server-empty__sub">「すべて表示」で停止中のサーバーも確認できます</p>
+        </div>
+
       </div>
     </section>
 
@@ -173,11 +180,14 @@
 
     function applyFilter(f) {
       filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+      let visible = 0;
       cards.forEach(card => {
-        const s = card.dataset.status;
-        const show = f === 'all' || s === f;
+        const show = f === 'all' || card.dataset.status === f;
         card.style.display = show ? '' : 'none';
+        if (show) visible++;
       });
+      const empty = document.getElementById('server-empty');
+      if (empty) empty.style.display = visible === 0 ? '' : 'none';
     }
 
     // 初期表示: 予定のみ

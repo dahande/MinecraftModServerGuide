@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>サーバーステータス – のんびりサバイバル鯖</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
+</head>
+
+<body class="page-7dtd">
+<main class="wrapper">
+
+<header>
+  <h1>📡 サーバーステータス</h1>
+  <div class="meta">
+    <div>リアルタイム接続状況</div>
+    <div>データ提供: BattleMetrics</div>
+  </div>
+  <p class="backlink">
+    <a href="../index.html" class="btn">← ホームへ戻る</a>
+    &nbsp;
+    <a href="./7DaysServerInfo.html" class="btn">サーバー情報へ</a>
+  </p>
+  <div class="hr"></div>
+</header>
+
+
+<!-- ========== 接続情報カード ========== -->
+<div class="download-card" style="margin-bottom:20px;">
+  <div class="download-card__title">🧟 [JP/PvP] Nonbiri Server</div>
+  <div class="download-card__actions">
+    <div class="server-info-row">
+      <b>IP:</b>&nbsp;<span class="server-info-value">220.158.24.94</span>
+      <button class="copy-btn" data-copy="220.158.24.94">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>Port:</b>&nbsp;<span class="server-info-value">26900</span>
+      <button class="copy-btn" data-copy="26900">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>PW:</b>&nbsp;<span class="server-info-value">123</span>
+      <button class="copy-btn" data-copy="123">📋 コピー</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ========== ステータスパネル ========== -->
+<div class="status-panel" id="status-panel">
+
+  <!-- ローディング -->
+  <div class="status-state" id="state-loading">
+    <div class="status-spinner"></div>
+    <p style="color:var(--muted); font-size:14px; margin:0;">サーバー情報を取得中…</p>
+  </div>
+
+  <!-- 稼働中 -->
+  <div class="status-state" id="state-online" style="display:none;">
+    <span class="status-badge status-badge--online" style="font-size:13px; padding:5px 16px;">稼働中</span>
+
+    <div class="player-count-display">
+      <span class="cnt-now" id="player-now">0</span>
+      <span class="cnt-sep">/</span>
+      <span class="cnt-max" id="player-max">8</span>
+      <span class="cnt-unit">人</span>
+    </div>
+
+    <div class="player-bar-wrap">
+      <div class="player-bar" id="player-bar" style="width:0%"></div>
+    </div>
+
+    <p style="font-size:12px; color:var(--muted); margin:4px 0 0;" id="player-label">
+      現在 <span id="player-now-2">0</span> 人がプレイ中
+    </p>
+
+    <!-- プレイヤーリスト -->
+    <div class="player-list-section" id="player-list-section" style="display:none; width:100%;">
+      <div class="player-list-label">接続中プレイヤー</div>
+      <div id="player-list"></div>
+    </div>
+  </div>
+
+  <!-- オフライン -->
+  <div class="status-state" id="state-offline" style="display:none;">
+    <span class="status-badge status-badge--offline" style="font-size:13px; padding:5px 16px;">オフライン</span>
+    <p style="color:var(--muted); font-size:14px; margin:0;">現在サーバーは停止中です。</p>
+  </div>
+
+  <!-- 予定・未発見 -->
+  <div class="status-state" id="state-notfound" style="display:none;">
+    <span class="status-badge status-badge--scheduled" style="font-size:13px; padding:5px 16px;">予定</span>
+    <div class="status-notice" style="max-width:380px;">
+      🕐 <b>4/17（金）21:00 より稼働開始予定</b><br>
+      サーバーが起動すると自動でステータスが表示されます。<br><br>
+      BattleMetrics でも確認できます：<br>
+      <a href="https://www.battlemetrics.com/servers/7dtd?filter[search]=Nonbiri"
+         target="_blank" rel="noopener"
+         style="color:var(--page-accent);">BattleMetrics で検索 →</a>
+    </div>
+  </div>
+
+  <!-- エラー -->
+  <div class="status-state" id="state-error" style="display:none;">
+    <p style="color:var(--muted); font-size:14px; margin:0;">⚠️ データの取得に失敗しました</p>
+    <button class="btn" onclick="fetchStatus()" style="margin-top:4px;">再試行</button>
+  </div>
+
+</div>
+
+<!-- フッター行 -->
+<div class="status-footer">
+  <span>最終更新: <span id="last-updated" style="font-family:monospace;">--:--:--</span></span>
+  <span class="status-countdown"><span id="countdown">60</span> 秒後に自動更新</span>
+  <button class="btn" id="refresh-btn" style="font-size:12px; padding:5px 14px;" onclick="fetchStatus()">
+    🔄 今すぐ更新
+  </button>
+</div>
+
+
+<!-- ========== 接続方法リンク ========== -->
+<div style="margin-top: 32px;">
+  <h2 class="guide-section-label">🔗 関連ページ</h2>
+  <div class="guide-grid">
+
+    <a class="guide-card" href="./7DaysToDieConnect.html">
+      <div class="guide-card__icon">🔌</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">接続手順</div>
+        <p class="guide-card__desc">サーバーへの参加方法をステップで解説。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
+
+    <a class="guide-card" href="./7DaysServerInfo.html">
+      <div class="guide-card__icon">📋</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">サーバー情報・設定</div>
+        <p class="guide-card__desc">難易度・ゾンビ設定・導入MODの詳細一覧。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
+
+  </div>
+</div>
+
+
+<footer class="footer">
+  © のんびりサバイバル鯖 / だぁ～さん ―
+  ステータスデータ:
+  <a href="https://www.battlemetrics.com/servers/7dtd" target="_blank" rel="noopener"
+     style="color:var(--page-accent);">BattleMetrics</a>
+  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+</footer>
+
+</main>
+
+<script>
+  /* =====================================================
+     サーバーステータス取得（BattleMetrics API）
+     ===================================================== */
+  const SERVER_IP   = '220.158.24.94';
+  const SERVER_PORT = 26900;
+  const BM_API = 'https://api.battlemetrics.com/servers'
+    + '?filter[game]=7dtd'
+    + '&filter[search]=Nonbiri+Server'
+    + '&page[size]=10'
+    + '&include=player';
+
+  const REFRESH_SEC = 60;
+  let cdTimer, cdVal = REFRESH_SEC;
+
+  /* --- 表示切替 --- */
+  function showState(id) {
+    ['loading', 'online', 'offline', 'notfound', 'error'].forEach(s => {
+      const el = document.getElementById('state-' + s);
+      if (el) el.style.display = (s === id) ? '' : 'none';
+    });
+  }
+
+  /* --- カウントダウン --- */
+  function startCountdown() {
+    clearInterval(cdTimer);
+    cdVal = REFRESH_SEC;
+    cdTimer = setInterval(() => {
+      cdVal--;
+      const el = document.getElementById('countdown');
+      if (el) el.textContent = cdVal > 0 ? cdVal : REFRESH_SEC;
+      if (cdVal <= 0) { cdVal = REFRESH_SEC; fetchStatus(); }
+    }, 1000);
+  }
+
+  /* --- メイン取得 --- */
+  async function fetchStatus() {
+    showState('loading');
+    document.getElementById('refresh-btn').disabled = true;
+
+    try {
+      const res = await fetch(BM_API, { cache: 'no-store' });
+      if (!res.ok) throw new Error('http ' + res.status);
+      const data = await res.json();
+
+      /* サーバーを IP+ポートで絞り込む */
+      const server = (data.data || []).find(s =>
+        s.attributes.ip   === SERVER_IP &&
+        s.attributes.port === SERVER_PORT
+      );
+
+      if (!server) {
+        showState('notfound');
+      } else {
+        const attr = server.attributes;
+
+        if (attr.status === 'online') {
+          /* プレイヤー数 */
+          const now = attr.players    ?? 0;
+          const max = attr.maxPlayers ?? 8;
+          const pct = max > 0 ? Math.round(now / max * 100) : 0;
+
+          document.getElementById('player-now').textContent  = now;
+          document.getElementById('player-now-2').textContent = now;
+          document.getElementById('player-max').textContent  = max;
+          const bar = document.getElementById('player-bar');
+          bar.style.width = pct + '%';
+          bar.classList.toggle('full', pct >= 100);
+
+          /* プレイヤーリスト */
+          const players = (data.included || []).filter(i => i.type === 'player');
+          const listEl  = document.getElementById('player-list');
+          const listSec = document.getElementById('player-list-section');
+          if (players.length > 0) {
+            listEl.innerHTML = players.map(p =>
+              `<div class="player-row">${escHtml(p.attributes.name)}</div>`
+            ).join('');
+            listSec.style.display = '';
+          } else {
+            listSec.style.display = 'none';
+          }
+
+          showState('online');
+        } else {
+          showState('offline');
+        }
+      }
+
+      /* 更新時刻 */
+      document.getElementById('last-updated').textContent =
+        new Date().toLocaleTimeString('ja-JP');
+
+    } catch (err) {
+      showState('error');
+    }
+
+    document.getElementById('refresh-btn').disabled = false;
+    startCountdown();
+  }
+
+  function escHtml(str) {
+    return str.replace(/[&<>"']/g, c =>
+      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])
+    );
+  }
+
+  /* 初回実行 */
+  fetchStatus();
+</script>
+
+</body>
+</html>

@@ -1307,6 +1307,188 @@ div.card.nav-card .btn:hover { background: var(--card-accent); color: #07090f; }
 }
 
 /* ============================================
+   SERVER FILTER – EMPTY STATE
+   ============================================ */
+.server-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 24px;
+  border: 1px dashed var(--border-hi);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.server-empty__icon { font-size: 36px; opacity: .5; }
+
+.server-empty__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.server-empty__sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ============================================
+   SERVER STATUS PAGE
+   ============================================ */
+.status-panel {
+  background: var(--card-alt);
+  border: 1px solid var(--border-hi);
+  border-top: 3px solid var(--page-accent);
+  border-radius: 16px;
+  padding: 36px 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.status-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 140px;
+}
+
+/* Spinner */
+.status-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-hi);
+  border-top-color: var(--page-accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Player count */
+.player-count-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin: 16px 0 10px;
+}
+
+.player-count-display .cnt-now {
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--page-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.player-count-display .cnt-sep,
+.player-count-display .cnt-max {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.player-count-display .cnt-unit {
+  font-size: 18px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Player bar */
+.player-bar-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  height: 8px;
+  max-width: 280px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.player-bar {
+  height: 100%;
+  background: var(--page-accent);
+  border-radius: 999px;
+  transition: width .6s ease;
+  min-width: 0%;
+}
+
+.player-bar.full { background: #f87171; }
+
+/* Player list */
+.player-list-section {
+  margin-top: 24px;
+  text-align: left;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+.player-list-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 10px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.player-row::before {
+  content: '●';
+  color: var(--page-accent);
+  font-size: 8px;
+  flex-shrink: 0;
+}
+
+/* Status footer row */
+.status-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-countdown {
+  font-family: 'Consolas', monospace;
+}
+
+/* Status not-found / error state */
+.status-notice {
+  padding: 14px 18px;
+  border: 1px dashed var(--border-hi);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* ============================================
    COPY BUTTON
    ============================================ */
 .copy-btn {
