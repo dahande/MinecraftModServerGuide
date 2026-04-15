@@ -6,6 +6,7 @@
   <title>Icarus サーバー接続手順 – のんびりサバイバル鯖</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
 </head>
 
 <body class="page-icarus">
@@ -83,18 +84,26 @@
     </div>
 
     <div class="download-card__actions">
-
-      <div><b>サーバー名:</b> 青森</div>
-      <div><b>IP:</b> 178.212.33.15</div>
-      <div><b>PW:</b> 123</div>
-
+      <div class="server-info-row">
+        <b>サーバー名:</b>&nbsp;<span class="server-info-value">青森</span>
+        <button class="copy-btn" data-copy="青森">📋 コピー</button>
+      </div>
+      <div class="server-info-row">
+        <b>IP:</b>&nbsp;<span class="server-info-value">178.212.33.15</span>
+        <button class="copy-btn" data-copy="178.212.33.15">📋 コピー</button>
+      </div>
+      <div class="server-info-row">
+        <b>PW:</b>&nbsp;<span class="server-info-value">123</span>
+        <button class="copy-btn" data-copy="123">📋 コピー</button>
+      </div>
     </div>
 
   </div>
 </section>
 
 <footer class="footer">
-© のんびりサバイバル鯖 / だぁ～さん
+  © のんびりサバイバル鯖 / だぁ～さん
+  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
 </footer>
 
 </main>

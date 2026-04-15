@@ -945,6 +945,150 @@ ul.bullet-list li::before { content: '→'; color: var(--page-accent); margin-ri
 }
 
 /* ============================================
+   COPY BUTTON
+   ============================================ */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: rgba(77, 159, 255, 0.08);
+  border: 1px solid rgba(77, 159, 255, 0.25);
+  border-radius: 6px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s, border-color .15s, color .15s;
+  vertical-align: middle;
+  margin-left: 8px;
+  line-height: 1.6;
+}
+
+.copy-btn:hover {
+  background: rgba(77, 159, 255, 0.15);
+  border-color: var(--accent);
+}
+
+.copy-btn.copied {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.45);
+  background: rgba(74, 222, 128, 0.07);
+}
+
+/* ============================================
+   TOAST NOTIFICATION
+   ============================================ */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(14px);
+  background: #1e293b;
+  border: 1px solid var(--border-hi);
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.55);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   BACK TO TOP BUTTON
+   ============================================ */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  background: var(--card-alt);
+  border: 1px solid var(--border-hi);
+  border-radius: 10px;
+  color: var(--ink-2);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .2s, transform .2s, background .15s, border-color .15s;
+  pointer-events: none;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  background: var(--border-hi);
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
+/* ============================================
+   FOOTER DISCORD LINK
+   ============================================ */
+.footer-discord {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 14px;
+  color: #7289da;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+  transition: color .15s;
+}
+
+.footer-discord::before {
+  content: '·';
+  color: var(--border-hi);
+  margin-right: 4px;
+}
+
+.footer-discord:hover { color: #5865f2; }
+
+/* ============================================
+   SERVER INFO ROW (for copy buttons)
+   ============================================ */
+.server-info-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.server-info-row:last-child { border-bottom: none; }
+
+.server-info-value {
+  font-family: 'Consolas', 'SF Mono', 'Courier New', monospace;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ============================================
    PRINT
    ============================================ */
 @media print {

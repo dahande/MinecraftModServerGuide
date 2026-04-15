@@ -6,6 +6,7 @@
   <title>マイクラmod鯖接続手順 – サンプル</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
 </head>
 <body class="page-mc">
   <main class="wrapper">
@@ -107,7 +108,15 @@
         <figcaption class="note"></figcaption>
       </figure>
 
-      <p>IP:85.131.247.87</p>
+      <div class="download-card" style="margin:12px 0;">
+        <div class="download-card__title">🔌 サーバー接続情報</div>
+        <div class="download-card__actions">
+          <div class="server-info-row">
+            <b>IP:</b>&nbsp;<span class="server-info-value">85.131.247.87</span>
+            <button class="copy-btn" data-copy="85.131.247.87">📋 コピー</button>
+          </div>
+        </div>
+      </div>
                   <figure class="frame">
         <img src="../image/img/minecraft2_img/Step13.png" alt="Step1: CurseForge ダウンロード画面の例" />
         <figcaption class="note"></figcaption>
@@ -115,7 +124,10 @@
 
     </section>
 
-    <div class="footer">© のんびりサバイバル鯖 / だぁ～さん</div>
+    <div class="footer">
+      © のんびりサバイバル鯖 / だぁ～さん
+      <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+    </div>
   </main>
 </body>
 </html>
