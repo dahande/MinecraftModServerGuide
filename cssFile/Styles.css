@@ -1733,10 +1733,199 @@ div.card.nav-card .btn:hover { background: var(--card-accent); color: #07090f; }
 }
 
 /* ============================================
+   STATUS STATS ROW (peak / uptime / checks)
+   ============================================ */
+.status-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 16px 0 6px;
+}
+
+.status-stat {
+  background: var(--card-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.status-stat__value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--page-accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.status-stat__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 460px) {
+  .status-stat__value { font-size: 20px; }
+  .status-stat__label { font-size: 10px; }
+}
+
+/* ============================================
+   CHART SECTION (player history)
+   ============================================ */
+.chart-section {
+  background: var(--card-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  min-height: 180px;
+}
+
+.chart-section canvas {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+
+.chart-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+}
+
+/* ============================================
+   COUNTDOWN BANNER (injected by main.js)
+   ============================================ */
+.countdown-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  margin: 0 0 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 113, 113, 0.14),
+    rgba(77, 159, 255, 0.10)
+  );
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+  transition: transform .15s, border-color .15s, background .15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: countdown-shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes countdown-shine {
+  50%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+.countdown-banner:hover {
+  border-color: var(--c-7dtd);
+  transform: translateY(-1px);
+}
+
+.countdown-banner__icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  animation: pulse-bounce-icon 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse-bounce-icon {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+.countdown-banner__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.countdown-banner__title {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.countdown-banner__time {
+  font-family: 'Consolas', 'SF Mono', monospace;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--c-7dtd);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.countdown-banner__arrow {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 18px;
+  transition: transform .15s, color .15s;
+}
+
+.countdown-banner:hover .countdown-banner__arrow {
+  color: var(--c-7dtd);
+  transform: translateX(3px);
+}
+
+.countdown-banner.is-live {
+  background: linear-gradient(
+    135deg,
+    rgba(74, 222, 128, 0.18),
+    rgba(74, 222, 128, 0.06)
+  );
+  border-color: rgba(74, 222, 128, 0.45);
+}
+
+.countdown-banner.is-live .countdown-banner__time {
+  color: #4ade80;
+}
+
+@media (max-width: 520px) {
+  .countdown-banner { padding: 10px 14px; gap: 10px; }
+  .countdown-banner__icon  { font-size: 20px; }
+  .countdown-banner__title { font-size: 12px; }
+  .countdown-banner__time  { font-size: 15px; }
+}
+
+/* ============================================
    PRINT
    ============================================ */
 @media print {
   body { background: #fff; color: #000; }
   .wrapper { border: 1px solid #ccc; box-shadow: none; background: #fff; border-top: 3px solid #333; }
   a[href]::after { content: " (" attr(href) ")"; font-size: 11px; }
+  .countdown-banner, .back-to-top { display: none; }
 }
