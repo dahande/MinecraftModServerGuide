@@ -16,12 +16,16 @@
   <meta property="og:image"       content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:type"   content="image/png">
+  <meta property="og:image:alt"    content="のんびりサバイバル鯖">
   <meta property="og:locale"      content="ja_JP">
   <meta property="og:site_name"   content="のんびりサバイバル鯖">
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="のんびりサバイバル鯖">
   <meta name="twitter:description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die 稼働中！">
   <meta name="twitter:image"       content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta name="description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die・Minecraft・ARK・Icarus 対応。接続手順・MODガイドはこちら。">
+  <meta name="keywords" content="ゲームサーバー, マルチプレイ, 7 Days to Die, 7DTD, Minecraft, ARK, Icarus, MOD, サーバー接続, のんびりサバイバル鯖, PvP, サバイバル">
 
   <link rel="stylesheet" href="cssFile/Styles.css"/>
   <script src="js/main.js" defer></script>
@@ -37,9 +41,9 @@
       <p class="hero-sub">みんなで気軽に楽しめるゲームサーバー</p>
       <div class="hero-games">
         <span class="game-tag game-tag--7dtd">🧟 7 Days to Die</span>
-        <span class="game-tag game-tag--mc" style="opacity:.45;">⛏️ Minecraft</span>
-        <span class="game-tag game-tag--ark" style="opacity:.45;">🦕 ARK</span>
-        <span class="game-tag game-tag--icarus" style="opacity:.45;">🚀 Icarus</span>
+        <span class="game-tag game-tag--mc is-dim">⛏️ Minecraft</span>
+        <span class="game-tag game-tag--ark is-dim">🦕 ARK</span>
+        <span class="game-tag game-tag--icarus is-dim">🚀 Icarus</span>
       </div>
 
       <!-- お知らせパネル -->
@@ -96,15 +100,20 @@
 
       <div class="home-grid" id="server-grid">
 
-        <!-- 7 Days to Die ★予定★ -->
-        <div class="card nav-card nav-card--7dtd" data-status="scheduled">
-          <div class="status-badge status-badge--scheduled">予定</div>
+        <!-- 7 Days to Die ★予定→稼働中に自動切替★ -->
+        <div class="card nav-card nav-card--7dtd"
+             id="card-7dtd"
+             data-status="scheduled"
+             data-go-online-at="2026-04-17T21:00:00+09:00">
+          <div class="status-badge status-badge--scheduled" data-role="badge">予定</div>
           <div class="nav-card__icon">🧟</div>
           <div class="nav-card__title">7 Days to Die</div>
-          <p class="nav-card__desc">4/17（金）21:00 稼働予定<br>【JP/PvP】血祭だぁ！</p>
+          <p class="nav-card__desc" data-role="desc-scheduled">4/17（金）21:00 稼働予定<br>【JP/PvP】血祭だぁ！</p>
+          <p class="nav-card__desc" data-role="desc-online" style="display:none;">🟢 稼働中<br>【JP/PvP】血祭だぁ！</p>
           <div class="nav-card__btns">
             <a class="btn" href="./server/7DaysServerInfo.html">詳細を見る</a>
             <a class="btn" href="./server/7DaysToDieConnect.html">接続手順</a>
+            <a class="btn" href="./server/7DaysStatus.html" data-role="status-link" style="display:none;">📡 状況を見る</a>
           </div>
         </div>
 
@@ -178,6 +187,39 @@
     const filterBtns = document.querySelectorAll('.filter-btn');
     const cards      = document.querySelectorAll('#server-grid .nav-card[data-status]');
 
+    /* 予定日時を過ぎたカードを自動で「稼働中」に切替 */
+    function autoPromoteScheduled() {
+      const now = Date.now();
+      cards.forEach(card => {
+        const at = card.dataset.goOnlineAt;
+        if (!at) return;
+        const goAt = Date.parse(at);
+        if (isNaN(goAt)) return;
+        if (now >= goAt && card.dataset.status !== 'online') {
+          card.dataset.status = 'online';
+          const badge = card.querySelector('[data-role="badge"]');
+          if (badge) {
+            badge.textContent = '稼働中';
+            badge.classList.remove('status-badge--scheduled');
+            badge.classList.add('status-badge--online');
+          }
+          const descSch = card.querySelector('[data-role="desc-scheduled"]');
+          const descOn  = card.querySelector('[data-role="desc-online"]');
+          if (descSch) descSch.style.display = 'none';
+          if (descOn)  descOn.style.display  = '';
+          const statusLink = card.querySelector('[data-role="status-link"]');
+          if (statusLink) statusLink.style.display = '';
+        }
+      });
+    }
+
+    function pickDefaultFilter() {
+      const statuses = [...cards].map(c => c.dataset.status);
+      if (statuses.includes('online'))    return 'online';
+      if (statuses.includes('scheduled')) return 'scheduled';
+      return 'all';
+    }
+
     function applyFilter(f) {
       filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === f));
       let visible = 0;
@@ -190,12 +232,20 @@
       if (empty) empty.style.display = visible === 0 ? '' : 'none';
     }
 
-    // 初期表示: 予定のみ
-    applyFilter('scheduled');
+    autoPromoteScheduled();
+    applyFilter(pickDefaultFilter());
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
     });
+
+    /* 稼働予定日時を過ぎたらページを開いたままでも自動切替 */
+    setInterval(() => {
+      const before = [...cards].map(c => c.dataset.status).join(',');
+      autoPromoteScheduled();
+      const after  = [...cards].map(c => c.dataset.status).join(',');
+      if (before !== after) applyFilter(pickDefaultFilter());
+    }, 30000);
   </script>
 </body>
 </html>
