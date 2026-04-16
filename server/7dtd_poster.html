@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>7 Days to Die サーバー募集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rampart+One&family=Zen+Kurenaido&family=Reggae+One&family=Zen+Dots&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Zen Kurenaido', sans-serif;
+  }
+
+  /* Instagram/TikTok用 9:16 縦長ポスター */
+  .poster {
+    width: 1080px;
+    height: 1920px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 30%, #3a0808 0%, #1a0303 40%, #000 100%);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+    transform-origin: center;
+  }
+
+  /* モニターに合わせて縮小 */
+  @media (max-width: 1100px) {
+    .poster {
+      transform: scale(0.45);
+    }
+    html, body {
+      height: 900px;
+    }
+  }
+
+  /* 血飛沫の背景テクスチャ */
+  .poster::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(139, 0, 0, 0.4) 0%, transparent 15%),
+      radial-gradient(circle at 85% 70%, rgba(139, 0, 0, 0.3) 0%, transparent 20%),
+      radial-gradient(circle at 30% 85%, rgba(89, 0, 0, 0.35) 0%, transparent 18%),
+      radial-gradient(circle at 75% 15%, rgba(120, 0, 0, 0.3) 0%, transparent 12%);
+    pointer-events: none;
+  }
+
+  /* ノイズテクスチャ */
+  .poster::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* 上部赤ライン */
+  .top-bar {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .warning-text {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #8b0000;
+    font-size: 22px;
+    letter-spacing: 0.4em;
+    font-weight: 700;
+  }
+
+  .blood-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8b0000, transparent);
+    margin: 0 20px;
+  }
+
+  /* メインタイトル */
+  .title-block {
+    position: absolute;
+    top: 180px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+    padding: 0 40px;
+  }
+
+  .kanji-sub {
+    font-family: 'Reggae One', cursive;
+    color: #8b0000;
+    font-size: 32px;
+    letter-spacing: 0.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000, 0 0 30px rgba(139, 0, 0, 0.8);
+  }
+
+  .main-title {
+    font-family: 'Rampart One', cursive;
+    font-size: 180px;
+    line-height: 0.9;
+    color: #f4e4c1;
+    text-shadow:
+      0 0 20px rgba(255, 60, 60, 0.6),
+      3px 3px 0 #1a0000,
+      6px 6px 0 #8b0000,
+      0 0 60px rgba(255, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+    transform: rotate(-1deg);
+    margin: 0;
+  }
+
+  .seven-days {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 84px;
+    color: #c8a874;
+    letter-spacing: 0.05em;
+    margin-top: 20px;
+    text-shadow:
+      3px 3px 0 #000,
+      0 0 20px rgba(139, 0, 0, 0.6);
+  }
+
+  .to-die {
+    display: block;
+    font-family: 'Rampart One', cursive;
+    color: #a01010;
+    font-size: 100px;
+    letter-spacing: -0.01em;
+    margin-top: -10px;
+    text-shadow:
+      3px 3px 0 #000,
+      0 0 30px rgba(255, 0, 0, 0.5);
+  }
+
+  /* 中央の血のり */
+  .blood-splat {
+    position: absolute;
+    top: 820px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    z-index: 5;
+    opacity: 0.5;
+  }
+
+  /* 情報ブロック */
+  .info-block {
+    position: absolute;
+    top: 920px;
+    left: 80px;
+    right: 80px;
+    z-index: 10;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    padding: 24px 30px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, rgba(20, 5, 5, 0.85), rgba(40, 10, 10, 0.75));
+    border-left: 6px solid #8b0000;
+    border-right: 1px solid rgba(139, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    position: relative;
+  }
+
+  .info-item::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 30px;
+    height: 30px;
+    border-top: 2px solid #8b0000;
+    border-right: 2px solid #8b0000;
+  }
+
+  .info-icon {
+    font-size: 48px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .info-text-block {
+    flex: 1;
+  }
+
+  .info-label {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #8b0000;
+    font-size: 22px;
+    letter-spacing: 0.3em;
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-family: 'Zen Kurenaido', sans-serif;
+    color: #f4e4c1;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .info-value .accent {
+    color: #ff3030;
+  }
+
+  /* 下部ウェルカムテキスト */
+  .welcome-block {
+    position: absolute;
+    top: 1480px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+    padding: 0 60px;
+  }
+
+  .welcome-line {
+    font-family: 'Zen Kurenaido', sans-serif;
+    color: #f4e4c1;
+    font-size: 36px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  .welcome-line.highlight {
+    color: #ffb040;
+    font-weight: 700;
+  }
+
+  .catchphrase {
+    margin-top: 30px;
+    font-family: 'Reggae One', cursive;
+    color: #ff3030;
+    font-size: 44px;
+    letter-spacing: 0.05em;
+    text-shadow:
+      3px 3px 0 #000,
+      0 0 30px rgba(255, 0, 0, 0.8);
+    animation: flicker 3s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+    51% { opacity: 1; }
+  }
+
+  /* フッター */
+  .footer {
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    right: 60px;
+    z-index: 10;
+  }
+
+  .discord-box {
+    background: linear-gradient(135deg, #1a0000, #3a0a0a);
+    border: 2px solid #8b0000;
+    padding: 24px 30px;
+    text-align: center;
+    position: relative;
+  }
+
+  .discord-box::before,
+  .discord-box::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff3030;
+  }
+
+  .discord-box::before {
+    top: -6px;
+    left: -6px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .discord-box::after {
+    bottom: -6px;
+    right: -6px;
+    border-left: none;
+    border-top: none;
+  }
+
+  .discord-label {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #ff3030;
+    font-size: 26px;
+    letter-spacing: 0.4em;
+    margin-bottom: 6px;
+  }
+
+  .discord-url {
+    font-family: 'Zen Dots', monospace;
+    color: #f4e4c1;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .hashtags {
+    margin-top: 24px;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #8b7355;
+    font-size: 22px;
+    letter-spacing: 0.3em;
+  }
+
+  /* スクラッチマーク装飾 */
+  .scratch {
+    position: absolute;
+    color: rgba(139, 0, 0, 0.5);
+    font-family: 'Rampart One', cursive;
+    font-size: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .scratch-1 {
+    top: 150px;
+    right: 40px;
+    transform: rotate(15deg);
+  }
+
+  .scratch-2 {
+    bottom: 280px;
+    left: 30px;
+    transform: rotate(-20deg);
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- 上部警告バー -->
+  <div class="top-bar">
+    <div class="warning-text">⚠ WARNING</div>
+    <div class="blood-line"></div>
+    <div class="warning-text">DANGER ⚠</div>
+  </div>
+
+  <!-- 装飾スクラッチ -->
+  <div class="scratch scratch-1">✗</div>
+  <div class="scratch scratch-2">✗</div>
+
+  <!-- タイトル -->
+  <div class="title-block">
+    <div class="kanji-sub">終 末 襲 来</div>
+    <div class="main-title">参加者<br>募集</div>
+    <div class="seven-days">7 DAYS</div>
+    <div class="to-die">TO DIE</div>
+  </div>
+
+  <!-- 情報ブロック -->
+  <div class="info-block">
+    <div class="info-item">
+      <div class="info-icon">📅</div>
+      <div class="info-text-block">
+        <div class="info-label">START DATE</div>
+        <div class="info-value">4/17（金）<span class="accent">21:00</span>〜</div>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon">🌍</div>
+      <div class="info-text-block">
+        <div class="info-label">SERVER STATUS</div>
+        <div class="info-value">24時間開放中</div>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon">⚔️</div>
+      <div class="info-text-block">
+        <div class="info-label">GAME MODE</div>
+        <div class="info-value">PvP<span class="accent">ガチ</span>サバイバル</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ウェルカム -->
+  <div class="welcome-block">
+    <div class="welcome-line">初心者 〜 経験者まで歓迎 <span style="color:#ff6030">🔥</span></div>
+    <div class="welcome-line">フレンドとの参加も <span class="highlight">OK！</span></div>
+    <div class="catchphrase">生き残れるかは<br>あなた次第…</div>
+  </div>
+
+  <!-- Discord -->
+  <div class="footer">
+    <div class="discord-box">
+      <div class="discord-label">◆ JOIN THE DISCORD ◆</div>
+      <div class="discord-url">discord.gg/tfYDH6Q3Th</div>
+    </div>
+    <div class="hashtags">#7DaysToDie  #7DTD  #PvP  #サバイバル</div>
+  </div>
+
+</div>
+
+</body>
+</html>
