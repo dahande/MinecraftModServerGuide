@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>7 Days to Die サーバー接続手順 – のんびりサバイバル鯖</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="7 Days to Dieサーバーへの接続方法をスクリーンショット付きでステップ解説。IP接続で簡単参加。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, 接続手順, サーバー参加, IP接続, マルチプレイ, Steam, のんびりサバイバル鯖">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="7 Days to Die 接続手順 – のんびりサバイバル鯖">
+  <meta property="og:description" content="7 Days to Dieサーバーへの接続方法をステップ解説。IP接続で簡単参加。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysToDieConnect.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="7DTD 接続手順 – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="7 Days to Dieサーバーへの接続方法をステップ解説。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <link rel="stylesheet" href="../cssFile/Styles.css" />
   <script src="../js/main.js" defer></script>
 </head>
@@ -13,133 +30,141 @@
 <main class="wrapper">
 
 <header>
-  <h1>7 Days to Die サーバー接続手順</h1>
+  <h1>🧟 7 Days to Die サーバー接続手順</h1>
+
+  <div class="mod-badges">
+    <span class="mod-badge mod-badge--server">🌏 JP サーバー</span>
+    <span class="mod-badge mod-badge--eac">🛡️ EAC オン</span>
+    <span class="mod-badge mod-badge--client">⚔️ PvP</span>
+  </div>
 
   <div class="meta">
     <div>対象: 7 Days to Die (Steam版)</div>
-    <div>最終更新: 2026-04-14</div>
+    <div>最終更新: 2026-04-15</div>
   </div>
 
   <p class="backlink">
-    <a href="../index.html" class="btn">← タイトルへ戻る</a>
+    <a href="../index.html" class="btn">← ホームへ戻る</a>
+    &nbsp;
+    <a href="./7DaysServerInfo.html" class="btn">サーバー情報</a>
+    &nbsp;
+    <a href="./7DaysStatus.html" class="btn">📡 ステータス確認</a>
   </p>
 
   <div class="hr"></div>
 </header>
 
 
+<!-- ========== 接続情報カード ========== -->
+<div class="download-card" style="border-color: var(--c-7dtd); margin-bottom: 28px;">
+  <div class="download-card__title">🔌 接続情報</div>
+  <div class="download-card__actions">
+    <div class="server-info-row">
+      <b>サーバー名:</b>&nbsp;<span class="server-info-value">【JP/PvP/日本公式鯖】血祭だぁ！</span>
+    </div>
+    <div class="server-info-row">
+      <b>IP:</b>&nbsp;<span class="server-info-value">220.158.24.94</span>
+      <button class="copy-btn" data-copy="220.158.24.94">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>ポート:</b>&nbsp;<span class="server-info-value">26900</span>
+      <button class="copy-btn" data-copy="26900">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>PW:</b>&nbsp;<span class="server-info-value">なし</span>
+    </div>
+  </div>
+</div>
+
+<div class="tips" style="margin-bottom: 28px;">
+  ✅ パスワード不要でそのまま参加できます。以下の手順に従って接続してください。
+</div>
+
+
 <!-- Step 1 -->
 <section class="step">
-  <div class="step-title">Steamを起動</div>
+  <div class="step-title">7 Days to Dieを起動</div>
   <p class="step-desc">
-    Steamを起動して、上部メニューの <b>「表示」</b> をクリックします。
+    7 Days to Dieを起動し、メインメニューの <b>「ゲームに参加」</b> をクリックします。
   </p>
+  <figure class="frame">
+    <img src="../image/img/7dtd_img/step1.jpg" alt="メインメニューの「ゲームに参加」をクリック">
+  </figure>
 </section>
 
 
 <!-- Step 2 -->
 <section class="step">
-  <div class="step-title">ゲームサーバーを開く</div>
+  <div class="step-title">「IPに接続」を選択</div>
   <p class="step-desc">
-    「表示」メニューから <b>「ゲームサーバー」</b> を選択します。
+    サーバーブラウザが開いたら、フィルターから <b>「IPに接続」</b> を選択します。
   </p>
+  <figure class="frame">
+    <img src="../image/img/7dtd_img/step2.jpg" alt="フィルターから「IPに接続」を選択">
+  </figure>
 </section>
 
 
 <!-- Step 3 -->
 <section class="step">
-  <div class="step-title">お気に入りにサーバーを追加</div>
+  <div class="step-title">IPとポートを入力して接続</div>
   <p class="step-desc">
-    ゲームサーバーウィンドウの <b>「お気に入り」</b> タブを開き、右下の <b>「＋」</b> ボタンをクリックします。<br>
-    以下のIPアドレスを入力して追加してください。
+    以下のIPアドレスとポート番号を入力して接続します。
   </p>
-
-  <div class="download-card">
-    <div class="download-card__title">🧟 7 Days to Die サーバー情報</div>
-    <div class="download-card__actions">
-      <div class="server-info-row">
-        <b>サーバー名:</b>&nbsp;<span class="server-info-value">【JP/PvP/日本公式鯖】血祭だぁ！</span>
-      </div>
-      <div class="server-info-row">
-        <b>IP:</b>&nbsp;<span class="server-info-value" style="color:var(--muted);">未定</span>
-        <span style="font-size:12px; color:var(--muted);">— Discordで確認してください</span>
-      </div>
-      <div class="server-info-row">
-        <b>Port:</b>&nbsp;<span class="server-info-value">26900</span>
-        <button class="copy-btn" data-copy="26900">📋 コピー</button>
-      </div>
-      <div class="server-info-row">
-        <b>PW:</b>&nbsp;<span class="server-info-value">なし</span>
-      </div>
+  <div style="display:flex; flex-direction:column; gap:6px; margin:12px 0 16px;">
+    <div class="server-info-row">
+      <b>IP:</b>&nbsp;<span class="server-info-value">220.158.24.94</span>
+      <button class="copy-btn" data-copy="220.158.24.94">📋 コピー</button>
+    </div>
+    <div class="server-info-row">
+      <b>ポート:</b>&nbsp;<span class="server-info-value">26900</span>
+      <button class="copy-btn" data-copy="26900">📋 コピー</button>
     </div>
   </div>
+  <figure class="frame">
+    <img src="../image/img/7dtd_img/step3.jpg" alt="IPとポートを入力して接続">
+  </figure>
 </section>
 
 
-<!-- Step 4 -->
-<section class="step">
-  <div class="step-title">7 Days to Die を起動</div>
-  <p class="step-desc">
-    SteamライブラリからGameを起動します。<br>
-    メインメニューが表示されたら次のステップへ進みます。
-  </p>
-</section>
+<!-- ========== 関連ガイド ========== -->
+<div class="related-section">
+  <div class="related-section__title">関連ガイド</div>
+  <div class="guide-grid">
 
+    <a class="guide-card" href="./7DaysGuide.html">
+      <div class="guide-card__icon">📖</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">7DTD ガイド一覧</div>
+        <p class="guide-card__desc">MOD・コマンド・サーバー情報など関連ガイドまとめ。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
 
-<!-- Step 5 -->
-<section class="step">
-  <div class="step-title">「JOIN A GAME」を選択</div>
-  <p class="step-desc">
-    メインメニューから <b>「JOIN A GAME」</b> をクリックします。
-  </p>
-</section>
+    <a class="guide-card" href="./7DaysDroneLocator.html">
+      <div class="guide-card__icon">🤖</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">Drone Locator MOD</div>
+        <p class="guide-card__desc">行方不明のドローンをコマンドで即座に発見。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
 
+    <a class="guide-card" href="./7DaysAECEndgame.html">
+      <div class="guide-card__icon">⚔️</div>
+      <div class="guide-card__body">
+        <div class="guide-card__title">AEC Endgame Overhaul</div>
+        <p class="guide-card__desc">エンドゲーム拡張MODのティア・ボス・ギア解説。</p>
+      </div>
+      <span class="guide-card__arrow">→</span>
+    </a>
 
-<!-- Step 6 -->
-<section class="step">
-  <div class="step-title">サーバーを検索して接続</div>
-  <p class="step-desc">
-    サーバーブラウザが開いたら、フィルターに <b>「のんびり」</b> と入力してサーバーを検索します。<br>
-    見つかったサーバーをダブルクリックして接続してください。
-  </p>
-  <p class="step-desc">
-    または <b>「Connect to IP」</b> タブでIPを直接入力して接続することもできます。
-  </p>
-</section>
-
-
-<!-- Step 7 -->
-<section class="step">
-  <div class="step-title">パスワードを入力して接続完了</div>
-  <p class="step-desc">
-    パスワードの入力を求められた場合は以下を入力してください。
-  </p>
-
-  <div class="tips">
-    ✅ このサーバーはパスワードなしで参加できます。サーバー一覧から <b>「血祭だぁ！」</b> を探してください。
   </div>
+</div>
 
-  <p class="step-desc">
-    接続が完了するとゲームが開始されます。お楽しみください！
-  </p>
-</section>
-
-
-<!-- 関連ガイド -->
-<section class="step">
-  <div class="step-title">関連ガイド</div>
-  <p class="step-desc">サーバーに追加されているMODのガイドはこちら：</p>
-  <a class="card nav-card nav-card--7dtd" href="./7DaysDroneLocator.html" style="max-width:320px; display:flex; flex-direction:column; gap:6px; border:1px solid var(--border); border-top:3px solid var(--c-7dtd); border-radius:14px; padding:18px; text-decoration:none; color:inherit; background:var(--card);">
-    <div style="font-size:26px;">🤖</div>
-    <div style="font-weight:700; font-size:16px; color:var(--ink);">Drone Locator MOD</div>
-    <p style="font-size:13px; color:var(--muted); margin:0;">行方不明のドローンをコマンドで即座に発見</p>
-    <span class="btn" style="margin-top:10px; text-align:center; border-color:var(--c-7dtd); color:var(--c-7dtd);">ガイドを見る</span>
-  </a>
-</section>
 
 <footer class="footer">
-  © のんびりサバイバル鯖 / だぁ～さん
-  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+  © のんびりサバイバル鯖
 </footer>
 
 </main>

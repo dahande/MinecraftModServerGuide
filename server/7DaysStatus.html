@@ -3,8 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>サーバーステータス – のんびりサバイバル鯖</title>
+  <title>サーバーステータス – 7 Days to Die – のんびりサバイバル鯖</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="7 Days to Dieサーバーのリアルタイム接続状況・プレイヤー数・ログイン履歴を確認できます。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, サーバーステータス, 接続人数, オンライン状況, プレイヤー数, リアルタイム, のんびりサバイバル鯖">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="サーバーステータス – 7 Days to Die – のんびりサバイバル鯖">
+  <meta property="og:description" content="7 Days to Dieサーバーのリアルタイム接続状況・プレイヤー数・ログイン履歴を確認。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysStatus.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="サーバーステータス – 7DTD – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="7 Days to Dieサーバーのリアルタイム接続状況を確認。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <link rel="stylesheet" href="../cssFile/Styles.css" />
   <script src="../js/main.js" defer></script>
 </head>
@@ -13,10 +30,10 @@
 <main class="wrapper">
 
 <header>
-  <h1>📡 サーバーステータス</h1>
+  <h1>📡 サーバーモニター</h1>
   <div class="meta">
     <div>リアルタイム接続状況</div>
-    <div>データ提供: BattleMetrics</div>
+    <div>IP: 220.158.24.94:26900</div>
   </div>
   <p class="backlink">
     <a href="../index.html" class="btn">← ホームへ戻る</a>
@@ -32,7 +49,8 @@
   <div class="download-card__title">🧟 【JP/PvP/日本公式鯖】血祭だぁ！</div>
   <div class="download-card__actions">
     <div class="server-info-row">
-      <b>IP:</b>&nbsp;<span class="server-info-value" style="color:var(--muted);">未定（Discordで確認）</span>
+      <b>IP:</b>&nbsp;<span class="server-info-value">220.158.24.94</span>
+      <button class="copy-btn" data-copy="220.158.24.94">📋 コピー</button>
     </div>
     <div class="server-info-row">
       <b>Port:</b>&nbsp;<span class="server-info-value">26900</span>
@@ -61,7 +79,7 @@
     <div class="player-count-display">
       <span class="cnt-now" id="player-now">0</span>
       <span class="cnt-sep">/</span>
-      <span class="cnt-max" id="player-max">8</span>
+      <span class="cnt-max" id="player-max">64</span>
       <span class="cnt-unit">人</span>
     </div>
 
@@ -69,7 +87,7 @@
       <div class="player-bar" id="player-bar" style="width:0%"></div>
     </div>
 
-    <p style="font-size:12px; color:var(--muted); margin:4px 0 0;" id="player-label">
+    <p style="font-size:12px; color:var(--muted); margin:4px 0 0;">
       現在 <span id="player-now-2">0</span> 人がプレイ中
     </p>
 
@@ -86,19 +104,6 @@
     <p style="color:var(--muted); font-size:14px; margin:0;">現在サーバーは停止中です。</p>
   </div>
 
-  <!-- 予定・未発見 -->
-  <div class="status-state" id="state-notfound" style="display:none;">
-    <span class="status-badge status-badge--scheduled" style="font-size:13px; padding:5px 16px;">予定</span>
-    <div class="status-notice" style="max-width:380px;">
-      🕐 <b>4/17（金）21:00 より稼働開始予定</b><br>
-      サーバーが起動すると自動でステータスが表示されます。<br><br>
-      BattleMetrics でも確認できます：<br>
-      <a href="https://www.battlemetrics.com/servers/7dtd?filter[search]=Nonbiri"
-         target="_blank" rel="noopener"
-         style="color:var(--page-accent);">BattleMetrics で検索 →</a>
-    </div>
-  </div>
-
   <!-- エラー -->
   <div class="status-state" id="state-error" style="display:none;">
     <p style="color:var(--muted); font-size:14px; margin:0;">⚠️ データの取得に失敗しました</p>
@@ -106,6 +111,24 @@
   </div>
 
 </div>
+
+
+<!-- ========== 統計 ========== -->
+<div class="status-stats-row">
+  <div class="status-stat">
+    <div class="status-stat__value" id="stat-peak">--</div>
+    <div class="status-stat__label">最大同時接続</div>
+  </div>
+  <div class="status-stat">
+    <div class="status-stat__value" id="stat-uptime">--%</div>
+    <div class="status-stat__label">稼働率</div>
+  </div>
+  <div class="status-stat">
+    <div class="status-stat__value" id="stat-checks">--</div>
+    <div class="status-stat__label">観測回数</div>
+  </div>
+</div>
+
 
 <!-- フッター行 -->
 <div class="status-footer">
@@ -117,7 +140,45 @@
 </div>
 
 
-<!-- ========== 接続方法リンク ========== -->
+<!-- ========== 接続人数推移 ========== -->
+<div style="margin-top: 36px;">
+  <h2 class="guide-section-label">📊 接続人数推移</h2>
+  <div class="chart-section">
+    <canvas id="player-chart"></canvas>
+    <p class="chart-empty" id="chart-empty">データが蓄積されると推移グラフが表示されます</p>
+  </div>
+</div>
+
+
+<!-- ========== ログイン履歴 ========== -->
+<div style="margin-top: 36px;">
+  <h2 class="guide-section-label">🕐 ログイン履歴</h2>
+
+  <div class="tips" style="margin-bottom: 14px; font-size: 12px;">
+    💡 このページを開いている間、プレイヤーの接続・切断を自動追跡します。データはブラウザに保存されます。
+  </div>
+
+  <div id="sessions-empty" style="display:none; text-align:center; padding:20px; color:var(--muted); font-size:14px;">
+    まだ履歴がありません。ページを開いたままにすると自動で記録されます。
+  </div>
+
+  <div class="session-table-wrap" id="sessions-wrap" style="display:none;">
+    <table class="session-table">
+      <thead>
+        <tr>
+          <th>プレイヤー</th>
+          <th>ログイン</th>
+          <th>ログアウト</th>
+          <th>プレイ時間</th>
+        </tr>
+      </thead>
+      <tbody id="sessions-body"></tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ========== 関連ページ ========== -->
 <div style="margin-top: 32px;">
   <h2 class="guide-section-label">🔗 関連ページ</h2>
   <div class="guide-grid">
@@ -145,125 +206,381 @@
 
 
 <footer class="footer">
-  © のんびりサバイバル鯖 / だぁ～さん ―
-  ステータスデータ:
-  <a href="https://www.battlemetrics.com/servers/7dtd" target="_blank" rel="noopener"
-     style="color:var(--page-accent);">BattleMetrics</a>
-  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+  © のんびりサバイバル鯖
 </footer>
 
 </main>
 
 <script>
-  /* =====================================================
-     サーバーステータス取得（BattleMetrics API）
-     ===================================================== */
-  const SERVER_PORT = 26900;
-  /* IP が確定したらここに設定 */
-  const SERVER_IP   = null; /* 例: '123.456.789.0' */
-  const BM_API = 'https://api.battlemetrics.com/servers'
-    + '?filter[game]=7dtd'
-    + '&filter[search]=%E8%A1%80%E7%A5%AD%E3%81%A0%E3%81%81'  /* 血祭だぁ */
-    + '&page[size]=10'
-    + '&include=player';
+/* =====================================================
+   Server Monitor – IP: 220.158.24.94:26900
+   独自サーバーモニタリングシステム
+   ===================================================== */
+(function () {
+  /* --- 設定: IPとポートのみで構成 --- */
+  var SERVER_IP   = '220.158.24.94';
+  var SERVER_PORT = 26900;
+  var QUERY_URL   = 'https://api.battlemetrics.com/servers/38692738?include=player';
+  var REFRESH_SEC = 60;
+  var STORE_KEY   = 'svr-7dtd-';
+  var MAX_HISTORY = 1440;   /* 24時間分（1分間隔） */
+  var MAX_SESSIONS = 200;
 
-  const REFRESH_SEC = 60;
-  let cdTimer, cdVal = REFRESH_SEC;
+  var cdTimer, cdVal = REFRESH_SEC;
+  var prevPlayers = null;
 
-  /* --- 表示切替 --- */
+  /* --- Storage helpers --- */
+  function load(key) {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY + key)); }
+    catch (e) { return null; }
+  }
+  function save(key, data) {
+    try { localStorage.setItem(STORE_KEY + key, JSON.stringify(data)); }
+    catch (e) { /* quota exceeded – silently ignore */ }
+  }
+
+  /* --- UI: show state --- */
   function showState(id) {
-    ['loading', 'online', 'offline', 'notfound', 'error'].forEach(s => {
-      const el = document.getElementById('state-' + s);
+    ['loading', 'online', 'offline', 'error'].forEach(function (s) {
+      var el = document.getElementById('state-' + s);
       if (el) el.style.display = (s === id) ? '' : 'none';
     });
   }
 
-  /* --- カウントダウン --- */
+  /* --- Auto-refresh countdown --- */
   function startCountdown() {
     clearInterval(cdTimer);
     cdVal = REFRESH_SEC;
-    cdTimer = setInterval(() => {
+    cdTimer = setInterval(function () {
       cdVal--;
-      const el = document.getElementById('countdown');
+      var el = document.getElementById('countdown');
       if (el) el.textContent = cdVal > 0 ? cdVal : REFRESH_SEC;
       if (cdVal <= 0) { cdVal = REFRESH_SEC; fetchStatus(); }
     }, 1000);
   }
 
-  /* --- メイン取得 --- */
-  async function fetchStatus() {
+  /* --- Escape HTML --- */
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  /* --- Time format --- */
+  function fmtTime(ts) {
+    return new Date(ts).toLocaleString('ja-JP', {
+      month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
+    });
+  }
+  function fmtDuration(ms) {
+    if (!ms || ms <= 0) return '—';
+    var h = Math.floor(ms / 3600000);
+    var m = Math.floor((ms % 3600000) / 60000);
+    if (h > 0) return h + 'h ' + m + 'm';
+    return m + 'm';
+  }
+
+  /* --- Client-side session tracking --- */
+  function trackPlayers(names) {
+    var sessions = load('sessions') || [];
+    var now = Date.now();
+    var currSet = {};
+    names.forEach(function (n) { currSet[n] = true; });
+
+    if (prevPlayers !== null) {
+      /* New logins: in current but not in previous */
+      names.forEach(function (n) {
+        if (!prevPlayers[n]) {
+          sessions.push({ n: n, s: now, e: null });
+        }
+      });
+      /* Logouts: in previous but not in current */
+      sessions.forEach(function (s) {
+        if (s.e === null && !currSet[s.n]) {
+          s.e = now;
+        }
+      });
+    } else {
+      /* First poll – record all current players as active */
+      names.forEach(function (n) {
+        var active = sessions.some(function (s) { return s.n === n && s.e === null; });
+        if (!active) {
+          sessions.push({ n: n, s: now, e: null });
+        }
+      });
+    }
+
+    prevPlayers = currSet;
+    if (sessions.length > MAX_SESSIONS) sessions = sessions.slice(-MAX_SESSIONS);
+    save('sessions', sessions);
+    return sessions;
+  }
+
+  /* --- History recording (for chart) --- */
+  function recordHistory(playerCount, online) {
+    var history = load('history') || [];
+    history.push({ t: Date.now(), p: playerCount, on: online });
+    if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
+    save('history', history);
+    return history;
+  }
+
+  /* --- Stats tracking --- */
+  function updateServerStats(playerCount, online) {
+    var stats = load('stats') || { first: null, peak: 0, onChecks: 0, total: 0 };
+    if (!stats.first) stats.first = Date.now();
+    stats.total++;
+    if (online) {
+      stats.onChecks++;
+      if (playerCount > stats.peak) stats.peak = playerCount;
+    }
+    save('stats', stats);
+    return stats;
+  }
+
+  /* --- Canvas chart rendering --- */
+  function renderChart(history) {
+    var canvas = document.getElementById('player-chart');
+    var emptyMsg = document.getElementById('chart-empty');
+    if (!canvas) return;
+
+    if (!history || history.length < 2) {
+      canvas.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = '';
+      return;
+    }
+
+    canvas.style.display = '';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    var W = rect.width, H = rect.height;
+    var PAD = { t: 12, r: 12, b: 30, l: 44 };
+    var cW = W - PAD.l - PAD.r;
+    var cH = H - PAD.t - PAD.b;
+
+    ctx.clearRect(0, 0, W, H);
+
+    /* Y-axis scale */
+    var maxP = 1;
+    history.forEach(function (h) { if (h.p > maxP) maxP = h.p; });
+    var yMax = Math.ceil(maxP / 5) * 5 || 5;
+
+    /* Grid lines + Y labels */
+    ctx.strokeStyle = 'rgba(30,45,69,0.6)';
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#566880';
+    ctx.font = '11px system-ui';
+    ctx.textAlign = 'right';
+    for (var i = 0; i <= 4; i++) {
+      var y = PAD.t + cH * i / 4;
+      ctx.beginPath(); ctx.moveTo(PAD.l, y); ctx.lineTo(W - PAD.r, y); ctx.stroke();
+      ctx.fillText(Math.round(yMax - yMax * i / 4), PAD.l - 8, y + 4);
+    }
+
+    /* Calculate pixel points */
+    var pts = history.map(function (h, idx) {
+      return {
+        x: PAD.l + (idx / (history.length - 1)) * cW,
+        y: PAD.t + cH - (h.p / yMax) * cH
+      };
+    });
+
+    /* Gradient fill under line */
+    var grad = ctx.createLinearGradient(0, PAD.t, 0, PAD.t + cH);
+    grad.addColorStop(0, 'rgba(248,113,113,0.25)');
+    grad.addColorStop(1, 'rgba(248,113,113,0)');
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, PAD.t + cH);
+    pts.forEach(function (p) { ctx.lineTo(p.x, p.y); });
+    ctx.lineTo(pts[pts.length - 1].x, PAD.t + cH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    /* Line */
+    ctx.beginPath();
+    pts.forEach(function (p, idx) {
+      if (idx === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    });
+    ctx.strokeStyle = '#f87171';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    /* Current point dot */
+    var last = pts[pts.length - 1];
+    ctx.beginPath();
+    ctx.arc(last.x, last.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#f87171';
+    ctx.fill();
+    ctx.strokeStyle = '#101624';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    /* Time labels on X axis */
+    var labelIdxs = [0, Math.floor(history.length / 4),
+                     Math.floor(history.length / 2),
+                     Math.floor(history.length * 3 / 4),
+                     history.length - 1];
+    ctx.fillStyle = '#566880';
+    ctx.font = '10px system-ui';
+    ctx.textAlign = 'center';
+    labelIdxs.forEach(function (idx) {
+      if (idx >= 0 && idx < history.length && pts[idx]) {
+        var d = new Date(history[idx].t);
+        var lbl = d.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+        ctx.fillText(lbl, pts[idx].x, H - 8);
+      }
+    });
+  }
+
+  /* --- Render sessions table --- */
+  function renderSessions(sessions) {
+    var tbody = document.getElementById('sessions-body');
+    var wrap  = document.getElementById('sessions-wrap');
+    var empty = document.getElementById('sessions-empty');
+    if (!tbody || !wrap) return;
+
+    /* Show last 24 hours, newest first */
+    var cutoff = Date.now() - 24 * 60 * 60 * 1000;
+    var recent = sessions
+      .filter(function (s) { return s.s > cutoff; })
+      .sort(function (a, b) { return b.s - a.s; });
+
+    if (recent.length === 0) {
+      wrap.style.display = 'none';
+      if (empty) empty.style.display = '';
+      return;
+    }
+
+    wrap.style.display = '';
+    if (empty) empty.style.display = 'none';
+
+    tbody.innerHTML = recent.map(function (s) {
+      var endCell = s.e
+        ? '<span>' + esc(fmtTime(s.e)) + '</span>'
+        : '<span class="session-online-now">接続中</span>';
+      var dur = s.e ? fmtDuration(s.e - s.s) : fmtDuration(Date.now() - s.s);
+      return '<tr>' +
+        '<td><span class="session-player-name">' + esc(s.n) + '</span></td>' +
+        '<td style="font-size:12px;font-family:monospace;color:var(--muted);">' + esc(fmtTime(s.s)) + '</td>' +
+        '<td style="font-size:12px;font-family:monospace;color:var(--muted);">' + endCell + '</td>' +
+        '<td><span class="session-duration">' + esc(dur) + '</span></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  /* --- Render stats row --- */
+  function renderStats(stats) {
+    var peak   = document.getElementById('stat-peak');
+    var uptime = document.getElementById('stat-uptime');
+    var checks = document.getElementById('stat-checks');
+    if (peak)   peak.textContent   = stats.peak;
+    if (uptime) uptime.textContent = stats.total > 0
+      ? Math.round(stats.onChecks / stats.total * 100) + '%'
+      : '--%';
+    if (checks) checks.textContent = stats.total;
+  }
+
+  /* --- Main fetch --- */
+  function fetchStatus() {
     showState('loading');
-    document.getElementById('refresh-btn').disabled = true;
+    var refreshBtn = document.getElementById('refresh-btn');
+    if (refreshBtn) refreshBtn.disabled = true;
 
-    try {
-      const res = await fetch(BM_API, { cache: 'no-store' });
-      if (!res.ok) throw new Error('http ' + res.status);
-      const data = await res.json();
+    fetch(QUERY_URL, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var attr = data.data && data.data.attributes;
+        if (!attr) throw new Error('No data');
 
-      /* サーバーを絞り込む（IP確定後は IP+ポートで特定） */
-      const server = (data.data || []).find(s =>
-        SERVER_IP
-          ? (s.attributes.ip === SERVER_IP && s.attributes.port === SERVER_PORT)
-          : s.attributes.port === SERVER_PORT
-      );
+        var online = attr.status === 'online';
+        var cnt    = attr.players    || 0;
+        var max    = attr.maxPlayers || 64;
 
-      if (!server) {
-        showState('notfound');
-      } else {
-        const attr = server.attributes;
-
-        if (attr.status === 'online') {
-          /* プレイヤー数 */
-          const now = attr.players    ?? 0;
-          const max = attr.maxPlayers ?? 8;
-          const pct = max > 0 ? Math.round(now / max * 100) : 0;
-
-          document.getElementById('player-now').textContent  = now;
-          document.getElementById('player-now-2').textContent = now;
-          document.getElementById('player-max').textContent  = max;
-          const bar = document.getElementById('player-bar');
+        if (online) {
+          var pct = max > 0 ? Math.round(cnt / max * 100) : 0;
+          document.getElementById('player-now').textContent   = cnt;
+          document.getElementById('player-now-2').textContent = cnt;
+          document.getElementById('player-max').textContent   = max;
+          var bar = document.getElementById('player-bar');
           bar.style.width = pct + '%';
           bar.classList.toggle('full', pct >= 100);
 
-          /* プレイヤーリスト */
-          const players = (data.included || []).filter(i => i.type === 'player');
-          const listEl  = document.getElementById('player-list');
-          const listSec = document.getElementById('player-list-section');
-          if (players.length > 0) {
-            listEl.innerHTML = players.map(p =>
-              `<div class="player-row">${escHtml(p.attributes.name)}</div>`
-            ).join('');
+          /* Player list */
+          var players = (data.included || []).filter(function (i) { return i.type === 'player'; });
+          var names   = players.map(function (p) { return p.attributes.name; });
+          var listEl  = document.getElementById('player-list');
+          var listSec = document.getElementById('player-list-section');
+          if (names.length > 0) {
+            listEl.innerHTML = names.map(function (n) {
+              return '<div class="player-row">' + esc(n) + '</div>';
+            }).join('');
             listSec.style.display = '';
           } else {
             listSec.style.display = 'none';
           }
 
+          /* Track sessions (client-side) */
+          var sessions = trackPlayers(names);
+          renderSessions(sessions);
           showState('online');
         } else {
+          /* Server offline – close any open sessions */
+          trackPlayers([]);
+          var offSessions = load('sessions') || [];
+          renderSessions(offSessions);
           showState('offline');
         }
-      }
 
-      /* 更新時刻 */
-      document.getElementById('last-updated').textContent =
-        new Date().toLocaleTimeString('ja-JP');
+        /* Record data point + update stats */
+        var history = recordHistory(cnt, online);
+        var stats   = updateServerStats(cnt, online);
+        renderChart(history);
+        renderStats(stats);
 
-    } catch (err) {
-      showState('error');
-    }
-
-    document.getElementById('refresh-btn').disabled = false;
-    startCountdown();
+        document.getElementById('last-updated').textContent =
+          new Date().toLocaleTimeString('ja-JP');
+      })
+      .catch(function () {
+        showState('error');
+      })
+      .then(function () {
+        if (refreshBtn) refreshBtn.disabled = false;
+        startCountdown();
+      });
   }
 
-  function escHtml(str) {
-    return str.replace(/[&<>"']/g, c =>
-      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])
-    );
-  }
+  /* Expose for onclick handlers */
+  window.fetchStatus = fetchStatus;
 
-  /* 初回実行 */
+  /* === Initialization === */
+  var initHistory  = load('history')  || [];
+  var initStats    = load('stats')    || { first: null, peak: 0, onChecks: 0, total: 0 };
+  var initSessions = load('sessions') || [];
+  renderChart(initHistory);
+  renderStats(initStats);
+  renderSessions(initSessions);
   fetchStatus();
+
+  /* Re-render chart on window resize (debounced) */
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      renderChart(load('history') || []);
+    }, 200);
+  });
+})();
 </script>
 
 </body>
