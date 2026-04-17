@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVYBSWNT91"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SVYBSWNT91');
+  </script>
+  <title>トレーダー24時間MOD ガイド – のんびりサバイバル鯖</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="7 Days to Dieのトレーダー24時間MODの解説。夜間でもトレーダーが営業中になり、いつでも購入・クエスト受注が可能になります。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, トレーダー, 24時間, MOD, Trader, Always Open, のんびりサバイバル鯖">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="トレーダー24時間MOD ガイド – のんびりサバイバル鯖">
+  <meta property="og:description" content="夜間でもトレーダーが営業中に。いつでも購入・クエスト受注が可能になるMOD解説。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysTrader24h.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="トレーダー24時間MOD – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="夜間でもトレーダーが営業中になるMOD解説。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
+</head>
+
+<body class="page-7dtd">
+<main class="wrapper">
+
+<header>
+  <h1>🏪 トレーダー24時間MOD</h1>
+
+  <div class="mod-badges">
+    <span class="mod-badge mod-badge--server">⚙️ サーバーサイド</span>
+    <span class="mod-badge mod-badge--eac">🛡️ EAC フレンドリー</span>
+    <span class="mod-badge mod-badge--client">✅ クライアント導入不要</span>
+  </div>
+
+  <div class="meta">
+    <div>対象: 7 Days to Die (Steam版)</div>
+    <div>最終更新: 2026-04-17</div>
+  </div>
+
+  <p class="backlink">
+    <a href="../index.html" class="btn btn-back">← 戻る</a>
+    &nbsp;
+    <a href="./7DaysGuide.html" class="btn">ガイド一覧へ</a>
+  </p>
+
+  <div class="hr"></div>
+</header>
+
+
+<!-- 概要 -->
+<div class="overview">
+  <div class="overview__label">📌 このMODについて</div>
+  <div class="overview__text">
+    <b>トレーダー24時間MOD</b> は、通常は夜間や特定の時間帯に閉店するトレーダーを
+    <b>24時間365日いつでも営業中</b>にするMODです。<br><br>
+    バニラの7DTDではトレーダーには営業時間があり、夜間は「CLOSED」になって入れません。
+    このMODを導入すると、<b>何時でも自由にトレーダーに入り、買い物・売却・クエスト受注</b>ができます。
+  </div>
+</div>
+
+<div class="tips" style="margin-bottom: 28px;">
+  💡 夜間は危険ですが、緊急時に物資を買い足したり、ブラッドムーン直前に駆け込んでクエストを受注するのに便利です。
+</div>
+
+
+<!-- バニラとの違い -->
+<h2 class="guide-section-label">🔄 バニラとの違い</h2>
+
+<div class="table-scroll">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>項目</th>
+        <th>バニラ（通常）</th>
+        <th>このMOD導入後</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>営業時間</td>
+        <td>06:00 〜 22:00 頃</td>
+        <td><b>24時間営業</b></td>
+      </tr>
+      <tr>
+        <td>夜間のドア</td>
+        <td>閉鎖（入れない）</td>
+        <td><b>いつでも入れる</b></td>
+      </tr>
+      <tr>
+        <td>夜間の買い物</td>
+        <td>不可</td>
+        <td><b>可能</b></td>
+      </tr>
+      <tr>
+        <td>夜間のクエスト受注</td>
+        <td>不可</td>
+        <td><b>可能</b></td>
+      </tr>
+      <tr>
+        <td>アイテム補充タイミング</td>
+        <td>変わらず（ゲーム内2日ごと）</td>
+        <td>変わらず（ゲーム内2日ごと）</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- 使い方 -->
+<h2 class="guide-section-label">📖 使い方</h2>
+
+<section class="step">
+  <div class="step-title">トレーダーの場所を確認する</div>
+  <p class="step-desc">
+    マップ（<b>M キー</b>）を開いて、旗のアイコンでトレーダーの場所を確認しましょう。<br>
+    序盤は最初のクエストでトレーダーに誘導されます。
+  </p>
+</section>
+
+<section class="step">
+  <div class="step-title">いつでも訪問できる</div>
+  <p class="step-desc">
+    夜間・早朝・ブラッドムーン後など<b>時間を気にせず</b>トレーダーに向かいましょう。<br>
+    ドアは常に開いており、NPCのトレーダーが店番しています。
+  </p>
+  <div class="tips tips--warn">
+    ⚠️ トレーダー周辺には保護フィールドがありますが、<b>夜間は外が危険</b>です。
+    移動中はゾンビに気を付けてください。トレーダーの建物の中は安全です。
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-title">買い物・クエストをこなす</div>
+  <p class="step-desc">
+    買い物・売却・クエスト受注・クエスト完了報告がいつでも可能です。<br>
+    クエストは受注後、時間制限はないので焦る必要はありません。
+  </p>
+</section>
+
+
+<!-- トレーダーの使い方基礎 -->
+<h2 class="guide-section-label">🛒 トレーダー活用ガイド（初心者向け）</h2>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">💰 デュークコインとは？</div>
+  <div class="overview__text">
+    トレーダーでの通貨は<b>デュークコイン</b>です。<br>
+    ゾンビを倒したときのドロップや、不要なアイテムを売ることで手に入ります。<br>
+    コインでしか買えないアイテムもあるので、なるべく集めておきましょう。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">📋 クエストとは？</div>
+  <div class="overview__text">
+    トレーダーのクエストをこなすと<b>経験値・デュークコイン・アイテム</b>が手に入ります。<br>
+    クエストの種類：
+    <ul class="bullet-list" style="margin: 8px 0 0;">
+      <li><b>スカベンジ</b>：指定のPOIからアイテムを回収する</li>
+      <li><b>クリア</b>：指定の建物のゾンビをすべて倒す</li>
+      <li><b>バリー（復旧）</b>：POI内の特定コンテナを確認・回収する</li>
+    </ul>
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">🔄 在庫補充タイミング</div>
+  <div class="overview__text">
+    トレーダーの在庫はゲーム内で<b>約 2〜3日</b>ごとに補充されます（サーバー設定による）。<br>
+    欲しいアイテムがなくても、数日後に再訪すると入荷していることがあります。<br>
+    複数のトレーダーを巡回して在庫を比較するのがコツです。
+  </div>
+</div>
+
+
+<!-- 各トレーダーの特徴 -->
+<h2 class="guide-section-label">👤 トレーダー一覧</h2>
+
+<div class="def-grid">
+  <div class="def-row">
+    <div class="def-key">Rekt</div>
+    <div class="def-val">建築・資材・ツール系が得意。工具類が充実している。</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">Bob</div>
+    <div class="def-val">食料・農業・調理関連が豊富。生存系アイテムが揃う。</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">Hugh</div>
+    <div class="def-val">医療・薬品・バフアイテム専門。体力管理に必須。</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">Joel</div>
+    <div class="def-val">武器・弾薬・防具が充実。戦闘系プレイヤー向け。</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">Jen</div>
+    <div class="def-val">スキルブック・設計図・レシピ類が豊富。スキルアップに最適。</div>
+  </div>
+</div>
+
+<div class="tips">
+  💡 <b>どのトレーダーが近くにあるか</b>はゲーム開始時のランダム生成によります。
+  序盤は近くのトレーダーを優先し、余裕が出たら他のトレーダーを探しに行きましょう。
+</div>
+
+
+<!-- 注意事項 -->
+<div class="overview" style="margin-top: 28px;">
+  <div class="overview__label">ℹ️ 注意事項</div>
+  <ul class="check-list" style="margin:0;">
+    <li>このMODはサーバーのみに導入されています（クライアント側の作業は不要）</li>
+    <li>夜間のトレーダー移動中はゾンビに注意してください</li>
+    <li>トレーダーの敵対化（攻撃）は通常通りの条件で発生します</li>
+    <li>在庫補充・クエストリセットのタイミングはバニラと同じです</li>
+  </ul>
+</div>
+
+
+<footer class="footer">
+  © のんびりサバイバル鯖
+</footer>
+
+</main>
+</body>
+</html>

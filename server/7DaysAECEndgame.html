@@ -9,16 +9,15 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-SVYBSWNT91');
   </script>
-  <title>AEC Endgame Overhaul ガイド – のんびりサバイバル鯖</title>
+  <title>AEC x Project Z ガイド（初心者向け） – のんびりサバイバル鯖</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta name="description" content="AEC Endgame Overhaulの詳細ガイド。11段階のゾンビティア・ボス・ギア進行システムを解説。GameStage 600以降のエンドゲーム拡張。">
-  <meta name="keywords" content="7 Days to Die, 7DTD, AEC Endgame Overhaul, MOD, ゾンビ, ボス, エンドゲーム, GameStage, ティア, のんびりサバイバル鯖">
+  <meta name="description" content="AEC x Project Z Overhaul Packの初心者向け完全ガイド。新しい敵の種類、ティア進化、生き残り方、序盤の進め方を詳しく解説。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, AEC, Project Z, Overhaul, MOD, ゾンビ, ボス, ティア, GameStage, 初心者, 攻略, 生き残り, のんびりサバイバル鯖">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="AEC Endgame Overhaul ガイド – のんびりサバイバル鯖">
-  <meta property="og:description" content="11段階のゾンビティア・ボス・ギア進行システムを解説。">
+  <meta property="og:title" content="AEC x Project Z 初心者ガイド – のんびりサバイバル鯖">
+  <meta property="og:description" content="新しい敵、ティア進化、ボス、序盤の生き残り方まで初心者にもわかりやすく解説。">
   <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysAECEndgame.html">
   <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <meta property="og:image:width" content="1200">
@@ -28,8 +27,8 @@
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="のんびりサバイバル鯖">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AEC Endgame Overhaul – のんびりサバイバル鯖">
-  <meta name="twitter:description" content="11段階のゾンビティア・ボス・ギア進行システムを解説。">
+  <meta name="twitter:title" content="AEC x Project Z 初心者ガイド – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="新しい敵、ティア進化、ボス、序盤の生き残り方まで初心者向けに解説。">
   <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <link rel="stylesheet" href="../cssFile/Styles.css" />
   <script src="../js/main.js" defer></script>
@@ -39,7 +38,12 @@
 <main class="wrapper">
 
 <header>
-  <h1>⚔️ AEC Endgame Overhaul</h1>
+  <h1>⚔️ AEC x Project Z</h1>
+  <div class="meta">
+    <div>対象: 7 Days to Die V2.x</div>
+    <div>難易度: ⭐⭐⭐⭐⭐（高）</div>
+    <div>最終更新: 2026-04-17</div>
+  </div>
 
   <div class="mod-badges">
     <span class="mod-badge mod-badge--server">⚙️ サーバーサイド</span>
@@ -47,46 +51,150 @@
     <span class="mod-badge mod-badge--client">✅ クライアント導入不要</span>
   </div>
 
-  <div class="meta">
-    <div>対象: 7 Days to Die V 2.6 (b14)</div>
-    <div>MODバージョン: 2.6.4</div>
-    <div>最終更新: 2026-04-15</div>
-  </div>
-
   <p class="backlink">
-    <a href="./7DaysGuide.html" class="btn">← ガイド一覧へ</a>
+    <a href="../index.html" class="btn btn-back">← 戻る</a>
     &nbsp;
-    <a href="./7DaysServerInfo.html" class="btn">サーバー情報へ</a>
+    <a href="./7DaysGuide.html" class="btn">ガイド一覧へ</a>
   </p>
 
   <div class="hr"></div>
 </header>
 
 
-<!-- ========== 概要 ========== -->
+<!-- ========== このMODについて ========== -->
 <div class="overview">
-  <div class="overview__label">📌 このMODについて</div>
+  <div class="overview__label">📌 このMODパックについて</div>
   <div class="overview__text">
-    <b>AEC Endgame Overhaul</b> は、<b>GameStage 600 以降</b>から本格的に機能するエンドゲーム拡張MODです。<br><br>
-    ゾンビが 11段階のティアで進化し、スポーン・クエスト・ギアがすべて連動してスケールします。
-    ただゾンビを追加するのではなく、<b>世界そのものがプレイヤーと一緒に成長・強化されていく</b>本格的な進行システムです。<br><br>
-    35種の基本ゾンビ原型 × 11ティア = <b>385体以上のカスタムゾンビ</b>が実装されています。
+    <b>AEC x Project Z Overhaul Pack</b> は、7 Days to Die を全く別のゲームに変えてしまう大型オーバーホールMODです。<br><br>
+    <b>2つのMODが合わさって</b>動きます：
+    <ul class="bullet-list" style="margin:8px 0 0;">
+      <li>🧟 <b>Project Z</b>：新しいゾンビ・敵の種類を大量に追加</li>
+      <li>⚔️ <b>AEC Endgame Overhaul</b>：敵と装備を11段階のティアで強化していくシステム</li>
+    </ul>
   </div>
 </div>
 
-<div class="tips" style="margin-bottom: 28px;">
-  🕐 <b>GameStage 600 未満では変化がありません。</b>
-  それ以下のステージでは通常のバニラと同じプレイ感覚です。GS 600 到達後から真価を発揮します。
+<div class="tips tips--warn" style="margin-bottom: 28px;">
+  ⚠️ <b>バニラよりずっと難しい</b>ので、初めての方はまずこのガイドを読んでから遊ぶことを強くおすすめします。
 </div>
 
 
-<!-- ========== ティア一覧 ========== -->
-<h2 class="guide-section-label">🧟 ゾンビ進化ティア（T05 → T15）</h2>
+<!-- ========== まず知っておくべき3つのこと ========== -->
+<h2 class="guide-section-label">🚨 まず知っておくべき3つのこと</h2>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">1️⃣ 敵が銃を撃ってくる</div>
+  <div class="overview__text">
+    Project Z では <b>武器を持った人間の敵（バンディット）</b>や <b>軍隊ゾンビ</b>が登場します。
+    彼らは<b>銃を撃ったり爆弾を投げたりしてきます</b>。バニラのように近づかせない戦い方だけでは通用しません。<br>
+    →<b>遮蔽物（カバー）を意識</b>する戦い方が必要です。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">2️⃣ ゾンビの種類が 10倍以上</div>
+  <div class="overview__text">
+    バニラのゾンビ種類は約40種ですが、このMODでは <b>Project Z の新ゾンビ</b> × <b>AECの11ティア</b>で
+    事実上<b>何百種類もの敵</b>が出ます。見た目も挙動も全部違います。<br>
+    →初見の敵に出会ったら、<b>まず様子を見てから</b>攻撃しましょう。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">3️⃣ GameStage で世界が進化する</div>
+  <div class="overview__text">
+    <b>GameStage（GS）</b> はあなたのレベルと日数から計算されるスコアで、
+    このMODでは GS が上がるほど<b>敵が強化され、新しいティアのゾンビが出現</b>します。<br>
+    GS 600 を超えたあたりから AEC ティア T05 以降の強敵が出始めます。
+  </div>
+</div>
+
+
+<!-- ========== GameStage とは？ ========== -->
+<h2 class="guide-section-label">📊 GameStage（ゲームステージ）とは？</h2>
+
+<div class="overview">
+  <div class="overview__text">
+    GameStage は「<b>あなたの強さを測る数値</b>」です。<br>
+    大まかに <b>プレイヤーレベル × 日数補正 × その他要素</b> で計算されます。<br><br>
+    このスコアが上がると、ブラッドムーンの敵数・種類・ティアがすべて連動して強化されます。
+    コンソールで <code>gettime</code> や <code>ListPlayers</code> で現在のGSを確認可能です。
+  </div>
+</div>
+
+<div class="table-scroll" style="margin-top: 14px;">
+  <table class="table">
+    <thead>
+      <tr><th>GameStage</th><th>体感難易度</th><th>出現する敵の傾向</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1 〜 100</td><td>序盤</td><td>バニラ相当のゾンビ中心。Project Z の弱い敵が混ざり始める。</td></tr>
+      <tr><td>100 〜 300</td><td>中盤</td><td>バンディット登場。装備系・軍装備ゾンビが出現。</td></tr>
+      <tr><td>300 〜 600</td><td>上級</td><td>Project Z の強化個体。銃撃ちの敵が増える。</td></tr>
+      <tr><td>600 〜 1500</td><td class="accent">エンドゲーム開始</td><td>AEC ティア T05〜T10。ボスの出現率UP。</td></tr>
+      <tr><td>1500+</td><td class="accent">神話級</td><td>T11〜T15（Mythic）。少人数では対処困難。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ========== 新しい敵の種類 ========== -->
+<h2 class="guide-section-label">👹 追加される敵の種類（ざっくり分類）</h2>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">🧟 一般ゾンビ（強化版）</div>
+  <div class="overview__text">
+    バニラのゾンビに加えて、<b>職業別ゾンビ</b>が大量追加されます。<br>
+    （医者、警官、軍人、労働者、科学者、ハザマット隊員、など）<br>
+    それぞれ見た目・体力・攻撃力・ドロップ品が違います。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">⚔️ バンディット（人間の敵）</div>
+  <div class="overview__text">
+    <b>生きた人間の敵</b>です。銃・爆発物・ナイフなどを使ってきます。<br>
+    話し合いはできません。発見されたら戦闘です。<br>
+    <b>遠距離からの攻撃が脅威</b>。遮蔽物に隠れて、こちらも銃で応戦しましょう。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">🎖️ 軍隊・特殊ゾンビ</div>
+  <div class="overview__text">
+    軍装備を着込んだ<b>重装ゾンビ</b>。体力・防御力が高く、通常の弓矢では弾かれます。<br>
+    <b>頭部を狙う</b>か、<b>高威力の貫通武器</b>が必須。倒すと武器・弾薬が手に入ることも。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">💀 特殊感染体（Project Z 固有）</div>
+  <div class="overview__text">
+    毒を吐く、自爆する、高速で駆けてくる、壁をよじ登る、など<b>特殊能力を持つ感染体</b>。<br>
+    出会ったら<b>先に仲間に警告</b>しましょう。チーム戦闘が推奨されます。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">👑 ボス（AEC AIO Boss）</div>
+  <div class="overview__text">
+    世界に潜む<b>強敵ボスが17体以上</b>。バイオームや時間帯で出現します。<br>
+    単独討伐はほぼ不可能。Discord で仲間を募集してから挑みましょう。
+  </div>
+</div>
+
+
+<!-- ========== ティア進化表 ========== -->
+<h2 class="guide-section-label">🧟 AEC ティア進化（T05 → T15）</h2>
+
+<div class="tips" style="margin-bottom: 14px;">
+  💡 GameStage が上がると、ゾンビの「ティア」が上がり同じゾンビでも<b>強化版</b>が出現します。
+</div>
 
 <div class="def-grid">
   <div class="def-row">
     <div class="def-key" style="font-size:12px; color:var(--muted);">ティア</div>
-    <div class="def-key" style="font-size:12px; color:var(--muted); border-left:1px solid var(--border);">名称</div>
+    <div class="def-key" style="font-size:12px; color:var(--muted); border-left:1px solid var(--border);">段階名</div>
   </div>
   <div class="def-row"><div class="def-key">T05</div><div class="def-val">Veteran（ベテラン）</div></div>
   <div class="def-row"><div class="def-key">T06</div><div class="def-val">Brutal（残忍）</div></div>
@@ -101,54 +209,96 @@
   <div class="def-row"><div class="def-key">T15</div><div class="def-val accent">Mythic（神話）← 最終段階</div></div>
 </div>
 
-<div class="tips" style="margin-bottom: 28px;">
+<div class="tips" style="margin: 14px 0 28px;">
   💡 各ティアはさらに <b>Normal → Advanced → Epic → Legendary</b> の4段階に分かれています。
-  Mythic Legendary が現時点の最高難度です。
+  Mythic Legendary = 現時点の最高難度です。
 </div>
 
 
-<!-- ========== 主な機能 ========== -->
-<h2 class="guide-section-label">⚙️ 主な機能</h2>
+<!-- ========== 初心者向け：序盤の進め方 ========== -->
+<h2 class="guide-section-label">🌱 序盤の進め方（1〜7日目）</h2>
 
-<div class="overview" style="margin-bottom: 16px;">
-  <div class="overview__label">🧟 動的スポーンシステム</div>
-  <div class="overview__text">
-    カスタム C# スポーンコントローラーが、バニラのスポーン処理をリアルタイムで解析・拡張します。
-    ゾンビはハードコードされたリストではなく<b>外部ルールファイル</b>から選定されるため、
-    GameStage に応じてスポーンが動的に変化します。世界はプレイヤーに合わせて進化し続けます。
+<section class="step">
+  <div class="step-title">Day 1：安全地帯の確保</div>
+  <p class="step-desc">
+    まず <b>森林バイオーム</b> を選ぶのが無難です。砂漠・雪原・荒野は初日から敵が強いので避けましょう。<br>
+    木材と石を集めて<b>簡易シェルター</b>を作り、夜を安全に過ごします。
+  </p>
+</section>
+
+<section class="step">
+  <div class="step-title">Day 2〜3：武器の優先順位</div>
+  <p class="step-desc">
+    このMODでは <b>遠距離武器が必須</b>です。弓（Primitive Bow）は最優先で作りましょう。<br>
+    ナイフや石斧だけだと<b>バンディットの銃に一方的にやられます</b>。
+  </p>
+  <div class="tips">
+    💡 <b>優先スキル</b>：筋力（Strength）のハンター系 or 知覚（Perception）の弓・ライフル系。
+  </div>
+</section>
+
+<section class="step">
+  <div class="step-title">Day 4〜6：トレーダー訪問</div>
+  <p class="step-desc">
+    <b>トレーダーを必ず発見</b>しておきましょう。このサーバーは<a href="./7DaysTrader24h.html" style="color:var(--c-7dtd);">24時間営業MOD</a>が入っているので夜でも訪問可能です。<br>
+    デュークコインを貯めて<b>銃（Pistol/Shotgun）</b>を買う目標を立てましょう。
+  </p>
+</section>
+
+<section class="step">
+  <div class="step-title">Day 7：最初のブラッドムーン対策</div>
+  <p class="step-desc">
+    7日目の夜は<b>ブラッドムーン（ホード）</b>です。このMODでは GS がまだ低いので
+    比較的楽ですが、<b>4面を囲った拠点</b>は必須。<br>
+    入り口は鉄ドア（iron door）にして、ゾンビの通り道に<b>落下トラップ</b>を仕込みましょう。
+  </p>
+  <div class="tips tips--warn">
+    ⚠️ 地上に出て戦うのは危険。拠点の2階から下の敵を狙撃する戦法が安定します。
+  </div>
+</section>
+
+
+<!-- ========== 中盤〜終盤 ========== -->
+<h2 class="guide-section-label">⚙️ 中盤〜終盤の戦い方</h2>
+
+<ul class="bullet-list">
+  <li><b>Day 14〜21</b>：アサルトライフル or SMGを確保。鉄装備に移行。</li>
+  <li><b>Day 21〜35</b>：コンクリート拠点化。自動タレットの導入を検討。</li>
+  <li><b>Day 35〜</b>：GS 300突破、バンディットが常時徘徊するようになる。<b>PvE でもPvPのような立ち回り</b>が必要に。</li>
+  <li><b>GS 600〜</b>：AEC ティア出現。装備はティア6以上の鉄・鋼防具が必須。</li>
+  <li><b>GS 1000〜</b>：ボス挑戦可能。パーティ編成を推奨。</li>
+</ul>
+
+
+<!-- ========== 装備・武器 ========== -->
+<h2 class="guide-section-label">🎒 装備・武器の方針</h2>
+
+<div class="def-grid">
+  <div class="def-row">
+    <div class="def-key">序盤</div>
+    <div class="def-val">木の弓 / 石斧 / パイプ銃 / 革装備</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">中盤</div>
+    <div class="def-val">コンパウンドボウ / ピストル / ポンプショットガン / 鉄装備</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">上級</div>
+    <div class="def-val">M60 / AK-47 / スナイパーライフル / 鋼装備 + 耐弾モッド</div>
+  </div>
+  <div class="def-row">
+    <div class="def-key">エンドゲーム</div>
+    <div class="def-val accent">AEC ティアティア装備（T05〜T15）+ レジェンダリー級</div>
   </div>
 </div>
 
-<div class="overview" style="margin-bottom: 16px;">
-  <div class="overview__label">📋 クエスト連動システム</div>
-  <div class="overview__text">
-    AECクエスト中はスケーリングが上書きされ、<b>難易度が設計通りに制御</b>されます。
-    ランダム性に頼らず、エンドゲーム遭遇が保証される本格的なクエスト体験を提供します。
-    POI（拠点・建物）もクエストティアに合わせてスケールします。
-  </div>
-</div>
-
-<div class="overview" style="margin-bottom: 16px;">
-  <div class="overview__label">🎒 ギア進行システム</div>
-  <div class="overview__text">
-    装備品もゾンビ・クエストと同じ<b>11ティア × 4段階</b>の構造に沿って設計されています。
-    Veteran 装備から始まり Mythic 装備まで、難易度曲線に合わせた段階的な強化が可能です。
-    バニラの上に単純追加するのではなく、一貫したエンドゲーム進行フレームワークです。
-  </div>
+<div class="tips" style="margin-top: 14px;">
+  💡 弾薬は自分で製造できるように <b>リロードベンチ</b> を早めに入手しましょう。
 </div>
 
 
-<!-- ========== ボスMOD（AEC AIO BOSS）========== -->
-<h2 class="guide-section-label">👾 同梱ボスMOD（AEC AIO BOSS）</h2>
-
-<div class="overview" style="margin-bottom: 20px;">
-  <div class="overview__label">📌 AEC AIO BOSS とは</div>
-  <div class="overview__text">
-    Endgame Overhaul と連携動作する<b>レイドボスパック</b>です。
-    現在 17体のボスと、各ボス固有のミニオン（取り巻き）が実装されています。
-    バイオーム・昼夜に応じたスポーンルールがあり、世界のどこかにボスが潜んでいます。
-  </div>
-</div>
+<!-- ========== ボス一覧 ========== -->
+<h2 class="guide-section-label">👾 ボス一覧（AEC AIO BOSS）</h2>
 
 <ul class="mod-list">
   <li><span class="mod-icon">💀</span><span class="mod-name">Doomlord（終末の主）</span></li>
@@ -159,42 +309,73 @@
   <li><span class="mod-icon">💣</span><span class="mod-name">Running Kamikaze（走る神風）</span></li>
   <li><span class="mod-icon">🔧</span><span class="mod-name">The Mechanician（機械師）</span></li>
   <li><span class="mod-icon">🧙</span><span class="mod-name">The Witch（魔女）</span></li>
-  <li><span class="mod-icon">❓</span><span class="mod-name">…その他 9体（順次追加予定）</span></li>
+  <li><span class="mod-icon">❓</span><span class="mod-name">…その他 9体（順次追加）</span></li>
 </ul>
 
 <div class="tips tips--warn">
-  ⚠️ ボスは非常に強力です。単独での挑戦は危険です。
-  仲間と連携して戦いましょう。詳細は <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" style="color:var(--c-ark);">Discord</a> で共有します。
+  ⚠️ ボスは非常に強力で、単独討伐は想定されていません。<b>Discord で募集</b>してパーティ戦を組みましょう。
 </div>
 
 
-<!-- ========== プレイのコツ ========== -->
-<h2 class="guide-section-label">💡 プレイのコツ</h2>
+<!-- ========== よくある質問 ========== -->
+<h2 class="guide-section-label">❓ よくある質問</h2>
 
-<ul class="bullet-list">
-  <li>GS 600 になるまでは普通の 7DTD と同じ感覚でプレイできる</li>
-  <li>GS 600 を超えたら装備・武器を見直し、ティアに合ったギアを揃える</li>
-  <li>ゾンビが急に強くなったと感じたら GameStage を確認する</li>
-  <li>ブラッドムーン時はティアが上がったゾンビが大量スポーンする可能性がある</li>
-  <li>ボスを発見したら単独で挑まず Discord で仲間を呼ぶ</li>
-  <li>このMODは他の大型オーバーホールMODとの併用は推奨されていない（本サーバーは AEC シリーズのみ使用）</li>
-</ul>
+<div class="overview" style="margin-bottom: 14px;">
+  <div class="overview__label">Q. バニラとそんなに違うの？</div>
+  <div class="overview__text">
+    A. <b>別ゲーム</b>と思ってください。敵の挙動・種類・ボス・進行システムすべてが拡張されています。
+    ただし UI・操作・基本クラフトはバニラと同じなので、操作に迷うことはありません。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 14px;">
+  <div class="overview__label">Q. MODを入れる作業は必要？</div>
+  <div class="overview__text">
+    A. <b>不要</b>です。すべてサーバー側で動作するため、プレイヤーは通常通り接続するだけでOKです。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 14px;">
+  <div class="overview__label">Q. 一人で遊べる？</div>
+  <div class="overview__text">
+    A. 序盤〜中盤までは一人でも可能です。ただし GS 600 以降のエンドゲーム、ボス討伐は
+    <b>複数人推奨</b>。Discord でフレンド募集を活用しましょう。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 14px;">
+  <div class="overview__label">Q. 死んだらどうなる？</div>
+  <div class="overview__text">
+    A. バニラと同じで、<b>スポーン地点に戻る＋バックパックを失う</b>可能性があります。
+    死亡現場を覚えておいて、できるだけ早く回収に向かいましょう。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 14px;">
+  <div class="overview__label">Q. おすすめのビルド（スキル振り）は？</div>
+  <div class="overview__text">
+    A. 初心者は <b>知覚（Perception）＋弓・ライフル</b> が扱いやすいです。
+    慣れたら筋力・敏捷・体力からお好みで。<b>武器特化</b>の方が生き残りやすいです。
+  </div>
+</div>
 
 
 <!-- ========== 注意事項 ========== -->
-<div class="overview" style="margin-top: 20px;">
+<div class="overview" style="margin-top: 28px;">
   <div class="overview__label">ℹ️ 注意事項</div>
   <ul class="check-list" style="margin:0;">
-    <li>GameStage 600 未満ではこのMODの変化は見られません</li>
-    <li>サーバーサイドMODのためクライアントへのインストールは不要です</li>
-    <li>現在 EXPERIMENTAL（実験的）バージョンです。バグが発生する場合があります</li>
+    <li>サーバーサイドMODのためクライアント側の作業は不要です</li>
+    <li>現在 EXPERIMENTAL（実験的）バージョン。バグが発生する場合があります</li>
     <li>不具合・不明点は Discord でだぁ～さんに連絡してください</li>
+    <li>他の大型オーバーホールMODとの併用は推奨されていません</li>
+    <li>MOD情報：<a href="https://www.nexusmods.com/7daystodie/mods/10099" target="_blank" rel="noopener" style="color:var(--c-7dtd);">Nexus Mods – AEC x Project Z</a></li>
   </ul>
 </div>
 
 
 <footer class="footer">
   © のんびりサバイバル鯖
+  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
 </footer>
 
 </main>
