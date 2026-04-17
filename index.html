@@ -223,6 +223,8 @@
     }
 
     function pickDefaultFilter() {
+      var isPC = window.matchMedia('(min-width: 769px)').matches;
+      if (isPC) return 'all';
       const statuses = [...cards].map(c => c.dataset.status);
       if (statuses.includes('online'))    return 'online';
       if (statuses.includes('scheduled')) return 'scheduled';
