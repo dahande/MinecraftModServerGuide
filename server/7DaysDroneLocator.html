@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVYBSWNT91"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SVYBSWNT91');
+  </script>
+  <title>Drone Locator MOD ガイド – のんびりサバイバル鯖</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="行方不明のドローンをコマンド /dl で即座に発見。Drone Locator MODの使い方をステップ解説。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, Drone Locator, ドローン, MOD, /dl, コマンド, サーバーサイドMOD, のんびりサバイバル鯖">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Drone Locator MOD ガイド – のんびりサバイバル鯖">
+  <meta property="og:description" content="行方不明のドローンをコマンド /dl で即座に発見。使い方をステップ解説。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysDroneLocator.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Drone Locator MOD – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="行方不明のドローンをコマンド /dl で即座に発見。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
+</head>
+
+<body class="page-7dtd">
+<main class="wrapper">
+
+<header>
+  <h1>🤖 Drone Locator MOD</h1>
+
+  <div class="mod-badges">
+    <span class="mod-badge mod-badge--server">⚙️ サーバーサイド</span>
+    <span class="mod-badge mod-badge--eac">🛡️ EAC フレンドリー</span>
+    <span class="mod-badge mod-badge--client">✅ クライアント導入不要</span>
+  </div>
+
+  <div class="meta">
+    <div>対象: 7 Days to Die (Steam版)</div>
+    <div>最終更新: 2026-04-14</div>
+  </div>
+
+  <p class="backlink">
+    <a href="../index.html" class="btn">← ホームへ戻る</a>
+    &nbsp;
+    <a href="./7DaysToDieConnect.html" class="btn">7DTD 接続手順へ</a>
+  </p>
+
+  <div class="hr"></div>
+</header>
+
+
+<!-- 概要 -->
+<div class="overview">
+  <div class="overview__label">📌 このMODについて</div>
+  <div class="overview__text">
+    <b>Drone Locator</b> は、ドローンが行方不明・スタック・地面に埋まってしまったときに、
+    チャットコマンド <code>/dl</code> 一つでドローンの座標を確認できるMODです。<br><br>
+    サーバー側のみに導入されているため、<b>プレイヤーは何もインストールする必要はありません。</b>
+    ゲーム内チャットからすぐに使えます。
+  </div>
+</div>
+
+
+<!-- 使い方 Steps -->
+<section class="step">
+  <div class="step-title">チャットを開く</div>
+  <p class="step-desc">
+    ゲーム中に <b>T キー</b> を押してチャットを開きます。
+  </p>
+</section>
+
+
+<section class="step">
+  <div class="step-title">コマンドを入力する</div>
+  <p class="step-desc">
+    チャット欄に以下のコマンドを入力して <b>Enter</b> を押してください。
+  </p>
+  <div class="cmd-block">/dl</div>
+  <p class="step-desc">
+    これだけです！たったこれだけでドローンの現在地が分かります。
+  </p>
+</section>
+
+
+<section class="step">
+  <div class="step-title">座標を確認する</div>
+  <p class="step-desc">
+    コマンドを実行すると、チャットにドローンの座標が表示されます。<br>
+    例：<code>Your drone is at X: 423, Y: 65, Z: -187</code>
+  </p>
+  <div class="tips">
+    💡 座標を確認したら、ゲーム内マップ（<b>M キー</b>）を開いて現在地と照らし合わせながら向かいましょう。
+  </div>
+</section>
+
+
+<section class="step">
+  <div class="step-title">ドローンを回収する</div>
+  <p class="step-desc">
+    表示された座標に向かいドローンを回収してください。<br>
+    地面や壁の中に埋まっている場合は、付近を掘ることで回収できることがあります。
+  </p>
+  <div class="tips tips--warn">
+    ⚠️ ドローンが高所や水中・建物内にスタックしている場合は、
+    管理者にテレポートや救出を依頼してください。
+  </div>
+</section>
+
+
+<!-- コマンド一覧 -->
+<h2 style="font-size:18px; font-weight:700; margin:32px 0 14px; color:var(--ink);">📋 コマンド一覧</h2>
+
+<div class="table-scroll">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>コマンド</th>
+        <th>効果</th>
+        <th>使用タイミング</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/dl</code></td>
+        <td>自分のドローンの現在地座標をチャットに表示</td>
+        <td>ドローンが見当たらないとき</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- こんなときに使う -->
+<h2 style="font-size:18px; font-weight:700; margin:32px 0 14px; color:var(--ink);">🧟 こんなときに使おう</h2>
+
+<ul class="bullet-list">
+  <li>ドローンを連れていたのに、気づいたらいなくなっていた</li>
+  <li>ドローンが地面やブロックにめり込んでしまった</li>
+  <li>ドローンが空中でフリーズしてついてこなくなった</li>
+  <li>ドローンがどこかへ飛んで行ってしまい、マップでも確認できない</li>
+  <li>リスポーン後にドローンの場所が分からなくなった</li>
+</ul>
+
+
+<!-- 注意事項 -->
+<div class="overview" style="margin-top:28px;">
+  <div class="overview__label">ℹ️ 注意事項</div>
+  <ul class="check-list" style="margin:0;">
+    <li>このMODはサーバーにのみインストールされています（クライアント不要）</li>
+    <li>コマンドは自分が所有するドローンのみ検索します</li>
+    <li>複数のドローンを持っている場合は全ての座標が表示されます</li>
+    <li>ドローンを持っていない場合はその旨がチャットに表示されます</li>
+  </ul>
+</div>
+
+
+<footer class="footer">
+  © のんびりサバイバル鯖
+</footer>
+
+</main>
+</body>
+</html>

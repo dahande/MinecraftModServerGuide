@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVYBSWNT91"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SVYBSWNT91');
+  </script>
+  <title>AEC Endgame Overhaul ガイド – のんびりサバイバル鯖</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="AEC Endgame Overhaulの詳細ガイド。11段階のゾンビティア・ボス・ギア進行システムを解説。GameStage 600以降のエンドゲーム拡張。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, AEC Endgame Overhaul, MOD, ゾンビ, ボス, エンドゲーム, GameStage, ティア, のんびりサバイバル鯖">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AEC Endgame Overhaul ガイド – のんびりサバイバル鯖">
+  <meta property="og:description" content="11段階のゾンビティア・ボス・ギア進行システムを解説。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysAECEndgame.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AEC Endgame Overhaul – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="11段階のゾンビティア・ボス・ギア進行システムを解説。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
+</head>
+
+<body class="page-7dtd">
+<main class="wrapper">
+
+<header>
+  <h1>⚔️ AEC Endgame Overhaul</h1>
+
+  <div class="mod-badges">
+    <span class="mod-badge mod-badge--server">⚙️ サーバーサイド</span>
+    <span class="mod-badge mod-badge--eac">🛡️ EAC フレンドリー</span>
+    <span class="mod-badge mod-badge--client">✅ クライアント導入不要</span>
+  </div>
+
+  <div class="meta">
+    <div>対象: 7 Days to Die V 2.6 (b14)</div>
+    <div>MODバージョン: 2.6.4</div>
+    <div>最終更新: 2026-04-15</div>
+  </div>
+
+  <p class="backlink">
+    <a href="./7DaysGuide.html" class="btn">← ガイド一覧へ</a>
+    &nbsp;
+    <a href="./7DaysServerInfo.html" class="btn">サーバー情報へ</a>
+  </p>
+
+  <div class="hr"></div>
+</header>
+
+
+<!-- ========== 概要 ========== -->
+<div class="overview">
+  <div class="overview__label">📌 このMODについて</div>
+  <div class="overview__text">
+    <b>AEC Endgame Overhaul</b> は、<b>GameStage 600 以降</b>から本格的に機能するエンドゲーム拡張MODです。<br><br>
+    ゾンビが 11段階のティアで進化し、スポーン・クエスト・ギアがすべて連動してスケールします。
+    ただゾンビを追加するのではなく、<b>世界そのものがプレイヤーと一緒に成長・強化されていく</b>本格的な進行システムです。<br><br>
+    35種の基本ゾンビ原型 × 11ティア = <b>385体以上のカスタムゾンビ</b>が実装されています。
+  </div>
+</div>
+
+<div class="tips" style="margin-bottom: 28px;">
+  🕐 <b>GameStage 600 未満では変化がありません。</b>
+  それ以下のステージでは通常のバニラと同じプレイ感覚です。GS 600 到達後から真価を発揮します。
+</div>
+
+
+<!-- ========== ティア一覧 ========== -->
+<h2 class="guide-section-label">🧟 ゾンビ進化ティア（T05 → T15）</h2>
+
+<div class="def-grid">
+  <div class="def-row">
+    <div class="def-key" style="font-size:12px; color:var(--muted);">ティア</div>
+    <div class="def-key" style="font-size:12px; color:var(--muted); border-left:1px solid var(--border);">名称</div>
+  </div>
+  <div class="def-row"><div class="def-key">T05</div><div class="def-val">Veteran（ベテラン）</div></div>
+  <div class="def-row"><div class="def-key">T06</div><div class="def-val">Brutal（残忍）</div></div>
+  <div class="def-row"><div class="def-key">T07</div><div class="def-val">Savage（凶暴）</div></div>
+  <div class="def-row"><div class="def-key">T08</div><div class="def-val">Ravager（蹂躙者）</div></div>
+  <div class="def-row"><div class="def-key">T09</div><div class="def-val">Dread（恐怖）</div></div>
+  <div class="def-row"><div class="def-key">T10</div><div class="def-val">Nightmare（悪夢）</div></div>
+  <div class="def-row"><div class="def-key">T11</div><div class="def-val">Apex（頂点）</div></div>
+  <div class="def-row"><div class="def-key">T12</div><div class="def-val">Overlord（覇者）</div></div>
+  <div class="def-row"><div class="def-key">T13</div><div class="def-val">Titan（巨人）</div></div>
+  <div class="def-row"><div class="def-key">T14</div><div class="def-val">Cataclysm（大災害）</div></div>
+  <div class="def-row"><div class="def-key">T15</div><div class="def-val accent">Mythic（神話）← 最終段階</div></div>
+</div>
+
+<div class="tips" style="margin-bottom: 28px;">
+  💡 各ティアはさらに <b>Normal → Advanced → Epic → Legendary</b> の4段階に分かれています。
+  Mythic Legendary が現時点の最高難度です。
+</div>
+
+
+<!-- ========== 主な機能 ========== -->
+<h2 class="guide-section-label">⚙️ 主な機能</h2>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">🧟 動的スポーンシステム</div>
+  <div class="overview__text">
+    カスタム C# スポーンコントローラーが、バニラのスポーン処理をリアルタイムで解析・拡張します。
+    ゾンビはハードコードされたリストではなく<b>外部ルールファイル</b>から選定されるため、
+    GameStage に応じてスポーンが動的に変化します。世界はプレイヤーに合わせて進化し続けます。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">📋 クエスト連動システム</div>
+  <div class="overview__text">
+    AECクエスト中はスケーリングが上書きされ、<b>難易度が設計通りに制御</b>されます。
+    ランダム性に頼らず、エンドゲーム遭遇が保証される本格的なクエスト体験を提供します。
+    POI（拠点・建物）もクエストティアに合わせてスケールします。
+  </div>
+</div>
+
+<div class="overview" style="margin-bottom: 16px;">
+  <div class="overview__label">🎒 ギア進行システム</div>
+  <div class="overview__text">
+    装備品もゾンビ・クエストと同じ<b>11ティア × 4段階</b>の構造に沿って設計されています。
+    Veteran 装備から始まり Mythic 装備まで、難易度曲線に合わせた段階的な強化が可能です。
+    バニラの上に単純追加するのではなく、一貫したエンドゲーム進行フレームワークです。
+  </div>
+</div>
+
+
+<!-- ========== ボスMOD（AEC AIO BOSS）========== -->
+<h2 class="guide-section-label">👾 同梱ボスMOD（AEC AIO BOSS）</h2>
+
+<div class="overview" style="margin-bottom: 20px;">
+  <div class="overview__label">📌 AEC AIO BOSS とは</div>
+  <div class="overview__text">
+    Endgame Overhaul と連携動作する<b>レイドボスパック</b>です。
+    現在 17体のボスと、各ボス固有のミニオン（取り巻き）が実装されています。
+    バイオーム・昼夜に応じたスポーンルールがあり、世界のどこかにボスが潜んでいます。
+  </div>
+</div>
+
+<ul class="mod-list">
+  <li><span class="mod-icon">💀</span><span class="mod-name">Doomlord（終末の主）</span></li>
+  <li><span class="mod-icon">🐻</span><span class="mod-name">Dumdum</span></li>
+  <li><span class="mod-icon">⚡</span><span class="mod-name">Electric Demon（電気悪魔）</span></li>
+  <li><span class="mod-icon">💥</span><span class="mod-name">Explosive Eagle（爆発の鷲）</span></li>
+  <li><span class="mod-icon">🔨</span><span class="mod-name">Hammer Guardian（鎚の番人）</span></li>
+  <li><span class="mod-icon">💣</span><span class="mod-name">Running Kamikaze（走る神風）</span></li>
+  <li><span class="mod-icon">🔧</span><span class="mod-name">The Mechanician（機械師）</span></li>
+  <li><span class="mod-icon">🧙</span><span class="mod-name">The Witch（魔女）</span></li>
+  <li><span class="mod-icon">❓</span><span class="mod-name">…その他 9体（順次追加予定）</span></li>
+</ul>
+
+<div class="tips tips--warn">
+  ⚠️ ボスは非常に強力です。単独での挑戦は危険です。
+  仲間と連携して戦いましょう。詳細は <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" style="color:var(--c-ark);">Discord</a> で共有します。
+</div>
+
+
+<!-- ========== プレイのコツ ========== -->
+<h2 class="guide-section-label">💡 プレイのコツ</h2>
+
+<ul class="bullet-list">
+  <li>GS 600 になるまでは普通の 7DTD と同じ感覚でプレイできる</li>
+  <li>GS 600 を超えたら装備・武器を見直し、ティアに合ったギアを揃える</li>
+  <li>ゾンビが急に強くなったと感じたら GameStage を確認する</li>
+  <li>ブラッドムーン時はティアが上がったゾンビが大量スポーンする可能性がある</li>
+  <li>ボスを発見したら単独で挑まず Discord で仲間を呼ぶ</li>
+  <li>このMODは他の大型オーバーホールMODとの併用は推奨されていない（本サーバーは AEC シリーズのみ使用）</li>
+</ul>
+
+
+<!-- ========== 注意事項 ========== -->
+<div class="overview" style="margin-top: 20px;">
+  <div class="overview__label">ℹ️ 注意事項</div>
+  <ul class="check-list" style="margin:0;">
+    <li>GameStage 600 未満ではこのMODの変化は見られません</li>
+    <li>サーバーサイドMODのためクライアントへのインストールは不要です</li>
+    <li>現在 EXPERIMENTAL（実験的）バージョンです。バグが発生する場合があります</li>
+    <li>不具合・不明点は Discord でだぁ～さんに連絡してください</li>
+  </ul>
+</div>
+
+
+<footer class="footer">
+  © のんびりサバイバル鯖
+</footer>
+
+</main>
+</body>
+</html>

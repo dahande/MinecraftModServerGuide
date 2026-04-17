@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="lbg" x1="0" y1="0" x2="40" y2="40">
+      <stop stop-color="#1a2245"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#lbg)"/>
+  <path d="M11 17c0-2.2 1.8-4 4-4h10c2.2 0 4 1.8 4 4v2c0 4.4-2.8 8-6 8-1.2 0-2.2-.5-3-1.2-.8.7-1.8 1.2-3 1.2-3.2 0-6-3.6-6-8v-2z" fill="#f87171"/>
+  <rect x="14" y="17" width="4" height="1.2" rx=".6" fill="#0d1117" opacity=".45"/>
+  <rect x="15.4" y="15.6" width="1.2" height="4" rx=".6" fill="#0d1117" opacity=".45"/>
+  <circle cx="25" cy="16.5" r="1" fill="#0d1117" opacity=".45"/>
+  <circle cx="23" cy="18.5" r="1" fill="#0d1117" opacity=".45"/>
+  <text x="20" y="35" text-anchor="middle" font-family="system-ui,sans-serif" font-size="4.5" font-weight="800" fill="#566880" letter-spacing=".8">NONBIRI</text>
+</svg>
