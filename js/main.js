@@ -2,6 +2,17 @@
    main.js – のんびりサバイバル鯖 共通スクリプト
    ===================================================== */
 
+/* ---- Smart back button ---- */
+document.querySelectorAll('.btn-back').forEach(function (btn) {
+  btn.addEventListener('click', function (e) {
+    if (document.referrer && document.referrer.startsWith(window.location.origin)) {
+      e.preventDefault();
+      history.back();
+    }
+    /* referrer なし or 外部サイト → href のホームURLへ遷移 */
+  });
+});
+
 /* ---- Copy to clipboard ---- */
 document.addEventListener('click', function (e) {
   var btn = e.target.closest('.copy-btn');
