@@ -1556,7 +1556,7 @@ div.card.nav-card .btn:hover { background: var(--card-accent); color: #07090f; }
    ============================================ */
 .back-to-top {
   position: fixed;
-  bottom: 76px;
+  bottom: 24px;
   right: 24px;
   width: 42px;
   height: 42px;
@@ -1923,16 +1923,16 @@ div.card.nav-card .btn:hover { background: var(--card-accent); color: #07090f; }
 /* ============================================
    GLOBAL FIXED FOOTER BAR
    ============================================ */
-body { padding-bottom: 62px; }
+body { padding-top: 62px; }
 
 .gf {
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  top: 0; left: 0; right: 0;
   height: 56px;
   background: rgba(14, 18, 30, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2059,13 +2059,13 @@ body { padding-bottom: 62px; }
 
 .gm {
   position: absolute;
-  bottom: 56px;
+  top: 56px;
   left: 0; right: 0;
   max-height: 70vh;
   background: var(--surface);
-  border-top: 1px solid var(--border-hi);
-  border-radius: 18px 18px 0 0;
-  transform: translateY(100%);
+  border-bottom: 1px solid var(--border-hi);
+  border-radius: 0 0 18px 18px;
+  transform: translateY(-100%);
   transition: transform .3s cubic-bezier(.22,.68,0,1);
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -2161,7 +2161,7 @@ body { padding-bottom: 62px; }
    PRINT
    ============================================ */
 @media print {
-  body { background: #fff; color: #000; padding-bottom: 0; }
+  body { background: #fff; color: #000; padding-top: 0; }
   .wrapper { border: 1px solid #ccc; box-shadow: none; background: #fff; border-top: 3px solid #333; }
   a[href]::after { content: " (" attr(href) ")"; font-size: 11px; }
   .gf, .gm-overlay, .back-to-top, .countdown-banner { display: none; }
