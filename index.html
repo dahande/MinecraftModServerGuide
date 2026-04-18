@@ -61,20 +61,8 @@
           <span class="hero-news__label">📢 お知らせ</span>
           <a href="./news.html" class="hero-news__more">すべて見る →</a>
         </div>
-        <div class="hero-news__items">
-
-          <a class="hero-news__item" href="./news.html#news-20260417">
-            <span class="news-item__tag news-tag--event">イベント</span>
-            <span class="hero-news__date">04/17</span>
-            <span class="hero-news__title">7 Days to Die サーバー 4/17（金）21:00 より稼働開始予定！</span>
-          </a>
-
-          <a class="hero-news__item" href="./news.html#news-20260415">
-            <span class="news-item__tag news-tag--info">お知らせ</span>
-            <span class="hero-news__date">04/15</span>
-            <span class="hero-news__title">サイトを公開しました</span>
-          </a>
-
+        <div class="hero-news__items" id="hero-news-items">
+          <div class="hero-news__item" style="color:rgba(255,255,255,0.35);font-size:13px;justify-content:center;">読み込み中…</div>
         </div>
       </div>
 
@@ -257,6 +245,38 @@
       const after  = [...cards].map(c => c.dataset.status).join(',');
       if (before !== after) applyFilter(pickDefaultFilter());
     }, 30000);
+
+    /* ── お知らせ動的読み込み ── */
+    (function loadNews() {
+      const container = document.getElementById('hero-news-items');
+      if (!container) return;
+
+      fetch('./news.html')
+        .then(r => r.text())
+        .then(html => {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const articles = [...doc.querySelectorAll('article.news-article')];
+
+          if (!articles.length) { container.innerHTML = '<div style="color:rgba(255,255,255,0.35);font-size:13px;text-align:center;">お知らせはありません</div>'; return; }
+
+          const items = articles.slice(0, 3).map(article => {
+            const id    = article.id || '';
+            const tagEl = article.querySelector('.news-item__tag');
+            const tag   = tagEl ? tagEl.outerHTML : '';
+            const dateEl = article.querySelector('.news-article__date');
+            const date  = dateEl ? dateEl.textContent.trim().replace(/^\d{4}-/, '').replace('-', '/') : '';
+            const titleEl = article.querySelector('.news-article__title');
+            const title = titleEl ? titleEl.textContent.trim() : '';
+            const href  = id ? `./news.html#${id}` : './news.html';
+            return `<a class="hero-news__item" href="${href}">${tag}<span class="hero-news__date">${date}</span><span class="hero-news__title">${title}</span></a>`;
+          });
+
+          container.innerHTML = items.join('');
+        })
+        .catch(() => {
+          container.innerHTML = '<a class="hero-news__item" href="./news.html"><span class="hero-news__title">お知らせを見る →</span></a>';
+        });
+    })();
   </script>
 </body>
 </html>
