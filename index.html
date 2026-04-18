@@ -272,6 +272,13 @@
           });
 
           container.innerHTML = items.join('');
+
+          if (articles.length >= 2) {
+            container.style.maxHeight = '120px';
+            container.style.overflowY = 'auto';
+            container.style.scrollbarWidth = 'thin';
+            container.style.scrollbarColor = 'rgba(255,255,255,0.15) transparent';
+          }
         })
         .catch(() => {
           container.innerHTML = '<a class="hero-news__item" href="./news.html"><span class="hero-news__title">お知らせを見る →</span></a>';
