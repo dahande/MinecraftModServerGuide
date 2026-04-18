@@ -1,309 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AEC x Project Z 序盤攻略ガイド - 初心者向け</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVYBSWNT91"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SVYBSWNT91');
+  </script>
+  <title>AEC x Project Z 序盤攻略ガイド（初心者向け） – のんびりサバイバル鯖</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="AEC x Project Z 序盤攻略ガイド。初期リスポーンアイテム、序盤の進め方、ティアシステムを詳しく解説。初心者向け完全ガイド。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, AEC, Project Z, Overhaul, MOD, 初心者, 序盤, 攻略, のんびりサバイバル鯖">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AEC x Project Z 序盤攻略ガイド – のんびりサバイバル鯖">
+  <meta property="og:description" content="初期リスポーンアイテム完全攻略から序盤の進め方まで、初心者にもわかりやすく解説。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysAECEndgame.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AEC x Project Z 序盤攻略ガイド – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="初期リスポーンアイテム完全攻略から序盤の進め方まで初心者向けに解説。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
-      background: #f5f5f0;
-      color: #2d2d2d;
-      line-height: 1.8;
-    }
-    .header {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      color: #fff;
-      padding: 48px 24px;
-      text-align: center;
-      border-bottom: 4px solid #e94560;
-    }
-    .header h1 {
-      font-size: 2.2rem;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-    .header p {
-      font-size: 1rem;
-      color: #ccc;
-    }
-    .badge {
-      display: inline-block;
-      background: #e94560;
-      color: #fff;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-top: 12px;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 20px;
-    }
-    .toc {
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px 32px;
-      margin-bottom: 32px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .toc h2 { font-size: 1.2rem; margin-bottom: 12px; color: #0f3460; }
-    .toc ol { padding-left: 20px; }
-    .toc li { margin-bottom: 6px; }
-    .toc a { color: #0f3460; text-decoration: none; }
-    .toc a:hover { text-decoration: underline; }
-
-    section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin-bottom: 28px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    section h2 {
-      font-size: 1.5rem;
-      color: #0f3460;
-      border-left: 5px solid #e94560;
-      padding-left: 14px;
-      margin-bottom: 18px;
-    }
-    section h3 {
-      font-size: 1.15rem;
-      color: #16213e;
-      margin: 20px 0 10px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #eee;
-    }
-    p { margin-bottom: 12px; }
-
-    .item-card {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 16px;
-      background: #fafafa;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 14px;
-      align-items: center;
-    }
-    .item-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-    .screenshot-card {
-      display: grid;
-      grid-template-columns: 1fr;
-      background: #1a1a1a;
-      border: 2px solid #555;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .screenshot-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .screenshot-card .sc-desc {
-      padding: 16px 20px;
-      background: #222;
-      color: #eee;
-    }
-    .screenshot-card .sc-desc h4 {
-      color: #4fc3f7;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-    .screenshot-card .sc-desc p {
-      color: #ccc;
-      font-size: 0.92rem;
-      margin-bottom: 6px;
-    }
-    .sc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 16px 0;
-    }
-    @media (max-width: 600px) {
-      .sc-grid { grid-template-columns: 1fr; }
-    }
-    .yautja-detail {
-      background: #1a0a20;
-      border: 2px solid #9b59b6;
-      border-radius: 12px;
-      padding: 24px;
-      margin: 20px 0;
-      color: #eee;
-    }
-    .yautja-detail h4 {
-      color: #d580ff;
-      font-size: 1.15rem;
-      margin-bottom: 12px;
-    }
-    .yautja-detail p {
-      color: #ccc;
-      margin-bottom: 10px;
-    }
-    .yautja-detail .quote-box {
-      background: #2a1535;
-      border-left: 4px solid #9b59b6;
-      padding: 14px 18px;
-      border-radius: 6px;
-      margin: 12px 0;
-      font-style: italic;
-      color: #d9b3ff;
-      line-height: 1.7;
-    }
-    .yautja-detail .quote-box .author {
-      display: block;
-      text-align: right;
-      font-style: normal;
-      color: #9b59b6;
-      margin-top: 8px;
-      font-weight: bold;
-    }
-    .item-icon.tool { background: #e8f0fe; }
-    .item-icon.weapon { background: #fce4e4; }
-    .item-icon.armor { background: #e8f5e9; }
-    .item-icon.food { background: #fff8e1; }
-    .item-icon.resource { background: #f3e5f5; }
-    .item-icon.station { background: #e0f7fa; }
-    .item-icon.economy { background: #fff3e0; }
-    .item-info h4 {
-      font-size: 1.05rem;
-      color: #1a1a2e;
-      margin-bottom: 4px;
-    }
-    .item-info .tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-right: 6px;
-      font-weight: bold;
-    }
-    .tag-priority { background: #e94560; color: #fff; }
-    .tag-craft { background: #0f3460; color: #fff; }
-    .tag-loot { background: #2ecc71; color: #fff; }
-    .tag-trade { background: #f39c12; color: #fff; }
-    .item-info p { font-size: 0.92rem; color: #555; margin-top: 6px; margin-bottom: 0; }
-
-    .tip-box {
-      background: #eef6ff;
-      border-left: 4px solid #3498db;
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin: 16px 0;
-    }
-    .tip-box strong { color: #2980b9; }
-    .warn-box {
-      background: #fff5f5;
-      border-left: 4px solid #e94560;
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin: 16px 0;
-    }
-    .warn-box strong { color: #e94560; }
-
-    .tier-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 16px 0;
-      font-size: 0.92rem;
-    }
-    .tier-table th {
-      background: #0f3460;
-      color: #fff;
-      padding: 10px 14px;
-      text-align: left;
-    }
-    .tier-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #eee;
-    }
-    .tier-table tr:nth-child(even) { background: #f9f9f9; }
-    .tier-table tr:hover { background: #f0f4ff; }
-
-    .flow-chart {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex-wrap: wrap;
-      margin: 20px 0;
-      justify-content: center;
-    }
-    .flow-step {
-      background: #0f3460;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      text-align: center;
-      min-width: 120px;
-    }
-    .flow-arrow {
-      font-size: 1.5rem;
-      color: #e94560;
-      padding: 0 6px;
-    }
-
-    .checklist {
-      list-style: none;
-      padding: 0;
-    }
-    .checklist li {
-      padding: 8px 0 8px 32px;
-      position: relative;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .checklist li::before {
-      content: "☐";
-      position: absolute;
-      left: 4px;
-      font-size: 1.1rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 32px 20px;
-      color: #999;
-      font-size: 0.85rem;
-    }
-    footer a { color: #0f3460; }
-
-    @media (max-width: 600px) {
-      .header h1 { font-size: 1.5rem; }
-      .item-card { grid-template-columns: 1fr; }
-      .item-icon { width: 48px; height: 48px; font-size: 1.4rem; }
-      section { padding: 20px 16px; }
-      .flow-chart { flex-direction: column; }
-      .flow-arrow { transform: rotate(90deg); }
-    }
+    .guide-toc { background: var(--card-alt); border: 1px solid var(--border); border-left: 3px solid var(--page-accent); border-radius: 12px; padding: 20px 28px; margin-bottom: 28px; }
+    .guide-toc h2 { font-size: 0.85rem; margin-bottom: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; }
+    .guide-toc ol { padding-left: 18px; margin: 0; }
+    .guide-toc li { margin-bottom: 6px; font-size: 14px; color: var(--ink-2); }
+    .guide-toc a { color: var(--page-accent); text-decoration: none; }
+    .guide-toc a:hover { text-decoration: underline; }
+    .gs { background: var(--card-alt); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; scroll-margin-top: 72px; }
+    .gs h2 { font-size: 1.2rem; color: var(--ink); border-left: 4px solid var(--page-accent); padding-left: 12px; margin-bottom: 14px; font-weight: 700; }
+    .gs h3 { font-size: 1rem; color: var(--ink-2); margin: 16px 0 8px; padding-bottom: 5px; border-bottom: 1px solid var(--border); font-weight: 700; }
+    .gs p { margin-bottom: 10px; color: var(--ink-2); font-size: 14px; line-height: 1.8; }
+    .sc-card { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .sc-card img { width: 100%; height: auto; display: block; }
+    .sc-card .sc-desc { padding: 12px 16px; background: var(--card-alt); }
+    .sc-card .sc-desc h4 { color: var(--accent); margin-bottom: 6px; font-size: 0.95rem; font-weight: 700; }
+    .sc-card .sc-desc p { color: var(--ink-2); font-size: 0.86rem; margin-bottom: 4px; line-height: 1.6; }
+    .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+    @media (max-width: 600px) { .sc-grid { grid-template-columns: 1fr; } }
+    .ic { display: grid; grid-template-columns: 64px 1fr; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; align-items: center; }
+    .ic-icon { width: 56px; height: 56px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; background: var(--card-alt); }
+    .ic-info h4 { font-size: 0.95rem; color: var(--ink); margin-bottom: 3px; font-weight: 700; }
+    .ic-info p { font-size: 0.84rem; color: var(--ink-2); margin: 4px 0 0; line-height: 1.6; }
+    .tag { display: inline-block; font-size: 0.68rem; padding: 1px 7px; border-radius: 999px; margin-right: 4px; font-weight: 700; border: 1px solid; }
+    .tag-priority { color: var(--c-7dtd); border-color: rgba(248,113,113,0.4); background: rgba(248,113,113,0.08); }
+    .tag-craft { color: var(--accent); border-color: rgba(77,159,255,0.4); background: rgba(77,159,255,0.08); }
+    .tag-loot { color: #4ade80; border-color: rgba(74,222,128,0.4); background: rgba(74,222,128,0.08); }
+    .tag-trade { color: #fbbf24; border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }
+    .yd { background: rgba(155,89,182,0.08); border: 1px solid rgba(155,89,182,0.3); border-radius: 10px; padding: 18px; margin: 14px 0; }
+    .yd h4 { color: #c084fc; font-size: 1rem; margin-bottom: 8px; font-weight: 700; }
+    .yd p { color: var(--ink-2); margin-bottom: 8px; font-size: 14px; }
+    .yd .quote-box { background: rgba(155,89,182,0.1); border-left: 3px solid rgba(155,89,182,0.5); padding: 10px 14px; border-radius: 5px; margin: 8px 0; font-style: italic; color: #d4b8f0; font-size: 13px; line-height: 1.8; }
+    .yd .quote-box .author { display: block; text-align: right; font-style: normal; color: rgba(155,89,182,0.8); margin-top: 6px; font-weight: 600; font-size: 12px; }
+    .tt { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.86rem; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .tt th { background: var(--card-alt); color: var(--muted); padding: 9px 12px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); }
+    .tt td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--ink-2); }
+    .tt tbody tr:last-child td { border-bottom: none; }
+    .tt tbody tr:hover td { background: rgba(255,255,255,0.03); }
+    .fc { display: flex; align-items: center; flex-wrap: wrap; margin: 14px 0; justify-content: center; gap: 0; }
+    .fs { background: var(--card-alt); border: 1px solid var(--border-hi); color: var(--ink); padding: 9px 14px; border-radius: 10px; font-size: 0.82rem; text-align: center; min-width: 100px; }
+    .fa { font-size: 1.2rem; color: var(--page-accent); padding: 0 4px; }
+    .gtip { background: rgba(77,159,255,0.07); border-left: 3px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; color: var(--ink-2); }
+    .gtip strong { color: var(--accent); }
+    .gwarn { background: rgba(248,113,113,0.07); border-left: 3px solid var(--c-7dtd); border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; color: var(--ink-2); }
+    .gwarn strong { color: var(--c-7dtd); }
+    .gcl { list-style: none; padding: 0; margin: 8px 0; }
+    .gcl li { padding: 6px 0 6px 26px; position: relative; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--ink-2); }
+    .gcl li:last-child { border-bottom: none; }
+    .gcl li::before { content: "☐"; position: absolute; left: 4px; color: var(--muted); }
+    @media (max-width: 600px) { .ic { grid-template-columns: 1fr; } .fc { flex-direction: column; } .fa { transform: rotate(90deg); } .gs { padding: 16px 14px; } }
   </style>
 </head>
-<body>
+<body class="page-7dtd">
+<main class="wrapper">
 
-<div class="header">
-  <h1>AEC x Project Z</h1>
-  <p>7 Days to Die オーバーホールMOD 序盤攻略ガイド</p>
-  <span class="badge">初心者向け</span>
-</div>
-
-<div class="container">
+<header>
+  <h1>⚔️ AEC x Project Z 序盤攻略ガイド</h1>
+  <div class="meta">
+    <div>対象: 7 Days to Die V2.x</div>
+    <div>初心者向け完全ガイド</div>
+    <div>最終更新: 2026-04-18</div>
+  </div>
+  <div class="mod-badges">
+    <span class="mod-badge mod-badge--server">⚙️ サーバーサイド</span>
+    <span class="mod-badge mod-badge--eac">🛡️ EAC フレンドリー</span>
+    <span class="mod-badge mod-badge--client">✅ クライアント導入不要</span>
+  </div>
+  <p class="backlink">
+    <a href="../index.html" class="btn btn-back">← 戻る</a>
+    &nbsp;
+    <a href="./7DaysGuide.html" class="btn">ガイド一覧へ</a>
+  </p>
+  <div class="hr"></div>
+</header>
 
   <!-- 目次 -->
-  <div class="toc">
+  <div class="guide-toc">
     <h2>目次</h2>
     <ol>
       <li><a href="#overview">MODの概要 — AEC x Project Z とは？</a></li>
@@ -322,7 +126,7 @@
   </div>
 
   <!-- 1. MOD概要 -->
-  <section id="overview">
+  <div class="gs" id="overview">
     <h2>1. MODの概要</h2>
     <p>
       <strong>AEC x Project Z</strong> は、7 Days to Die のための大型オーバーホールMODパックです。
@@ -330,7 +134,7 @@
       バランス調整・互換パッチ・QoL改善を加えた、単なる寄せ集めではない一体感のあるパッケージになっています。
     </p>
     <p>主な特徴は以下の通りです。</p>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>要素</th><th>内容</th></tr>
       <tr><td>最大レベル</td><td>500（バニラの約1.7倍）</td></tr>
       <tr><td>バックパック</td><td>98スロット（大幅拡張）</td></tr>
@@ -341,13 +145,13 @@
       <tr><td>経済</td><td>77カ国の暗号通貨を使った国際市場</td></tr>
       <tr><td>サーバー対応</td><td>サーバーサイドのみ（クライアント側のインストール不要）</td></tr>
     </table>
-    <div class="tip-box">
+    <div class="gtip">
       <strong>ヒント：</strong> このMODは新しいセーブデータが必要です。既存のセーブデータでは動作しないので、必ず新規ワールドで始めましょう。ゲームバージョン2.6が必要です。
     </div>
-  </section>
+  </div>
 
   <!-- 初期リスポーンアイテム完全攻略 -->
-  <section id="spawn-items">
+  <div class="gs" id="spawn-items">
     <h2>2. 初期リスポーンアイテム完全攻略</h2>
     <p>
       AEC x Project Z でリスポーンすると、バニラとは異なる<strong>6種類の特別なアイテム</strong>がインベントリに入っています。
@@ -356,7 +160,7 @@
     </p>
 
     <!-- ツールバー全体のスクショ -->
-    <div class="screenshot-card" style="margin-bottom:24px;">
+    <div class="sc-card" style="margin-bottom:24px;">
       <img src="../image/img/7dtd_img/img_toolbar.png" alt="初期リスポーン時のツールバー全体" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>初期リスポーン時のツールバー</h4>
@@ -366,7 +170,7 @@
 
     <!-- アイテム1: いらっしゃいませ！ -->
     <h3>① いらっしゃいませ！（赤い本）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_welcome.png" alt="いらっしゃいませ！ - ウェルカムブック" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>MODの説明書・ウェルカムガイド</h4>
@@ -374,7 +178,7 @@
         <p>操作：<strong>「読む」（Aキー）</strong>で内容を確認できます。</p>
       </div>
     </div>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>種類</td><td>説明書（読み物アイテム）</td></tr>
       <tr><td>操作</td><td>Aキーで「読む」</td></tr>
@@ -385,13 +189,13 @@
       このMODで何が変わったのかの概要が書かれています。新しいアーマー、武器、ステーション、ゾンビ、ボスなどの追加要素の紹介と、
       <strong>「自己特性」がスキルセクションで確認できる</strong>という重要な情報が記載されています。
     </p>
-    <div class="tip-box">
+    <div class="gtip">
       <strong>攻略ポイント：</strong> まずはこれを読んで全体像を掴みましょう。読んだ後はインベントリの圧迫を避けるため捨てて大丈夫です。
     </div>
 
     <!-- アイテム2: クエスト第1章 -->
     <h3>② クエスト「自分がふさわしいことを証明しろ！」第1章（緑の本）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_quest_ch1.png" alt="クエスト第1章 - お前がふさわしいことを証明しろ！" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>メインクエストチェーンの開始アイテム</h4>
@@ -399,14 +203,14 @@
         <p>操作：<strong>「読む」（Aキー）</strong>でクエスト第1章が開始されます。</p>
       </div>
     </div>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>種類</td><td>クエスト開始アイテム</td></tr>
       <tr><td>操作</td><td>Aキーで「読む」→ クエスト開始</td></tr>
       <tr><td>販売価格</td><td>なし</td></tr>
       <tr><td>捨てる？</td><td>絶対に捨てない！</td></tr>
     </table>
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>最重要警告：</strong> このクエストをキャンセルすると、<strong>クエストチェーン全体が中断</strong>されます。
       再開できるのは<strong>管理者（サーバーAdmin）のみ</strong>です。ソロプレイの場合、自分でコンソールから再開する必要があり非常に面倒です。
       <strong>絶対にキャンセルしないでください。</strong>
@@ -416,13 +220,13 @@
       クリアすることで次のクエスト・報酬・新しい装備レシピが順番に解放されていきます。
       序盤の目標はこのクエストラインを進めることです。
     </p>
-    <div class="tip-box">
+    <div class="gtip">
       <strong>攻略ポイント：</strong> 「自己特性のリセット」で特性を決めた後に読みましょう。クエストが始まったら、ジャーナル（Jキー）で目標を確認し、一つずつクリアしていきます。急がず着実に進めることが大切です。
     </div>
 
     <!-- アイテム3: メモ -->
     <h3>③ メモ / ノート（紙のアイテム）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_note.png" alt="メモ / ノート" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>ヒントや説明が書かれたメモ</h4>
@@ -430,7 +234,7 @@
         <p>操作：<strong>「読む」（Aキー）</strong>で内容を確認。</p>
       </div>
     </div>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>種類</td><td>情報アイテム（メモ / ノート）</td></tr>
       <tr><td>操作</td><td>Aキーで「読む」</td></tr>
@@ -443,7 +247,7 @@
 
     <!-- アイテム4: 自己特性のリセット -->
     <h3>④ 自己特性のリセット（赤い人形）×10個</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_trait_reset.png" alt="自己特性のリセット" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>キャラクターの特性をガチャできる最重要アイテム</h4>
@@ -451,7 +255,7 @@
         <p>操作：<strong>「使用」（Aキー）</strong>で自己特性がリセットされ、新たにランダム生成されます。</p>
       </div>
     </div>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>種類</td><td>消費アイテム（使用で消滅）</td></tr>
       <tr><td>所持数</td><td>10個（＝最大10回リロール可能）</td></tr>
@@ -460,24 +264,24 @@
       <tr><td>プラス特性</td><td>4〜8個がランダムに付与</td></tr>
       <tr><td>マイナス特性</td><td>6〜14個がランダムに付与</td></tr>
     </table>
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>重要な注意点：</strong>
       リセットするたびに特性が完全にランダムで再生成されます。<strong>次のリロールが前回より良くなる保証はありません。</strong>
       良い組み合わせが出たら、残りを使わずに温存するのも戦略です。
     </div>
 
     <h3 style="border-bottom:none; margin-top:24px;">自己特性リセットのおすすめ攻略法</h3>
-    <div class="flow-chart">
-      <div class="flow-step">スキル画面で<br>現在の特性確認</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">リセット使用<br>（Aキー）</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">スキル画面で<br>新特性を確認</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">満足？<br>YES→次へ<br>NO→もう1回</div>
+    <div class="fc">
+      <div class="fs">スキル画面で<br>現在の特性確認</div>
+      <span class="fa">→</span>
+      <div class="fs">リセット使用<br>（Aキー）</div>
+      <span class="fa">→</span>
+      <div class="fs">スキル画面で<br>新特性を確認</div>
+      <span class="fa">→</span>
+      <div class="fs">満足？<br>YES→次へ<br>NO→もう1回</div>
     </div>
 
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>ステップ</th><th>やること</th><th>詳細</th></tr>
       <tr><td>1</td><td>まず現状を確認</td><td>スキル画面（Nキー or メニュー）を開き、初期で割り振られた自己特性を確認。プラス・マイナスの内容をメモしましょう。</td></tr>
       <tr><td>2</td><td>2〜3回試す</td><td>最初の2〜3回で傾向を掴む。戦闘系プラス特性が多い構成が序盤は生存しやすい。</td></tr>
@@ -485,13 +289,13 @@
       <tr><td>4</td><td>残りは温存</td><td>中盤でプレイスタイルが定まってから使うのも有効。序盤で全部使い切る必要はありません。</td></tr>
     </table>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>攻略のコツ：</strong> マイナス特性の「数」よりも「内容」が重要です。移動速度低下やスタミナ消費増加など、序盤のサバイバルに直結するマイナス特性は避けたいところ。逆に、特定の武器ダメージ減少などプレイスタイルで回避できるマイナスは許容範囲です。
     </div>
 
     <!-- アイテム5: サイコロ -->
     <h3>⑤ ランダムボックス / ダイス（サイコロ型アイテム）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_dice.png" alt="ランダムボックス / ダイス" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>ランダムアイテムが入った箱</h4>
@@ -499,19 +303,19 @@
         <p>操作：<strong>「開く」（Aキー）</strong>でランダムなアイテムを入手。</p>
       </div>
     </div>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>種類</td><td>ランダム報酬アイテム（ルートボックス）</td></tr>
       <tr><td>操作</td><td>Aキーで「開く」</td></tr>
       <tr><td>中身</td><td>ランダム — 素材、食料、装備品などが出る可能性あり</td></tr>
     </table>
-    <div class="tip-box">
+    <div class="gtip">
       <strong>攻略ポイント：</strong> 序盤で開けてOKです。何が出るかはランダムですが、序盤に役立つアイテムが入っていることが多いです。インベントリに余裕があるうちに開けましょう。
     </div>
 
     <!-- アイテム6: クエストチケット -->
     <h3>⑥ シーズンチャレンジ — クエストチケット（紫のチケット）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_season_ticket.png" alt="シーズンチャレンジ クエストチケット" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>超高難度チャレンジモード「ヤウジャ」の開始 / 停止チケット</h4>
@@ -519,7 +323,7 @@
         <p>操作：<strong>「開く」（Aキー）</strong>で中に2つのアイテムが入っています。</p>
       </div>
     </div>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>種類</td><td>コンテナ（中に開始/キャンセル用アイテム各1つ）</td></tr>
       <tr><td>操作</td><td>Aキーで「開く」→ 2つのアイテムがインベントリに追加される</td></tr>
@@ -529,7 +333,7 @@
     </table>
 
     <!-- ヤウジャ詳細セクション -->
-    <div class="yautja-detail">
+    <div class="yd">
       <h4>シーズンチャレンジ「ヤウジャ」とは？</h4>
       <p>
         「ヤウジャ（Yautja）」は映画『プレデター』に登場するエイリアンハンターの名前に由来した、
@@ -539,7 +343,7 @@
     </div>
 
     <h3 style="border-bottom:none; margin-top: 12px;">⑥-A. シーズンチャレンジヤウジャ（開始アイテム）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_yautja_start.png" alt="シーズンチャレンジヤウジャ - 開始" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>チャレンジモード開始アイテム（紫の人形）</h4>
@@ -548,7 +352,7 @@
       </div>
     </div>
 
-    <div class="yautja-detail">
+    <div class="yd">
       <div class="quote-box">
         「最弱者でも生き残れることを証明するチャンスはあるが、相当な努力が必要になるだろう。始める前によく考えろ。
         一度テストが開始されたら、後戻りはできない。すべての肯定的な性格特性はリセットされ、否定的な性格特性はレベル3まで引き上げられる。
@@ -557,7 +361,7 @@
       </div>
     </div>
 
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>操作</td><td>Aキーで「使用」/ Sキーで「解体」/ Dキーで「落とす」</td></tr>
       <tr><td>販売価格</td><td>なし</td></tr>
@@ -567,7 +371,7 @@
       <tr><td>目標</td><td>生き残って最高レベル（Lv.500）に到達すること</td></tr>
     </table>
 
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>具体的に何が起こるのか：</strong><br><br>
       ・ <strong>プラス特性がすべて消滅</strong> — 戦闘ボーナス、移動速度向上、スタミナ回復などの有利な効果がすべて0になります。<br><br>
       ・ <strong>マイナス特性がレベル3に強化</strong> — すべてのデメリット（ダメージ減少、スタミナ消費増加、体力低下など）が最大レベルに。<br><br>
@@ -576,7 +380,7 @@
     </div>
 
     <h3 style="border-bottom:none; margin-top: 12px;">⑥-B. シーズンチャレンジ ヤウジャ キャンセル（中止アイテム）</h3>
-    <div class="screenshot-card">
+    <div class="sc-card">
       <img src="../image/img/7dtd_img/img_yautja_cancel.png" alt="シーズンチャレンジ ヤウジャ キャンセル" onerror="this.style.display='none'">
       <div class="sc-desc">
         <h4>チャレンジモード中止アイテム（紫の人形）</h4>
@@ -585,7 +389,7 @@
       </div>
     </div>
 
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>内容</th></tr>
       <tr><td>操作</td><td>Aキーで「使用」/ Sキーで「解体」/ Dキーで「落とす」</td></tr>
       <tr><td>効果</td><td>テストをキャンセルし、自己特性を再分配できるようにする</td></tr>
@@ -593,14 +397,14 @@
       <tr><td>注意</td><td>キャンセルしても、リセットされた特性が自動で元に戻るわけではない（再分配が「可能になる」だけ）</td></tr>
     </table>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>つまり：</strong> ヤウジャチャレンジを誤って始めてしまった場合の唯一の救済手段です。
       キャンセルすると「自己特性のリセット」アイテムが再び使えるようになりますが、
       <strong>特性は自動で元に戻りません</strong>。自分でリセットアイテムを使って再度ガチャする必要があります。
       キャンセルアイテムも1つしかないので、大切に保管しましょう。
     </div>
 
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>初心者への最終アドバイス：</strong><br>
       クエストチケットを開けてしまっても、中のアイテムを<strong>「使用」しなければ問題ありません</strong>。
       紫の人形2体（開始用・キャンセル用）はチェストにしまって保管しましょう。
@@ -609,25 +413,25 @@
 
     <!-- 使用順序まとめ -->
     <h3>おすすめの使用順序</h3>
-    <div class="flow-chart">
-      <div class="flow-step">① 赤い本<br>（読む）</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">② メモ<br>（読む）</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">③ 自己特性<br>リセット<br>（2〜5回）</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">④ 緑の本<br>（クエスト開始）</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">⑤ サイコロ<br>（開ける）</div>
+    <div class="fc">
+      <div class="fs">① 赤い本<br>（読む）</div>
+      <span class="fa">→</span>
+      <div class="fs">② メモ<br>（読む）</div>
+      <span class="fa">→</span>
+      <div class="fs">③ 自己特性<br>リセット<br>（2〜5回）</div>
+      <span class="fa">→</span>
+      <div class="fs">④ 緑の本<br>（クエスト開始）</div>
+      <span class="fa">→</span>
+      <div class="fs">⑤ サイコロ<br>（開ける）</div>
     </div>
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>⑥ シーズンチャレンジは保管！</strong> 初心者のうちは使わず、チェストにしまっておきましょう。
     </div>
 
-  </section>
+  </div>
 
   <!-- 3. Day 1〜3 -->
-  <section id="first-day">
+  <div class="gs" id="first-day">
     <h2>3. Day 1〜3：最初にやるべきこと</h2>
     <p>
       AEC x Project Z ではバニラ以上に序盤の行動が重要です。追加要素が多いため、何から手をつけるべきか迷いやすいですが、
@@ -635,16 +439,16 @@
     </p>
 
     <h3>Day 1 の優先行動</h3>
-    <div class="flow-chart">
-      <div class="flow-step">石・木を採集</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">石斧・石槍<br>をクラフト</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">建物を探索<br>（ルート）</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">仮拠点を<br>確保</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">キャンプ<br>ファイア設置</div>
+    <div class="fc">
+      <div class="fs">石・木を採集</div>
+      <span class="fa">→</span>
+      <div class="fs">石斧・石槍<br>をクラフト</div>
+      <span class="fa">→</span>
+      <div class="fs">建物を探索<br>（ルート）</div>
+      <span class="fa">→</span>
+      <div class="fs">仮拠点を<br>確保</div>
+      <span class="fa">→</span>
+      <div class="fs">キャンプ<br>ファイア設置</div>
     </div>
     <p>
       基本の流れはバニラと同じですが、<strong>ルートの中身がMODにより大きく変化</strong>しています。
@@ -652,30 +456,30 @@
     </p>
 
     <h3>Day 2〜3 で意識すること</h3>
-    <div class="item-card">
-      <div class="item-icon resource">🔩</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon resource">🔩</div>
+      <div class="ic-info">
         <h4>ユニバーサルパーツの蓄積を始める</h4>
         <span class="tag tag-priority">最重要</span>
         <p>不要な武器・ツール・防具は<strong>分解してユニバーサルパーツに変換</strong>しましょう。序盤から意識的に集めておくと、中盤以降の装備クラフトが格段に楽になります。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon economy">👂</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon economy">👂</div>
+      <div class="ic-info">
         <h4>ゾンビの耳を集める</h4>
         <span class="tag tag-priority">重要</span>
         <p>倒したゾンビから「ゾンビの耳（Zombie Ears）」を収集しましょう。これは経済システムのバッテリーとの交換に使う貴重な通貨素材です。</p>
       </div>
     </div>
 
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>注意：</strong> 序盤で強い Project Z 装備が手に入ることがありますが、それに依存しすぎないこと。修理素材やアップグレード素材が序盤では入手困難なため、使い捨てになりやすいです。
     </div>
-  </section>
+  </div>
 
   <!-- 3. ツール・武器 -->
-  <section id="tools">
+  <div class="gs" id="tools">
     <h2>4. 序盤のツール・武器ガイド</h2>
     <p>
       このMODでは装備がT05〜T15のティアシステムで管理されています。
@@ -683,17 +487,17 @@
     </p>
 
     <h3>序盤おすすめツール</h3>
-    <div class="item-card">
-      <div class="item-icon tool">⛏</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon tool">⛏</div>
+      <div class="ic-info">
         <h4>石斧（Stone Axe）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>万能な序盤ツール。木の伐採、石の採掘、近接攻撃すべてに使えます。最初に必ず作りましょう。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon tool">🔨</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon tool">🔨</div>
+      <div class="ic-info">
         <h4>鉄ツール（Iron Pickaxe / Iron Axe）</h4>
         <span class="tag tag-craft">クラフト</span> <span class="tag tag-loot">ルート</span>
         <p>鉄が手に入り次第、早めに移行。採掘・伐採効率が大幅アップし、ユニバーサルパーツの収集ペースも上がります。</p>
@@ -701,193 +505,193 @@
     </div>
 
     <h3>序盤おすすめ武器</h3>
-    <div class="item-card">
-      <div class="item-icon weapon">🗡</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon weapon">🗡</div>
+      <div class="ic-info">
         <h4>石槍 / 木製こん棒</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>最序盤の近接武器。石槍はリーチが長く、1対1のゾンビ処理に有効。こん棒はノックバック性能が高い。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon weapon">🏹</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon weapon">🏹</div>
+      <div class="ic-info">
         <h4>原始的な弓（Primitive Bow）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>序盤で唯一の遠距離武器。ヘッドショットを狙えば少ない矢でゾンビを処理可能。弾薬が不要なのが序盤の強み。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon weapon">🔫</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon weapon">🔫</div>
+      <div class="ic-info">
         <h4>ブランダーバス（Blunderbuss）</h4>
         <span class="tag tag-craft">クラフト</span> <span class="tag tag-loot">ルート</span>
         <p>石と鉄で作れる序盤の銃器。弾はクラフト可能で、緊急時の火力として信頼できます。ただし連射性能は低い。</p>
       </div>
     </div>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>ヒント：</strong> 不要な武器・ツールはすべて分解してユニバーサルパーツに変換しましょう。売るより分解の方が中長期的にお得です。ただし分解には25%のペナルティがある（50個分解で37個のパーツ）ことを覚えておきましょう。
     </div>
-  </section>
+  </div>
 
   <!-- 4. 防具 -->
-  <section id="armor">
+  <div class="gs" id="armor">
     <h2>5. 防具と防御アイテム</h2>
     <p>
       ゾンビの攻撃力がティアごとに大幅に上昇するこのMODでは、防具のアップグレードを怠ると一瞬で倒されます。
       序盤はバニラ防具をベースに、見つけたものを積極的に装備しましょう。
     </p>
 
-    <div class="item-card">
-      <div class="item-icon armor">🧥</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon armor">🧥</div>
+      <div class="ic-info">
         <h4>植物繊維の服（Plant Fiber Clothing）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>最低限の防御と保温。Day 1で草を集めてすぐに作れます。ないよりはマシ程度ですが、序盤では重要。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon armor">🛡</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon armor">🛡</div>
+      <div class="ic-info">
         <h4>皮革防具（Leather Armor）</h4>
         <span class="tag tag-craft">クラフト</span> <span class="tag tag-loot">ルート</span>
         <p>動物の皮を集めて作る中序盤の主力防具。バランスの取れた防御力で、鉄防具までのつなぎとして最適。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon armor">⚔</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon armor">⚔</div>
+      <div class="ic-info">
         <h4>鉄防具（Iron Armor）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>鉄鍛造ができるようになったらすぐに作りたい。スタミナ消費が増えますが、序盤〜中盤の安心感が段違い。</p>
       </div>
     </div>
 
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>注意：</strong> このMODではゾンビがT05（Veteran）からT15（Mythic）まで強化されます。GameStage 600を超えると敵が急激に強くなるため、防具の更新を忘れずに。
     </div>
-  </section>
+  </div>
 
   <!-- 5. 食料・回復 -->
-  <section id="food">
+  <div class="gs" id="food">
     <h2>6. 食料・回復アイテム</h2>
     <p>
       Project Z では新しい食料レシピやエリクサーが追加されています。
       キッチンストーブなどの改良ワークステーションを活用すると、より効率的に食料を確保できます。
     </p>
 
-    <div class="item-card">
-      <div class="item-icon food">🥩</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon food">🥩</div>
+      <div class="ic-info">
         <h4>焼き肉 / グリル肉（Grilled Meat）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>キャンプファイアで調理可能。動物を狩って肉を確保し、腐る前に焼きましょう。序盤の主食。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon food">🥫</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon food">🥫</div>
+      <div class="ic-info">
         <h4>缶詰食料（Canned Food）</h4>
         <span class="tag tag-loot">ルート</span>
         <p>探索中に見つかる安定した食料源。腐らないため備蓄に最適。空き缶は鍛造素材にもなるので無駄がない。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon food">💧</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon food">💧</div>
+      <div class="ic-info">
         <h4>きれいな水（Clean Water）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>汚水をキャンプファイアで煮沸して作成。改良コレクターを入手すると、水フィルター装着で5缶分のきれいな水を一度に生成可能。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon food">🧪</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon food">🧪</div>
+      <div class="ic-info">
         <h4>エリクサー（Elixirs）— Project Z 追加</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>Project Z で追加された特殊回復アイテム。マスタリースキルを進めることで新しいレシピが解放されます。中盤以降の重要な回復手段に。</p>
       </div>
     </div>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>ヒント：</strong> キッチンストーブ（Kitchen Stove）は通常のキャンプファイアより注文キューと出力量が増加しています。見つけたら早めに拠点に設置しましょう。
     </div>
-  </section>
+  </div>
 
   <!-- 6. ワークステーション -->
-  <section id="workstation">
+  <div class="gs" id="workstation">
     <h2>7. クラフト作業台と新ワークステーション</h2>
     <p>
       Project Z では従来のワークステーションに加え、改良版や新しい作業台が追加されています。
       序盤で確保すべき作業台と、その役割を把握しておきましょう。
     </p>
 
-    <div class="item-card">
-      <div class="item-icon station">🔥</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon station">🔥</div>
+      <div class="ic-info">
         <h4>キャンプファイア（Campfire）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>基本の調理・煮沸ステーション。Day 1 に必ず設置。後にキッチンストーブへのアップグレードを目指しましょう。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon station">🍳</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon station">🍳</div>
+      <div class="ic-info">
         <h4>キッチンストーブ（Kitchen Stove）— 改良版</h4>
         <span class="tag tag-loot">ルート</span> <span class="tag tag-craft">クラフト</span>
         <p>キャンプファイアの上位版。注文キューと出力量が増加しており、大量の食料を一度に調理できます。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon station">🛠</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon station">🛠</div>
+      <div class="ic-info">
         <h4>ワークベンチ（Workbench）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>中級以上のツール・武器・防具クラフトに必要。鉄ツール類の製作はここから。早期設置が理想。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon station">⚙</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon station">⚙</div>
+      <div class="ic-info">
         <h4>鍛造炉（Forge）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>鉄・鋼の精錬に必要。鉄防具・ツールの素材を作るため、Day 3〜5 には欲しいステーション。</p>
       </div>
     </div>
-    <div class="item-card">
-      <div class="item-icon station">💧</div>
-      <div class="item-info">
+    <div class="ic">
+      <div class="ic-icon station">💧</div>
+      <div class="ic-info">
         <h4>改良コレクター（Improved Collector）</h4>
         <span class="tag tag-craft">クラフト</span>
         <p>通常の露点コレクターの改良版。水の蓄積速度が30%アップ。サイズは4×4と大きいですが、水フィルター装着で5缶分の清潔な水を生成できます。</p>
       </div>
     </div>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>ヒント：</strong> ワークステーション・マスターのスキル上限は50冊まで拡張されています。雑誌を見つけたら積極的に読んで、クラフト能力を高めましょう。
     </div>
-  </section>
+  </div>
 
   <!-- 7. ユニバーサルパーツ -->
-  <section id="universal">
+  <div class="gs" id="universal">
     <h2>8. ユニバーサルパーツの仕組み</h2>
     <p>
       <strong>ユニバーサルパーツ</strong>は Project Z で追加された最も重要なリソースの一つです。
       すべての武器・ツール・防具を分解して得られる汎用素材で、スキル解放後は必要なパーツの再合成が可能です。
     </p>
 
-    <div class="flow-chart">
-      <div class="flow-step">不要な装備</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">分解<br><small>（25%ペナルティ）</small></div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">ユニバーサル<br>パーツ獲得</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">必要なパーツ<br>に再合成</div>
+    <div class="fc">
+      <div class="fs">不要な装備</div>
+      <span class="fa">→</span>
+      <div class="fs">分解<br><small>（25%ペナルティ）</small></div>
+      <span class="fa">→</span>
+      <div class="fs">ユニバーサル<br>パーツ獲得</div>
+      <span class="fa">→</span>
+      <div class="fs">必要なパーツ<br>に再合成</div>
     </div>
 
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>項目</th><th>詳細</th></tr>
       <tr><td>入手方法</td><td>武器・ツール・防具を分解</td></tr>
       <tr><td>分解ペナルティ</td><td>25%（例：メインパーツ1個 → ユニバーサルパーツ1個、50個一括分解 → 37個）</td></tr>
@@ -895,13 +699,13 @@
       <tr><td>用途</td><td>任意の武器・ツール・防具パーツの作成</td></tr>
     </table>
 
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>重要：</strong> 序盤から不要なアイテムは売るよりも分解を優先しましょう。ユニバーサルパーツの備蓄が中盤以降の装備強化を大きく左右します。
     </div>
-  </section>
+  </div>
 
   <!-- 8. 経済システム -->
-  <section id="economy">
+  <div class="gs" id="economy">
     <h2>9. 経済システム — International Market</h2>
     <p>
       AEC International Market は、バニラの経済システムを大幅に拡張するシステムです。
@@ -909,19 +713,19 @@
     </p>
 
     <h3>経済の流れ</h3>
-    <div class="flow-chart">
-      <div class="flow-step">ゾンビを倒す</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">ゾンビの耳<br>を収集</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">耳をバッテリー<br>と交換</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">暗号マイナー<br>を稼働</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">通貨で<br>クラフト</div>
+    <div class="fc">
+      <div class="fs">ゾンビを倒す</div>
+      <span class="fa">→</span>
+      <div class="fs">ゾンビの耳<br>を収集</div>
+      <span class="fa">→</span>
+      <div class="fs">耳をバッテリー<br>と交換</div>
+      <span class="fa">→</span>
+      <div class="fs">暗号マイナー<br>を稼働</div>
+      <span class="fa">→</span>
+      <div class="fs">通貨で<br>クラフト</div>
     </div>
 
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>要素</th><th>内容</th></tr>
       <tr><td>通貨の種類</td><td>77カ国の暗号通貨（国ごとに異なる）</td></tr>
       <tr><td>通貨のティア</td><td>5段階</td></tr>
@@ -931,13 +735,13 @@
       <tr><td>接続カード</td><td>国ごとの接続カードが必要（通貨の種類を決定）</td></tr>
     </table>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>序盤のコツ：</strong> ゾンビの耳は序盤から意識的に集めましょう。バッテリーの入手はエアドロップ経由のため、交換タイミングを逃さないことが重要です。経済システムが本格的に動き出すのは中盤以降ですが、素材の備蓄は序盤から始めるべきです。
     </div>
-  </section>
+  </div>
 
   <!-- 9. マスタリースキル -->
-  <section id="mastery">
+  <div class="gs" id="mastery">
     <h2>10. マスタリースキルと成長</h2>
     <p>
       Project Z では、バニラのスキルツリーに加えて「マスタリースキル」という新しい成長システムが追加されています。
@@ -945,7 +749,7 @@
     </p>
 
     <h3>マスタリーの分野</h3>
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>分野</th><th>解放されるもの</th></tr>
       <tr><td>ツールマスタリー</td><td>新しい改良ツール、上位ワークステーション</td></tr>
       <tr><td>遠距離武器マスタリー</td><td>新規 / 改良された遠距離武器</td></tr>
@@ -956,30 +760,30 @@
     </table>
 
     <h3>マスタリージャーナルの仕組み</h3>
-    <div class="flow-chart">
-      <div class="flow-step">パークを<br>習得</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">基本ジャーナル<br>×6 をクラフト</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">マスタリー<br>ジャーナル×1<br>に合成</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">マスタリー<br>スキルUP</div>
+    <div class="fc">
+      <div class="fs">パークを<br>習得</div>
+      <span class="fa">→</span>
+      <div class="fs">基本ジャーナル<br>×6 をクラフト</div>
+      <span class="fa">→</span>
+      <div class="fs">マスタリー<br>ジャーナル×1<br>に合成</div>
+      <span class="fa">→</span>
+      <div class="fs">マスタリー<br>スキルUP</div>
     </div>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>序盤のアドバイス：</strong> マスタリーは中盤以降に本格化しますが、序盤からパーク選びを意識しておくと後が楽です。まずはツールマスタリーと近接武器マスタリーを優先すると、序盤の生存率が上がります。
     </div>
-  </section>
+  </div>
 
   <!-- 10. ティアシステム -->
-  <section id="tier">
+  <div class="gs" id="tier">
     <h2>11. ティアシステム（T05〜T15）</h2>
     <p>
       AEC Endgame Overhaul の核心となるシステムです。ゾンビと装備の両方がティアで管理され、
       GameStage の上昇に応じて敵が段階的に強化されます。序盤のうちにこの仕組みを理解しておきましょう。
     </p>
 
-    <table class="tier-table">
+    <table class="tt">
       <tr><th>ティア</th><th>名称</th><th>難易度の目安</th></tr>
       <tr><td>T05</td><td>Veteran（ベテラン）</td><td>GS 600〜 ここからMOD本番</td></tr>
       <tr><td>T06</td><td>Brutal（ブルータル）</td><td>体感的に一気に強くなる</td></tr>
@@ -999,18 +803,18 @@
       序盤はT05のクエストから順番にクリアしていきましょう。
     </p>
 
-    <div class="warn-box">
+    <div class="gwarn">
       <strong>注意：</strong> 各ティアは「小さなステータス増加」ではなく「本当のパワースパイク」です。ティアが上がるたびに装備の見直しが必須です。装備更新を怠ると、あっという間に戦闘不能になります。
     </div>
-  </section>
+  </div>
 
   <!-- 11. チェックリスト -->
-  <section id="checklist">
+  <div class="gs" id="checklist">
     <h2>12. 序盤チェックリスト</h2>
     <p>以下を参考に、序盤の進行を確認してみてください。</p>
 
     <h3>Day 1</h3>
-    <ul class="checklist">
+    <ul class="gcl">
       <li>石斧と石槍をクラフトした</li>
       <li>植物繊維の服を装備した</li>
       <li>キャンプファイアを設置した</li>
@@ -1019,7 +823,7 @@
     </ul>
 
     <h3>Day 2〜3</h3>
-    <ul class="checklist">
+    <ul class="gcl">
       <li>鍛造炉を設置し、鉄の精錬を開始した</li>
       <li>鉄ツール（ピッケル or 斧）を入手した</li>
       <li>不要装備をユニバーサルパーツに分解した</li>
@@ -1028,7 +832,7 @@
     </ul>
 
     <h3>Day 4〜7（最初のブラッドムーンまで）</h3>
-    <ul class="checklist">
+    <ul class="gcl">
       <li>皮革防具 or 鉄防具を揃えた</li>
       <li>ブラッドムーン用の防衛拠点を準備した</li>
       <li>弓 or ブランダーバスと弾薬を備蓄した</li>
@@ -1037,18 +841,16 @@
       <li>トレーダーを訪問し、クエストを受注した</li>
     </ul>
 
-    <div class="tip-box">
+    <div class="gtip">
       <strong>最後に：</strong> AEC x Project Z は非常に奥が深いMODパックです。序盤を乗り越えれば、ティアシステム・ボス戦・国際市場など、バニラでは味わえない膨大なコンテンツが待っています。焦らず、一歩ずつ進めていきましょう！
     </div>
-  </section>
+  </div>
 
-</div>
-
-<footer>
-  <p>AEC x Project Z 序盤攻略ガイド | 初心者向け</p>
-  <p>参考: <a href="https://www.nexusmods.com/7daystodie/mods/10099" target="_blank">Nexus Mods</a> | <a href="https://7daystodiemods.com/aec-x-project-z-overhaul-pack/" target="_blank">7DaysToDieMods.com</a> | <a href="http://7dtdprojectz.com/" target="_blank">Project Z 公式</a></p>
-  <p style="margin-top: 8px;">※ このガイドはMODの公開情報を基に作成されています。MODのアップデートにより内容が変更される場合があります。</p>
+<footer class="footer">
+  © のんびりサバイバル鯖
+  <a href="https://discord.gg/tfYDH6Q3Th" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
 </footer>
 
+</main>
 </body>
 </html>
