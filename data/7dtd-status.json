@@ -10,11 +10,11 @@
   "players": 1,
   "maxPlayers": 64,
   "bots": 0,
-  "ping": 176.5,
+  "ping": 184.7,
   "password": false,
   "vac": false,
   "playerList": [],
-  "checkedAt": "2026-04-20T06:01:49+00:00",
+  "checkedAt": "2026-04-20T08:23:50+00:00",
   "history": [
     {
       "t": "2026-04-20T03:31:51+00:00",
@@ -25,11 +25,16 @@
       "t": "2026-04-20T06:01:49+00:00",
       "p": 1,
       "on": true
+    },
+    {
+      "t": "2026-04-20T08:23:50+00:00",
+      "p": 1,
+      "on": true
     }
   ],
   "stats": {
     "peak": 1,
-    "onChecks": 2,
-    "total": 2
+    "onChecks": 3,
+    "total": 3
   }
 }
