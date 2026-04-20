@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "status": "unknown",
+  "host": "220.158.24.94",
+  "port": 26900,
+  "players": 0,
+  "maxPlayers": 64,
+  "playerList": [],
+  "checkedAt": null,
+  "history": [],
+  "stats": {
+    "peak": 0,
+    "onChecks": 0,
+    "total": 0
+  }
+}

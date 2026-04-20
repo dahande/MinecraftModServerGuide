@@ -229,7 +229,9 @@
   /* --- 設定: IPとポートのみで構成 --- */
   var SERVER_IP   = '220.158.24.94';
   var SERVER_PORT = 26900;
-  var QUERY_URL   = 'https://api.battlemetrics.com/servers/38692738?include=player';
+  /* 独自監視システム: GitHub Actions から定期的に Steam A2S
+     プロトコルで問い合わせた結果を JSON として配信している。 */
+  var QUERY_URL   = '../data/7dtd-status.json';
   var REFRESH_SEC = 60;
   var STORE_KEY   = 'svr-7dtd-';
   var MAX_HISTORY = 1440;   /* 24時間分（1分間隔） */
@@ -503,18 +505,18 @@
     var refreshBtn = document.getElementById('refresh-btn');
     if (refreshBtn) refreshBtn.disabled = true;
 
-    fetch(QUERY_URL, { cache: 'no-store' })
+    /* Cache buster: GitHub Pages/CDN may cache the JSON aggressively */
+    fetch(QUERY_URL + '?t=' + Date.now(), { cache: 'no-store' })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
       .then(function (data) {
-        var attr = data.data && data.data.attributes;
-        if (!attr) throw new Error('No data');
+        if (!data || typeof data !== 'object') throw new Error('No data');
 
-        var online = attr.status === 'online';
-        var cnt    = attr.players    || 0;
-        var max    = attr.maxPlayers || 64;
+        var online = data.status === 'online';
+        var cnt    = data.players    || 0;
+        var max    = data.maxPlayers || 64;
 
         if (online) {
           var pct = max > 0 ? Math.round(cnt / max * 100) : 0;
@@ -526,8 +528,9 @@
           bar.classList.toggle('full', pct >= 100);
 
           /* Player list */
-          var players = (data.included || []).filter(function (i) { return i.type === 'player'; });
-          var names   = players.map(function (p) { return p.attributes.name; });
+          var names = (data.playerList || [])
+            .map(function (p) { return (p && p.name) ? p.name : ''; })
+            .filter(function (n) { return n; });
           var listEl  = document.getElementById('player-list');
           var listSec = document.getElementById('player-list-section');
           if (names.length > 0) {
@@ -539,7 +542,7 @@
             listSec.style.display = 'none';
           }
 
-          /* Track sessions (client-side) */
+          /* Track sessions (client-side, ログイン/ログアウト検知) */
           var sessions = trackPlayers(names);
           renderSessions(sessions);
           showState('online');
@@ -551,14 +554,38 @@
           showState('offline');
         }
 
-        /* Record data point + update stats */
-        var history = recordHistory(cnt, online);
-        var stats   = updateServerStats(cnt, online);
+        /* Chart/Stats: サーバー側 (GitHub Actions) の履歴があれば優先利用。
+           無ければクライアント側で蓄積する。 */
+        var history, stats;
+        if (Array.isArray(data.history) && data.history.length > 0) {
+          history = data.history.map(function (h) {
+            return {
+              t: typeof h.t === 'string' ? new Date(h.t).getTime() : h.t,
+              p: h.p || 0,
+              on: !!h.on
+            };
+          });
+          save('history', history);
+        } else {
+          history = recordHistory(cnt, online);
+        }
+        if (data.stats && typeof data.stats === 'object') {
+          stats = {
+            first: data.stats.first || null,
+            peak:  data.stats.peak  || 0,
+            onChecks: data.stats.onChecks || 0,
+            total: data.stats.total || 0
+          };
+          save('stats', stats);
+        } else {
+          stats = updateServerStats(cnt, online);
+        }
         renderChart(history);
         renderStats(stats);
 
+        var lastTs = data.checkedAt ? new Date(data.checkedAt) : new Date();
         document.getElementById('last-updated').textContent =
-          new Date().toLocaleTimeString('ja-JP');
+          lastTs.toLocaleTimeString('ja-JP');
       })
       .catch(function () {
         showState('error');
