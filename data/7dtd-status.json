@@ -7,14 +7,14 @@
   "map": "Navezgane",
   "game": "7 Days To Die",
   "version": "01.02.06",
-  "players": 1,
+  "players": 4,
   "maxPlayers": 64,
   "bots": 0,
-  "ping": 206.7,
+  "ping": 114.6,
   "password": false,
   "vac": false,
   "playerList": [],
-  "checkedAt": "2026-04-20T11:42:27+00:00",
+  "checkedAt": "2026-04-20T12:50:01+00:00",
   "history": [
     {
       "t": "2026-04-20T03:31:51+00:00",
@@ -40,11 +40,16 @@
       "t": "2026-04-20T11:42:27+00:00",
       "p": 1,
       "on": true
+    },
+    {
+      "t": "2026-04-20T12:50:01+00:00",
+      "p": 4,
+      "on": true
     }
   ],
   "stats": {
-    "peak": 1,
-    "onChecks": 5,
-    "total": 5
+    "peak": 4,
+    "onChecks": 6,
+    "total": 6
   }
 }
