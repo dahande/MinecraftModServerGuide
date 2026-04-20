@@ -1,0 +1,58 @@
+name: 7DTD Server Status
+
+on:
+  schedule:
+    # Every 5 minutes. GitHub's scheduler is best-effort; actual cadence
+    # may drift during peak load.
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/query_7dtd.py'
+      - '.github/workflows/7dtd-status.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 7dtd-status
+  cancel-in-progress: false
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --quiet python-a2s==1.4.1
+
+      - name: Query server
+        run: python scripts/query_7dtd.py
+        env:
+          SERVER_HOST: 220.158.24.94
+          SERVER_PORT: 26900
+
+      - name: Commit updated status
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- data/7dtd-status.json; then
+            git add data/7dtd-status.json
+            git commit -m "chore: update 7DTD server status [skip ci]"
+            for i in 1 2 3 4; do
+              if git push; then exit 0; fi
+              sleep $((2 ** i))
+              git pull --rebase --autostash || true
+            done
+            git push
+          else
+            echo "No status change."
+          fi
