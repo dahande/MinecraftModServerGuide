@@ -142,7 +142,7 @@
 <!-- フッター行 -->
 <div class="status-footer">
   <span>最終更新: <span id="last-updated" style="font-family:monospace;">--:--:--</span></span>
-  <span class="status-countdown"><span id="countdown">30</span> 秒後に自動更新</span>
+  <span class="status-countdown"><span id="countdown">60</span> 秒後に自動更新</span>
   <button class="btn" id="refresh-btn" style="font-size:12px; padding:5px 14px;" onclick="fetchStatus()">
     🔄 今すぐ更新
   </button>
@@ -223,18 +223,12 @@
 <script>
 /* =====================================================
    Server Monitor – IP: 220.158.24.94:26900
-   独自サーバーモニタリングシステム
    ===================================================== */
 (function () {
-  /* 独自監視システム:
-     ① Fly.io 上のリアルタイム API (api-server) が A2S で直接クエリ
-     ② 失敗時は GitHub Actions が定期更新する静的 JSON にフォールバック
-     Fly.io のアプリ名を変更した場合 API_URL を差し替える */
-  var API_URL      = 'https://nonbiri-7dtd-status.fly.dev/status';
-  var FALLBACK_URL = '../data/7dtd-status.json';
-  var REFRESH_SEC  = 30;
-  var STORE_KEY    = 'svr-7dtd-';
-  var MAX_HISTORY  = 1440;   /* 24時間分（1分間隔） */
+  var QUERY_URL   = 'https://api.battlemetrics.com/servers/38692738?include=player';
+  var REFRESH_SEC = 60;
+  var STORE_KEY   = 'svr-7dtd-';
+  var MAX_HISTORY = 1440;   /* 24時間分（1分間隔） */
   var MAX_SESSIONS = 200;
 
   var cdTimer, cdVal = REFRESH_SEC;
@@ -505,24 +499,18 @@
     var refreshBtn = document.getElementById('refresh-btn');
     if (refreshBtn) refreshBtn.disabled = true;
 
-    /* Cache buster: GitHub Pages/CDN may cache the JSON aggressively */
-    var tryJSON = function (url) {
-      return fetch(url + (url.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now(),
-                   { cache: 'no-store' })
-        .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        });
-    };
-
-    /* Fly.io → フォールバックで静的 JSON。どちらも NG なら error ステート */
-    tryJSON(API_URL).catch(function () { return tryJSON(FALLBACK_URL); })
+    fetch(QUERY_URL, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
       .then(function (data) {
-        if (!data || typeof data !== 'object') throw new Error('No data');
+        var attr = data.data && data.data.attributes;
+        if (!attr) throw new Error('No data');
 
-        var online = data.status === 'online';
-        var cnt    = data.players    || 0;
-        var max    = data.maxPlayers || 64;
+        var online = attr.status === 'online';
+        var cnt    = attr.players    || 0;
+        var max    = attr.maxPlayers || 64;
 
         if (online) {
           var pct = max > 0 ? Math.round(cnt / max * 100) : 0;
@@ -534,9 +522,8 @@
           bar.classList.toggle('full', pct >= 100);
 
           /* Player list */
-          var names = (data.playerList || [])
-            .map(function (p) { return (p && p.name) ? p.name : ''; })
-            .filter(function (n) { return n; });
+          var players = (data.included || []).filter(function (i) { return i.type === 'player'; });
+          var names   = players.map(function (p) { return p.attributes.name; });
           var listEl  = document.getElementById('player-list');
           var listSec = document.getElementById('player-list-section');
           if (names.length > 0) {
@@ -548,7 +535,7 @@
             listSec.style.display = 'none';
           }
 
-          /* Track sessions (client-side, ログイン/ログアウト検知) */
+          /* Track sessions (client-side) */
           var sessions = trackPlayers(names);
           renderSessions(sessions);
           showState('online');
@@ -560,38 +547,14 @@
           showState('offline');
         }
 
-        /* Chart/Stats: サーバー側 (GitHub Actions) の履歴があれば優先利用。
-           無ければクライアント側で蓄積する。 */
-        var history, stats;
-        if (Array.isArray(data.history) && data.history.length > 0) {
-          history = data.history.map(function (h) {
-            return {
-              t: typeof h.t === 'string' ? new Date(h.t).getTime() : h.t,
-              p: h.p || 0,
-              on: !!h.on
-            };
-          });
-          save('history', history);
-        } else {
-          history = recordHistory(cnt, online);
-        }
-        if (data.stats && typeof data.stats === 'object') {
-          stats = {
-            first: data.stats.first || null,
-            peak:  data.stats.peak  || 0,
-            onChecks: data.stats.onChecks || 0,
-            total: data.stats.total || 0
-          };
-          save('stats', stats);
-        } else {
-          stats = updateServerStats(cnt, online);
-        }
+        /* Record data point + update stats */
+        var history = recordHistory(cnt, online);
+        var stats   = updateServerStats(cnt, online);
         renderChart(history);
         renderStats(stats);
 
-        var lastTs = data.checkedAt ? new Date(data.checkedAt) : new Date();
         document.getElementById('last-updated').textContent =
-          lastTs.toLocaleTimeString('ja-JP');
+          new Date().toLocaleTimeString('ja-JP');
       })
       .catch(function () {
         showState('error');
