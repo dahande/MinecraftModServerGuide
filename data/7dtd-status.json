@@ -1,16 +1,30 @@
 {
-  "ok": false,
-  "status": "unknown",
+  "ok": true,
+  "status": "online",
   "host": "220.158.24.94",
   "port": 26900,
+  "name": "【JP/PvP/日本公式鯖】血祭だぁ！",
+  "map": "Navezgane",
+  "game": "7 Days To Die",
+  "version": "01.02.06",
   "players": 0,
   "maxPlayers": 64,
+  "bots": 0,
+  "ping": 179.0,
+  "password": false,
+  "vac": false,
   "playerList": [],
-  "checkedAt": null,
-  "history": [],
+  "checkedAt": "2026-04-20T03:31:51+00:00",
+  "history": [
+    {
+      "t": "2026-04-20T03:31:51+00:00",
+      "p": 0,
+      "on": true
+    }
+  ],
   "stats": {
     "peak": 0,
-    "onChecks": 0,
-    "total": 0
+    "onChecks": 1,
+    "total": 1
   }
 }
