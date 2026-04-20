@@ -142,7 +142,7 @@
 <!-- フッター行 -->
 <div class="status-footer">
   <span>最終更新: <span id="last-updated" style="font-family:monospace;">--:--:--</span></span>
-  <span class="status-countdown"><span id="countdown">60</span> 秒後に自動更新</span>
+  <span class="status-countdown"><span id="countdown">30</span> 秒後に自動更新</span>
   <button class="btn" id="refresh-btn" style="font-size:12px; padding:5px 14px;" onclick="fetchStatus()">
     🔄 今すぐ更新
   </button>
@@ -226,12 +226,15 @@
    独自サーバーモニタリングシステム
    ===================================================== */
 (function () {
-  /* 独自監視システム: GitHub Actions から定期的に Steam A2S
-     プロトコルで問い合わせた結果を JSON として配信している。 */
-  var QUERY_URL   = '../data/7dtd-status.json';
-  var REFRESH_SEC = 60;
-  var STORE_KEY   = 'svr-7dtd-';
-  var MAX_HISTORY = 1440;   /* 24時間分（1分間隔） */
+  /* 独自監視システム:
+     ① Fly.io 上のリアルタイム API (api-server) が A2S で直接クエリ
+     ② 失敗時は GitHub Actions が定期更新する静的 JSON にフォールバック
+     Fly.io のアプリ名を変更した場合 API_URL を差し替える */
+  var API_URL      = 'https://nonbiri-7dtd-status.fly.dev/status';
+  var FALLBACK_URL = '../data/7dtd-status.json';
+  var REFRESH_SEC  = 30;
+  var STORE_KEY    = 'svr-7dtd-';
+  var MAX_HISTORY  = 1440;   /* 24時間分（1分間隔） */
   var MAX_SESSIONS = 200;
 
   var cdTimer, cdVal = REFRESH_SEC;
@@ -503,11 +506,17 @@
     if (refreshBtn) refreshBtn.disabled = true;
 
     /* Cache buster: GitHub Pages/CDN may cache the JSON aggressively */
-    fetch(QUERY_URL + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
+    var tryJSON = function (url) {
+      return fetch(url + (url.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now(),
+                   { cache: 'no-store' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        });
+    };
+
+    /* Fly.io → フォールバックで静的 JSON。どちらも NG なら error ステート */
+    tryJSON(API_URL).catch(function () { return tryJSON(FALLBACK_URL); })
       .then(function (data) {
         if (!data || typeof data !== 'object') throw new Error('No data');
 
