@@ -51,6 +51,28 @@ function showToast(msg) {
   }, 2400);
 }
 
+/* ---- Tooltip (tap toggle for mobile / outside-click & ESC closes) ---- */
+document.addEventListener('click', function (e) {
+  var tip = e.target.closest('.tooltip');
+  /* 他に開いているツールチップは閉じる */
+  document.querySelectorAll('.tooltip.is-open').forEach(function (t) {
+    if (t !== tip) t.classList.remove('is-open');
+  });
+  if (tip) {
+    tip.classList.toggle('is-open');
+    /* span 内の他テキストクリックで吹き出しが即閉じするのを防止 */
+    e.stopPropagation();
+  }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.tooltip.is-open').forEach(function (t) {
+      t.classList.remove('is-open');
+      if (t === document.activeElement) t.blur();
+    });
+  }
+});
+
 /* ---- Back to top button ---- */
 (function () {
   var btn = document.createElement('a');
