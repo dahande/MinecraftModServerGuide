@@ -224,6 +224,63 @@ code, .cmd {
 }
 
 /* ============================================
+   TOOLTIP (hover / focus で説明表示)
+   ============================================ */
+.has-tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dashed currentColor;
+  cursor: help;
+  outline: none;
+}
+.has-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: min(280px, 80vw);
+  padding: 9px 12px;
+  background: rgba(13, 17, 23, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms, transform 150ms;
+  z-index: 100;
+}
+.has-tooltip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(13, 17, 23, 0.96);
+  opacity: 0;
+  transition: opacity 150ms;
+  z-index: 100;
+}
+.has-tooltip:hover::after,
+.has-tooltip:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.has-tooltip:hover::before,
+.has-tooltip:focus-visible::before {
+  opacity: 1;
+}
+
+/* ============================================
    OVERVIEW CARD
    ============================================ */
 .overview {
