@@ -40,15 +40,19 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- .github/news-posted.json; then
-            git add .github/news-posted.json
-            git commit -m "chore: update news-posted state [skip ci]"
-            for i in 1 2 3 4; do
-              if git push; then exit 0; fi
-              sleep $((2 ** i))
-              git pull --rebase --autostash || true
-            done
-            git push
-          else
-            echo "No state change."
+          if [ ! -f .github/news-posted.json ]; then
+            echo "State file was not produced; nothing to commit."
+            exit 0
           fi
+          git add .github/news-posted.json
+          if git diff --cached --quiet -- .github/news-posted.json; then
+            echo "No state change."
+            exit 0
+          fi
+          git commit -m "chore: update news-posted state [skip ci]"
+          for i in 1 2 3 4; do
+            if git push; then exit 0; fi
+            sleep $((2 ** i))
+            git pull --rebase --autostash || true
+          done
+          git push
