@@ -105,7 +105,7 @@ document.addEventListener('keydown', function (e) {
       target: '2026-04-17T21:00:00+09:00',
       showFromDays: 30,
       hideAfterHrs: 2,
-      href: 'server/7DaysStatus.html'
+      href: 'server/7DaysServerInfo.html#status'
     }
   ];
 
@@ -145,9 +145,8 @@ document.addEventListener('keydown', function (e) {
     { icon: '📢', text: 'お知らせ', href: 'news.html' },
     { sep: true },
     { icon: '🧟', text: '7 Days to Die', href: 'server/7DaysGuide.html' },
-    { icon: '📡', text: 'サーバーステータス', href: 'server/7DaysStatus.html', sub: true },
     { icon: '🔌', text: '接続手順', href: 'server/7DaysToDieConnect.html', sub: true },
-    { icon: '📋', text: 'サーバー情報', href: 'server/7DaysServerInfo.html', sub: true },
+    { icon: '📋', text: 'サーバー情報・ステータス', href: 'server/7DaysServerInfo.html', sub: true },
     { sep: true },
     { icon: '⛏️', text: 'Minecraft', href: 'server/MinecraftConnect.html' },
     { icon: '🦕', text: 'ARK', href: 'server/ARKConnect.html' },

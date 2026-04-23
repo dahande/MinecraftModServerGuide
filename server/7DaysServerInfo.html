@@ -12,13 +12,13 @@
 
     gtag('config', 'G-SVYBSWNT91');
   </script>
-  <title>7DTD サーバー情報 – のんびりサバイバル鯖</title>
+  <title>7DTD サーバー情報・ステータス – のんびりサバイバル鯖</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta name="description" content="7 Days to Dieサーバーの詳細設定一覧。IP・ポート・難易度・ゾンビ設定・導入MOD情報。PvPサーバー、Navezganeマップ。">
-  <meta name="keywords" content="7 Days to Die, 7DTD, サーバー設定, MOD, PvP, Navezgane, AEC Endgame, ゾンビ, ブラッドムーン, のんびりサバイバル鯖">
+  <meta name="description" content="7 Days to Dieサーバーのリアルタイム接続状況とサーバー設定を一覧。IP・ポート・難易度・ゾンビ設定・ブラッドムーン・導入MOD。">
+  <meta name="keywords" content="7 Days to Die, 7DTD, サーバー情報, サーバーステータス, 接続人数, MOD, PvP, Navezgane, AEC Endgame, ブラッドムーン, のんびりサバイバル鯖">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="7DTD サーバー情報 – のんびりサバイバル鯖">
-  <meta property="og:description" content="7 Days to Dieサーバーの詳細設定。IP・難易度・ゾンビ・MOD一覧。">
+  <meta property="og:title" content="7DTD サーバー情報・ステータス – のんびりサバイバル鯖">
+  <meta property="og:description" content="7 Days to Dieサーバーのリアルタイム接続状況と全設定・MOD一覧。">
   <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/7DaysServerInfo.html">
   <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <meta property="og:image:width" content="1200">
@@ -28,8 +28,8 @@
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="のんびりサバイバル鯖">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="7DTD サーバー情報 – のんびりサバイバル鯖">
-  <meta name="twitter:description" content="7 Days to Dieサーバーの詳細設定。IP・難易度・ゾンビ・MOD一覧。">
+  <meta name="twitter:title" content="7DTD サーバー情報・ステータス – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="7 Days to Dieサーバーのリアルタイム接続状況と設定・MOD一覧。">
   <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <link rel="stylesheet" href="../cssFile/Styles.css" />
   <script src="../js/main.js" defer></script>
@@ -39,7 +39,7 @@
 <main class="wrapper">
 
 <header>
-  <h1>🧟 7 Days to Die サーバー情報</h1>
+  <h1>🧟 7 Days to Die サーバー情報・ステータス</h1>
 
   <div class="mod-badges">
     <span class="mod-badge mod-badge--server">🌏 アジア</span>
@@ -49,15 +49,13 @@
 
   <div class="meta">
     <div>バージョン: V 2.6 (b14)</div>
-    <div>最終更新: 2026-04-15</div>
+    <div>最終更新: 2026-04-23</div>
   </div>
 
   <p class="backlink">
     <a href="../index.html" class="btn btn-back">← 戻る</a>
     &nbsp;
     <a href="./7DaysToDieConnect.html" class="btn">接続手順へ</a>
-    &nbsp;
-    <a href="./7DaysStatus.html" class="btn">📡 ステータス確認</a>
   </p>
 
   <div class="hr"></div>
@@ -87,6 +85,115 @@
 
 <div class="tips" style="margin-bottom: 28px;">
   🔌 詳しい接続方法は <a href="./7DaysToDieConnect.html" style="color:var(--page-accent);">接続手順ページ</a> をご確認ください。
+</div>
+
+
+<!-- ========== リアルタイムステータス ========== -->
+<h2 class="guide-section-label" id="status">📡 リアルタイムステータス</h2>
+
+<div class="status-panel" id="status-panel">
+
+  <!-- ローディング -->
+  <div class="status-state" id="state-loading">
+    <div class="status-spinner"></div>
+    <p style="color:var(--muted); font-size:14px; margin:0;">サーバー情報を取得中…</p>
+  </div>
+
+  <!-- 稼働中 -->
+  <div class="status-state" id="state-online" style="display:none;">
+    <span class="status-badge status-badge--online" style="font-size:13px; padding:5px 16px;">稼働中</span>
+
+    <div class="player-count-display">
+      <span class="cnt-now" id="player-now">0</span>
+      <span class="cnt-sep">/</span>
+      <span class="cnt-max" id="player-max">64</span>
+      <span class="cnt-unit">人</span>
+    </div>
+
+    <div class="player-bar-wrap">
+      <div class="player-bar" id="player-bar" style="width:0%"></div>
+    </div>
+
+    <p style="font-size:12px; color:var(--muted); margin:4px 0 0;">
+      現在 <span id="player-now-2">0</span> 人がプレイ中
+    </p>
+
+    <!-- プレイヤーリスト -->
+    <div class="player-list-section" id="player-list-section" style="display:none; width:100%;">
+      <div class="player-list-label">接続中プレイヤー</div>
+      <div id="player-list"></div>
+    </div>
+  </div>
+
+  <!-- オフライン -->
+  <div class="status-state" id="state-offline" style="display:none;">
+    <span class="status-badge status-badge--offline" style="font-size:13px; padding:5px 16px;">オフライン</span>
+    <p style="color:var(--muted); font-size:14px; margin:0;">現在サーバーは停止中です。</p>
+  </div>
+
+  <!-- エラー -->
+  <div class="status-state" id="state-error" style="display:none;">
+    <p style="color:var(--muted); font-size:14px; margin:0;">⚠️ データの取得に失敗しました</p>
+    <button class="btn" onclick="fetchStatus()" style="margin-top:4px;">再試行</button>
+  </div>
+
+</div>
+
+<div class="status-stats-row">
+  <div class="status-stat">
+    <div class="status-stat__value" id="stat-peak">--</div>
+    <div class="status-stat__label">最大同時接続</div>
+  </div>
+  <div class="status-stat">
+    <div class="status-stat__value" id="stat-uptime">--%</div>
+    <div class="status-stat__label">稼働率</div>
+  </div>
+  <div class="status-stat">
+    <div class="status-stat__value" id="stat-checks">--</div>
+    <div class="status-stat__label">観測回数</div>
+  </div>
+</div>
+
+<div class="status-footer">
+  <span>最終更新: <span id="last-updated" style="font-family:monospace;">--:--:--</span></span>
+  <span class="status-countdown"><span id="countdown">60</span> 秒後に自動更新</span>
+  <button class="btn" id="refresh-btn" style="font-size:12px; padding:5px 14px;" onclick="fetchStatus()">
+    🔄 今すぐ更新
+  </button>
+</div>
+
+
+<!-- ========== 接続人数推移 ========== -->
+<h2 class="guide-section-label" style="margin-top: 36px;">📊 接続人数推移</h2>
+<div class="chart-section">
+  <canvas id="player-chart"></canvas>
+  <p class="chart-empty" id="chart-empty">データが蓄積されると推移グラフが表示されます</p>
+</div>
+
+
+<!-- ========== ログイン履歴 ========== -->
+<h2 class="guide-section-label" style="margin-top: 36px;">🕐 ログイン履歴</h2>
+
+<div class="tips" style="margin-bottom: 14px; font-size: 12px;">
+  💡 このページを開いている間、プレイヤーの接続・切断を自動追跡します。データはブラウザに保存されます。
+</div>
+
+<div id="sessions-empty" style="display:none; text-align:center; padding:20px; color:var(--muted); font-size:14px;">
+  まだ履歴がありません。ページを開いたままにすると自動で記録されます。
+</div>
+
+<div class="session-table-wrap" id="sessions-wrap" style="display:none; margin-bottom: 28px;">
+  <table class="session-table">
+    <thead>
+      <tr>
+        <th>プレイヤー</th>
+        <th>ログイン</th>
+        <th>ログアウト</th>
+        <th>プレイ時間</th>
+      </tr>
+    </thead>
+    <tbody id="sessions-body"></tbody>
+  </table>
 </div>
 
 
@@ -247,5 +354,344 @@
 </footer>
 
 </main>
+
+<script>
+/* =====================================================
+   Server Monitor – IP: 220.158.24.94:26900
+   ===================================================== */
+(function () {
+  var QUERY_URL   = 'https://api.battlemetrics.com/servers/38692738?include=player';
+  var REFRESH_SEC = 60;
+  var STORE_KEY   = 'svr-7dtd-';
+  var MAX_HISTORY = 1440;
+  var MAX_SESSIONS = 200;
+
+  var cdTimer, cdVal = REFRESH_SEC;
+  var prevPlayers = null;
+
+  function load(key) {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY + key)); }
+    catch (e) { return null; }
+  }
+  function save(key, data) {
+    try { localStorage.setItem(STORE_KEY + key, JSON.stringify(data)); }
+    catch (e) { /* quota exceeded – silently ignore */ }
+  }
+
+  function showState(id) {
+    ['loading', 'online', 'offline', 'error'].forEach(function (s) {
+      var el = document.getElementById('state-' + s);
+      if (el) el.style.display = (s === id) ? '' : 'none';
+    });
+  }
+
+  function startCountdown() {
+    clearInterval(cdTimer);
+    cdVal = REFRESH_SEC;
+    cdTimer = setInterval(function () {
+      cdVal--;
+      var el = document.getElementById('countdown');
+      if (el) el.textContent = cdVal > 0 ? cdVal : REFRESH_SEC;
+      if (cdVal <= 0) { cdVal = REFRESH_SEC; fetchStatus(); }
+    }, 1000);
+  }
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  function fmtTime(ts) {
+    return new Date(ts).toLocaleString('ja-JP', {
+      month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
+    });
+  }
+  function fmtDuration(ms) {
+    if (!ms || ms <= 0) return '—';
+    var h = Math.floor(ms / 3600000);
+    var m = Math.floor((ms % 3600000) / 60000);
+    if (h > 0) return h + 'h ' + m + 'm';
+    return m + 'm';
+  }
+
+  function trackPlayers(names) {
+    var sessions = load('sessions') || [];
+    var now = Date.now();
+    var currSet = {};
+    names.forEach(function (n) { currSet[n] = true; });
+
+    if (prevPlayers !== null) {
+      names.forEach(function (n) {
+        if (!prevPlayers[n]) {
+          sessions.push({ n: n, s: now, e: null });
+        }
+      });
+      sessions.forEach(function (s) {
+        if (s.e === null && !currSet[s.n]) {
+          s.e = now;
+        }
+      });
+    } else {
+      names.forEach(function (n) {
+        var active = sessions.some(function (s) { return s.n === n && s.e === null; });
+        if (!active) {
+          sessions.push({ n: n, s: now, e: null });
+        }
+      });
+    }
+
+    prevPlayers = currSet;
+    if (sessions.length > MAX_SESSIONS) sessions = sessions.slice(-MAX_SESSIONS);
+    save('sessions', sessions);
+    return sessions;
+  }
+
+  function recordHistory(playerCount, online) {
+    var history = load('history') || [];
+    history.push({ t: Date.now(), p: playerCount, on: online });
+    if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
+    save('history', history);
+    return history;
+  }
+
+  function updateServerStats(playerCount, online) {
+    var stats = load('stats') || { first: null, peak: 0, onChecks: 0, total: 0 };
+    if (!stats.first) stats.first = Date.now();
+    stats.total++;
+    if (online) {
+      stats.onChecks++;
+      if (playerCount > stats.peak) stats.peak = playerCount;
+    }
+    save('stats', stats);
+    return stats;
+  }
+
+  function renderChart(history) {
+    var canvas = document.getElementById('player-chart');
+    var emptyMsg = document.getElementById('chart-empty');
+    if (!canvas) return;
+
+    if (!history || history.length < 2) {
+      canvas.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = '';
+      return;
+    }
+
+    canvas.style.display = '';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    var W = rect.width, H = rect.height;
+    var PAD = { t: 12, r: 12, b: 30, l: 44 };
+    var cW = W - PAD.l - PAD.r;
+    var cH = H - PAD.t - PAD.b;
+
+    ctx.clearRect(0, 0, W, H);
+
+    var maxP = 1;
+    history.forEach(function (h) { if (h.p > maxP) maxP = h.p; });
+    var yMax = Math.ceil(maxP / 5) * 5 || 5;
+
+    ctx.strokeStyle = 'rgba(30,45,69,0.6)';
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#566880';
+    ctx.font = '11px system-ui';
+    ctx.textAlign = 'right';
+    for (var i = 0; i <= 4; i++) {
+      var y = PAD.t + cH * i / 4;
+      ctx.beginPath(); ctx.moveTo(PAD.l, y); ctx.lineTo(W - PAD.r, y); ctx.stroke();
+      ctx.fillText(Math.round(yMax - yMax * i / 4), PAD.l - 8, y + 4);
+    }
+
+    var pts = history.map(function (h, idx) {
+      return {
+        x: PAD.l + (idx / (history.length - 1)) * cW,
+        y: PAD.t + cH - (h.p / yMax) * cH
+      };
+    });
+
+    var grad = ctx.createLinearGradient(0, PAD.t, 0, PAD.t + cH);
+    grad.addColorStop(0, 'rgba(248,113,113,0.25)');
+    grad.addColorStop(1, 'rgba(248,113,113,0)');
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, PAD.t + cH);
+    pts.forEach(function (p) { ctx.lineTo(p.x, p.y); });
+    ctx.lineTo(pts[pts.length - 1].x, PAD.t + cH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    pts.forEach(function (p, idx) {
+      if (idx === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    });
+    ctx.strokeStyle = '#f87171';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    var last = pts[pts.length - 1];
+    ctx.beginPath();
+    ctx.arc(last.x, last.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#f87171';
+    ctx.fill();
+    ctx.strokeStyle = '#101624';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    var labelIdxs = [0, Math.floor(history.length / 4),
+                     Math.floor(history.length / 2),
+                     Math.floor(history.length * 3 / 4),
+                     history.length - 1];
+    ctx.fillStyle = '#566880';
+    ctx.font = '10px system-ui';
+    ctx.textAlign = 'center';
+    labelIdxs.forEach(function (idx) {
+      if (idx >= 0 && idx < history.length && pts[idx]) {
+        var d = new Date(history[idx].t);
+        var lbl = d.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+        ctx.fillText(lbl, pts[idx].x, H - 8);
+      }
+    });
+  }
+
+  function renderSessions(sessions) {
+    var tbody = document.getElementById('sessions-body');
+    var wrap  = document.getElementById('sessions-wrap');
+    var empty = document.getElementById('sessions-empty');
+    if (!tbody || !wrap) return;
+
+    var cutoff = Date.now() - 24 * 60 * 60 * 1000;
+    var recent = sessions
+      .filter(function (s) { return s.s > cutoff; })
+      .sort(function (a, b) { return b.s - a.s; });
+
+    if (recent.length === 0) {
+      wrap.style.display = 'none';
+      if (empty) empty.style.display = '';
+      return;
+    }
+
+    wrap.style.display = '';
+    if (empty) empty.style.display = 'none';
+
+    tbody.innerHTML = recent.map(function (s) {
+      var endCell = s.e
+        ? '<span>' + esc(fmtTime(s.e)) + '</span>'
+        : '<span class="session-online-now">接続中</span>';
+      var dur = s.e ? fmtDuration(s.e - s.s) : fmtDuration(Date.now() - s.s);
+      return '<tr>' +
+        '<td><span class="session-player-name">' + esc(s.n) + '</span></td>' +
+        '<td style="font-size:12px;font-family:monospace;color:var(--muted);">' + esc(fmtTime(s.s)) + '</td>' +
+        '<td style="font-size:12px;font-family:monospace;color:var(--muted);">' + endCell + '</td>' +
+        '<td><span class="session-duration">' + esc(dur) + '</span></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function renderStats(stats) {
+    var peak   = document.getElementById('stat-peak');
+    var uptime = document.getElementById('stat-uptime');
+    var checks = document.getElementById('stat-checks');
+    if (peak)   peak.textContent   = stats.peak;
+    if (uptime) uptime.textContent = stats.total > 0
+      ? Math.round(stats.onChecks / stats.total * 100) + '%'
+      : '--%';
+    if (checks) checks.textContent = stats.total;
+  }
+
+  function fetchStatus() {
+    showState('loading');
+    var refreshBtn = document.getElementById('refresh-btn');
+    if (refreshBtn) refreshBtn.disabled = true;
+
+    fetch(QUERY_URL, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var attr = data.data && data.data.attributes;
+        if (!attr) throw new Error('No data');
+
+        var online = attr.status === 'online';
+        var cnt    = attr.players    || 0;
+        var max    = attr.maxPlayers || 64;
+
+        if (online) {
+          var pct = max > 0 ? Math.round(cnt / max * 100) : 0;
+          document.getElementById('player-now').textContent   = cnt;
+          document.getElementById('player-now-2').textContent = cnt;
+          document.getElementById('player-max').textContent   = max;
+          var bar = document.getElementById('player-bar');
+          bar.style.width = pct + '%';
+          bar.classList.toggle('full', pct >= 100);
+
+          var players = (data.included || []).filter(function (i) { return i.type === 'player'; });
+          var names   = players.map(function (p) { return p.attributes.name; });
+          var listEl  = document.getElementById('player-list');
+          var listSec = document.getElementById('player-list-section');
+          if (names.length > 0) {
+            listEl.innerHTML = names.map(function (n) {
+              return '<div class="player-row">' + esc(n) + '</div>';
+            }).join('');
+            listSec.style.display = '';
+          } else {
+            listSec.style.display = 'none';
+          }
+
+          var sessions = trackPlayers(names);
+          renderSessions(sessions);
+          showState('online');
+        } else {
+          trackPlayers([]);
+          var offSessions = load('sessions') || [];
+          renderSessions(offSessions);
+          showState('offline');
+        }
+
+        var history = recordHistory(cnt, online);
+        var stats   = updateServerStats(cnt, online);
+        renderChart(history);
+        renderStats(stats);
+
+        document.getElementById('last-updated').textContent =
+          new Date().toLocaleTimeString('ja-JP');
+      })
+      .catch(function () {
+        showState('error');
+      })
+      .then(function () {
+        if (refreshBtn) refreshBtn.disabled = false;
+        startCountdown();
+      });
+  }
+
+  window.fetchStatus = fetchStatus;
+
+  var initHistory  = load('history')  || [];
+  var initStats    = load('stats')    || { first: null, peak: 0, onChecks: 0, total: 0 };
+  var initSessions = load('sessions') || [];
+  renderChart(initHistory);
+  renderStats(initStats);
+  renderSessions(initSessions);
+  fetchStatus();
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      renderChart(load('history') || []);
+    }, 200);
+  });
+})();
+</script>
+
 </body>
 </html>
