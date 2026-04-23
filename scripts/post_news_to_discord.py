@@ -112,7 +112,11 @@ def post_to_discord(embed):
     req  = urllib.request.Request(
         WEBHOOK,
         data=data,
-        headers={"Content-Type": "application/json; charset=utf-8"},
+        headers={
+            "Content-Type": "application/json; charset=utf-8",
+            # Cloudflare が Python-urllib デフォルトUAを 403 で弾くので明示
+            "User-Agent":   "NonbiriServerBot (https://github.com/dahande/minecraftmodserverguide, 1.0)",
+        },
         method="POST",
     )
 
