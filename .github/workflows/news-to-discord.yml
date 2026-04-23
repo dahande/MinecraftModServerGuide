@@ -1,0 +1,54 @@
+name: News to Discord
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'news.html'
+      - 'scripts/post_news_to_discord.py'
+      - '.github/workflows/news-to-discord.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-to-discord
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --quiet beautifulsoup4==4.12.3
+
+      - name: Post new articles to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SITE_URL: 'https://dahande.github.io/MinecraftModServerGuide'
+        run: python scripts/post_news_to_discord.py
+
+      - name: Commit posted-state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- .github/news-posted.json; then
+            git add .github/news-posted.json
+            git commit -m "chore: update news-posted state [skip ci]"
+            for i in 1 2 3 4; do
+              if git push; then exit 0; fi
+              sleep $((2 ** i))
+              git pull --rebase --autostash || true
+            done
+            git push
+          else
+            echo "No state change."
+          fi
