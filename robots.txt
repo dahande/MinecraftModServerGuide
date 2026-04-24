@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 主要検索エンジンに sitemap を案内
+Sitemap: https://dahande.github.io/MinecraftModServerGuide/sitemap.xml
