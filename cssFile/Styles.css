@@ -2264,6 +2264,123 @@ body { padding-top: 62px; }
 }
 
 /* ============================================
+   NEWS MODAL (ホーム画面で最新記事を案内)
+   ============================================ */
+.news-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 2000;
+}
+.news-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.news-modal__panel {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 26px 24px 22px;
+  background: var(--card);
+  border: 1px solid var(--border-hi);
+  border-radius: 14px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.65);
+  color: var(--ink);
+  transform: scale(0.96) translateY(12px);
+  transition: transform 220ms ease;
+  overflow-y: auto;
+}
+.news-modal.is-open .news-modal__panel {
+  transform: scale(1) translateY(0);
+}
+
+.news-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 150ms, color 150ms;
+}
+.news-modal__close:hover,
+.news-modal__close:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  outline: none;
+}
+
+.news-modal__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 34px;
+  flex-wrap: wrap;
+}
+.news-modal__date {
+  font-size: 12px;
+  font-family: monospace;
+  color: var(--muted);
+}
+
+.news-modal__title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.news-modal__body {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+.news-modal__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.news-modal__actions .btn {
+  font-size: 13px;
+  padding: 7px 14px;
+}
+
+@media (max-width: 480px) {
+  .news-modal__panel {
+    padding: 22px 18px 18px;
+    border-radius: 12px;
+  }
+  .news-modal__title { font-size: 15.5px; }
+  .news-modal__body  { font-size: 13px; }
+  .news-modal__actions .btn { flex: 1; text-align: center; }
+}
+
+/* ============================================
    PRINT
    ============================================ */
 @media print {

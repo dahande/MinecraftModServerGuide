@@ -243,10 +243,9 @@
       if (before !== after) applyFilter(pickDefaultFilter());
     }, 30000);
 
-    /* ── お知らせ動的読み込み ── */
+    /* ── お知らせ動的読み込み + 最新記事ポップアップ ── */
     (function loadNews() {
       const container = document.getElementById('hero-news-items');
-      if (!container) return;
 
       fetch('./news.html')
         .then(r => r.text())
@@ -254,33 +253,116 @@
           const doc = new DOMParser().parseFromString(html, 'text/html');
           const articles = [...doc.querySelectorAll('article.news-article')];
 
-          if (!articles.length) { container.innerHTML = '<div style="color:rgba(255,255,255,0.35);font-size:13px;text-align:center;">お知らせはありません</div>'; return; }
+          if (container) {
+            if (!articles.length) {
+              container.innerHTML = '<div style="color:rgba(255,255,255,0.35);font-size:13px;text-align:center;">お知らせはありません</div>';
+            } else {
+              const items = articles.slice(0, 3).map(article => {
+                const id    = article.id || '';
+                const tagEl = article.querySelector('.news-item__tag');
+                const tag   = tagEl ? tagEl.outerHTML : '';
+                const dateEl = article.querySelector('.news-article__date');
+                const date  = dateEl ? dateEl.textContent.trim().replace(/^\d{4}-/, '').replace('-', '/') : '';
+                const titleEl = article.querySelector('.news-article__title');
+                const title = titleEl ? titleEl.textContent.trim() : '';
+                const href  = id ? `./news.html#${id}` : './news.html';
+                return `<a class="hero-news__item" href="${href}">${tag}<span class="hero-news__date">${date}</span><span class="hero-news__title">${title}</span></a>`;
+              });
+              container.innerHTML = items.join('');
 
-          const items = articles.slice(0, 3).map(article => {
-            const id    = article.id || '';
-            const tagEl = article.querySelector('.news-item__tag');
-            const tag   = tagEl ? tagEl.outerHTML : '';
-            const dateEl = article.querySelector('.news-article__date');
-            const date  = dateEl ? dateEl.textContent.trim().replace(/^\d{4}-/, '').replace('-', '/') : '';
-            const titleEl = article.querySelector('.news-article__title');
-            const title = titleEl ? titleEl.textContent.trim() : '';
-            const href  = id ? `./news.html#${id}` : './news.html';
-            return `<a class="hero-news__item" href="${href}">${tag}<span class="hero-news__date">${date}</span><span class="hero-news__title">${title}</span></a>`;
-          });
+              if (articles.length >= 2) {
+                container.style.maxHeight = '120px';
+                container.style.overflowY = 'auto';
+                container.style.scrollbarWidth = 'thin';
+                container.style.scrollbarColor = 'rgba(255,255,255,0.15) transparent';
+              }
+            }
+          }
 
-          container.innerHTML = items.join('');
-
-          if (articles.length >= 2) {
-            container.style.maxHeight = '120px';
-            container.style.overflowY = 'auto';
-            container.style.scrollbarWidth = 'thin';
-            container.style.scrollbarColor = 'rgba(255,255,255,0.15) transparent';
+          /* 最新記事をモーダルで案内 (一度閉じたら同じIDは再表示しない) */
+          if (articles.length) {
+            setTimeout(() => showLatestNewsModal(articles[0]), 600);
           }
         })
         .catch(() => {
-          container.innerHTML = '<a class="hero-news__item" href="./news.html"><span class="hero-news__title">お知らせを見る →</span></a>';
+          if (container) {
+            container.innerHTML = '<a class="hero-news__item" href="./news.html"><span class="hero-news__title">お知らせを見る →</span></a>';
+          }
         });
     })();
+
+    function showLatestNewsModal(article) {
+      const id = article.id || '';
+      if (!id) return;
+      const DISMISS_KEY = 'news-last-dismissed';
+      if (localStorage.getItem(DISMISS_KEY) === id) return;
+
+      const tagEl   = article.querySelector('.news-item__tag');
+      const dateEl  = article.querySelector('.news-article__date');
+      const titleEl = article.querySelector('.news-article__title');
+      const firstP  = article.querySelector('.news-article__body p');
+
+      const tag   = tagEl ? tagEl.outerHTML : '';
+      const date  = dateEl ? dateEl.textContent.trim() : '';
+      const title = titleEl ? titleEl.textContent.trim() : '';
+      let preview = firstP ? firstP.textContent.replace(/\s+/g, ' ').trim() : '';
+      if (preview.length > 160) preview = preview.slice(0, 157) + '…';
+
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
+      }[c]));
+
+      const modal = document.createElement('div');
+      modal.className = 'news-modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-labelledby', 'news-modal-title');
+      modal.innerHTML = `
+        <div class="news-modal__panel">
+          <button class="news-modal__close" data-role="close" aria-label="閉じる">✕</button>
+          <div class="news-modal__head">
+            ${tag}
+            <span class="news-modal__date">${esc(date)}</span>
+          </div>
+          <h3 class="news-modal__title" id="news-modal-title">${esc(title)}</h3>
+          <p class="news-modal__body">${esc(preview)}</p>
+          <div class="news-modal__actions">
+            <button type="button" class="btn" data-role="close">閉じる</button>
+            <a class="btn btn-primary" href="./news.html#${esc(id)}" data-role="read">▶ 詳細を見る</a>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      /* Focus trap の簡易対応: 最初のフォーカス可能要素へ */
+      const firstBtn = modal.querySelector('[data-role="close"]');
+      const prevActive = document.activeElement;
+      requestAnimationFrame(() => {
+        modal.classList.add('is-open');
+        if (firstBtn) firstBtn.focus();
+      });
+
+      const close = () => {
+        localStorage.setItem(DISMISS_KEY, id);
+        modal.classList.remove('is-open');
+        document.removeEventListener('keydown', onKey);
+        setTimeout(() => {
+          modal.remove();
+          if (prevActive && prevActive.focus) prevActive.focus();
+        }, 220);
+      };
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal || e.target.dataset.role === 'close') {
+          close();
+        } else if (e.target.dataset.role === 'read') {
+          /* リンク遷移前にdismiss記録だけ行う */
+          localStorage.setItem(DISMISS_KEY, id);
+        }
+      });
+      const onKey = e => { if (e.key === 'Escape') close(); };
+      document.addEventListener('keydown', onKey);
+    }
   </script>
 </body>
 </html>
