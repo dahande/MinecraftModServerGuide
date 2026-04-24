@@ -105,8 +105,11 @@ def build_embed(article):
 
 def post_to_discord(embed):
     payload = {
-        "username": "のんびりサバイバル鯖",
-        "embeds":   [{k: v for k, v in embed.items() if v is not None}],
+        "username":         "のんびりサバイバル鯖",
+        "content":          "@everyone 新しいお知らせ📢",
+        "embeds":           [{k: v for k, v in embed.items() if v is not None}],
+        # parse に "everyone" を含めないと @everyone は単なる文字列として扱われる
+        "allowed_mentions": {"parse": ["everyone"]},
     }
     data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     req  = urllib.request.Request(
