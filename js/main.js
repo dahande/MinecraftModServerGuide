@@ -152,7 +152,7 @@ document.addEventListener('keydown', function (e) {
     { icon: '🦕', text: 'ARK', href: 'server/ARKConnect.html' },
     { icon: '🚀', text: 'Icarus', href: 'server/IcarusConnect.html' },
     { sep: true },
-    { icon: '💬', text: 'Discord に参加', href: 'https://discord.gg/tfYDH6Q3Th', external: true }
+    { icon: '💬', text: 'Discord に参加', href: 'https://discord.gg/yRX52ctpnq', external: true }
   ];
 
   function link(item) {
