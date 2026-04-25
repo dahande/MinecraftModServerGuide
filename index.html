@@ -143,14 +143,21 @@
           </div>
         </div>
 
-        <!-- Minecraft（停止中） -->
-        <a class="card nav-card nav-card--mc" data-status="offline" href="./server/MinecraftConnect.html">
-          <div class="status-badge status-badge--offline">停止中</div>
+        <!-- Minecraft ★予定→稼働中に自動切替★ -->
+        <div class="card nav-card nav-card--mc"
+             id="card-mc"
+             data-status="scheduled"
+             data-go-online-at="2026-04-25T21:00:00+09:00">
+          <div class="status-badge status-badge--scheduled" data-role="badge">予定</div>
           <div class="nav-card__icon">⛏️</div>
           <div class="nav-card__title">Minecraft</div>
-          <p class="nav-card__desc">MODサーバー接続手順<br>Java Edition 対応</p>
-          <span class="btn">接続手順</span>
-        </a>
+          <p class="nav-card__desc" data-role="desc-scheduled">本日 4/25（金）21:00 稼働予定<br>バニラ・ホワイトリスト制</p>
+          <p class="nav-card__desc" data-role="desc-online" style="display:none;">🟢 稼働中<br>バニラ・ホワイトリスト制</p>
+          <div class="nav-card__btns">
+            <a class="btn" href="./server/MinecraftConnect.html">接続手順</a>
+            <a class="btn" href="https://discord.com/channels/1189882860425986121/1497547320974377061" target="_blank" rel="noopener">📝 ホワイトリスト申請</a>
+          </div>
+        </div>
 
         <!-- ARK（停止中） -->
         <a class="card nav-card nav-card--ark" data-status="offline" href="./server/ARKConnect.html">

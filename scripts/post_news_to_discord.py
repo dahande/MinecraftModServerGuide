@@ -6,9 +6,16 @@ news.html から新規お知らせ記事を抽出して Discord Webhook に投�
 初回実行時は既存記事を全てロック (投稿せずIDだけ記録) し、以降に追加された
 記事だけ投稿する。
 
+ゲーム別ルーティング:
+  記事 (<article ... data-game="<game>">) で投稿先 Discord チャンネルを切替。
+  - data-game="minecraft" → DISCORD_WEBHOOK_URL_MINECRAFT
+  - data-game="7dtd"      → DISCORD_WEBHOOK_URL_7DTD
+  - 属性なし or 該当環境変数なし → DISCORD_WEBHOOK_URL (フォールバック)
+
 環境変数:
-  DISCORD_WEBHOOK_URL  (必須)  投稿先 Webhook URL
-  SITE_URL             任意    記事リンクの基点 (デフォルト: GitHub Pages URL)
+  DISCORD_WEBHOOK_URL              フォールバック先 Webhook URL (推奨: 既存7DTD用)
+  DISCORD_WEBHOOK_URL_<GAME>       ゲーム別 Webhook URL
+  SITE_URL                         任意。記事リンクの基点
 """
 import json
 import os
@@ -28,7 +35,7 @@ SITE_URL = os.environ.get(
     "SITE_URL",
     "https://dahande.github.io/MinecraftModServerGuide",
 ).rstrip("/")
-WEBHOOK  = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+DEFAULT_WEBHOOK = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
 
 # タグ別のサイドバー色 (Discord embed の左側バー)
 TAG_COLORS = {
@@ -37,6 +44,18 @@ TAG_COLORS = {
     "お知らせ": 0x4D9FFF,   # ブルー
 }
 DEFAULT_COLOR = 0x4D9FFF
+
+
+def webhook_for(game):
+    """data-game に対応する webhook URL を返す。
+    - data-game が指定されている場合は DISCORD_WEBHOOK_URL_<GAME> を厳格参照。
+      未設定なら "" (skip) を返す。誤って既定チャンネルに送信されるのを防ぐ。
+    - data-game が空の記事は DEFAULT_WEBHOOK を使う。
+    """
+    if game:
+        env_name = f"DISCORD_WEBHOOK_URL_{game.upper()}"
+        return os.environ.get(env_name, "").strip()
+    return DEFAULT_WEBHOOK
 
 
 def load_state():
@@ -79,6 +98,7 @@ def extract_articles():
                     paragraphs.append(t)
         out.append({
             "id":    aid,
+            "game":  (art.get("data-game") or "").strip().lower(),
             "tag":   _text(art.select_one(".news-item__tag")),
             "date":  _text(art.select_one(".news-article__date")),
             "title": _text(art.select_one(".news-article__title")),
@@ -103,7 +123,7 @@ def build_embed(article):
     }
 
 
-def post_to_discord(embed):
+def post_to_discord(webhook_url, embed):
     payload = {
         "username":         "のんびりサバイバル鯖",
         "content":          "@everyone 新しいお知らせ📢",
@@ -113,7 +133,7 @@ def post_to_discord(embed):
     }
     data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     req  = urllib.request.Request(
-        WEBHOOK,
+        webhook_url,
         data=data,
         headers={
             "Content-Type": "application/json; charset=utf-8",
@@ -148,10 +168,6 @@ def post_to_discord(embed):
 
 
 def main():
-    if not WEBHOOK:
-        print("DISCORD_WEBHOOK_URL is not set; skipping.")
-        return 0
-
     if not NEWS_HTML.exists():
         print(f"{NEWS_HTML} not found; nothing to do.")
         return 0
@@ -175,14 +191,21 @@ def main():
         print("no new articles.")
         return 0
 
+    posted_count = 0
     for article in reversed(new_articles):
-        post_to_discord(build_embed(article))
+        url = webhook_for(article["game"])
+        if not url:
+            print(f"skip: {article['id']} (no webhook for game='{article['game']}')")
+            # webhook 未設定の記事は state には追加しない (後で webhook 設定後に再投稿可能)
+            continue
+        post_to_discord(url, build_embed(article))
         posted.add(article["id"])
-        print(f"posted: {article['id']} / {article['title']}")
+        posted_count += 1
+        print(f"posted: {article['id']} (game={article['game'] or 'default'}) / {article['title']}")
 
     state["posted"] = sorted(posted)
     save_state(state)
-    print(f"done: {len(new_articles)} article(s) posted.")
+    print(f"done: {posted_count} article(s) posted.")
     return 0
 
 

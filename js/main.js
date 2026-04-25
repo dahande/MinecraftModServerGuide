@@ -100,6 +100,14 @@ document.addEventListener('keydown', function (e) {
   /* --- Countdown events --- */
   var events = [
     {
+      icon: '⛏️',
+      label: 'Minecraft 稼働開始',
+      target: '2026-04-25T21:00:00+09:00',
+      showFromDays: 30,
+      hideAfterHrs: 2,
+      href: 'server/MinecraftConnect.html'
+    },
+    {
       icon: '🧟',
       label: '7DTD 稼働開始',
       target: '2026-04-17T21:00:00+09:00',
@@ -149,6 +157,7 @@ document.addEventListener('keydown', function (e) {
     { icon: '📋', text: 'サーバー情報・ステータス', href: 'server/7DaysServerInfo.html', sub: true },
     { sep: true },
     { icon: '⛏️', text: 'Minecraft', href: 'server/MinecraftConnect.html' },
+    { icon: '📝', text: 'ホワイトリスト申請', href: 'https://discord.com/channels/1189882860425986121/1497547320974377061', external: true, sub: true },
     { icon: '🦕', text: 'ARK', href: 'server/ARKConnect.html' },
     { icon: '🚀', text: 'Icarus', href: 'server/IcarusConnect.html' },
     { sep: true },

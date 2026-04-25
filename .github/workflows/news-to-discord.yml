@@ -32,8 +32,12 @@ jobs:
 
       - name: Post new articles to Discord
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          SITE_URL: 'https://dahande.github.io/MinecraftModServerGuide'
+          # 既定/フォールバック (data-game 未指定の記事はここに送られる)
+          DISCORD_WEBHOOK_URL:           ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # ゲーム別: data-game="<game>" → DISCORD_WEBHOOK_URL_<GAME>
+          DISCORD_WEBHOOK_URL_MINECRAFT: ${{ secrets.DISCORD_WEBHOOK_URL_MINECRAFT }}
+          DISCORD_WEBHOOK_URL_7DTD:      ${{ secrets.DISCORD_WEBHOOK_URL_7DTD }}
+          SITE_URL:                      'https://dahande.github.io/MinecraftModServerGuide'
         run: python scripts/post_news_to_discord.py
 
       - name: Commit posted-state
