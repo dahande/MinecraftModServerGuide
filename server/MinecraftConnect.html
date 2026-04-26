@@ -98,8 +98,68 @@
     </div>
 
 
+    <!-- ========== リアルタイムステータス ========== -->
+    <h2 class="guide-section-label" id="status">📡 リアルタイムステータス</h2>
+
+    <div class="status-panel" id="status-panel">
+
+      <!-- ローディング -->
+      <div class="status-state" id="state-loading">
+        <div class="status-spinner"></div>
+        <p style="color:var(--muted); font-size:14px; margin:0;">サーバー情報を取得中…</p>
+      </div>
+
+      <!-- 稼働中 -->
+      <div class="status-state" id="state-online" style="display:none;">
+        <span class="status-badge status-badge--online" style="font-size:13px; padding:5px 16px;">稼働中</span>
+
+        <div class="player-count-display">
+          <span class="cnt-now" id="player-now">0</span>
+          <span class="cnt-sep">/</span>
+          <span class="cnt-max" id="player-max">20</span>
+          <span class="cnt-unit">人</span>
+        </div>
+
+        <div class="player-bar-wrap">
+          <div class="player-bar" id="player-bar" style="width:0%"></div>
+        </div>
+
+        <p style="font-size:12px; color:var(--muted); margin:4px 0 0;">
+          現在 <span id="player-now-2">0</span> 人がプレイ中
+        </p>
+
+        <!-- プレイヤーリスト (API が返した場合のみ表示) -->
+        <div class="player-list-section" id="player-list-section" style="display:none; width:100%;">
+          <div class="player-list-label">接続中プレイヤー</div>
+          <div id="player-list"></div>
+        </div>
+      </div>
+
+      <!-- オフライン -->
+      <div class="status-state" id="state-offline" style="display:none;">
+        <span class="status-badge status-badge--offline" style="font-size:13px; padding:5px 16px;">オフライン</span>
+        <p style="color:var(--muted); font-size:14px; margin:0;">現在サーバーは停止中です。</p>
+      </div>
+
+      <!-- エラー -->
+      <div class="status-state" id="state-error" style="display:none;">
+        <p style="color:var(--muted); font-size:14px; margin:0;">⚠️ データの取得に失敗しました</p>
+        <button class="btn" onclick="fetchMcStatus()" style="margin-top:4px;">再試行</button>
+      </div>
+
+    </div>
+
+    <div class="status-footer">
+      <span>最終更新: <span id="last-updated" style="font-family:monospace;">--:--:--</span></span>
+      <span class="status-countdown"><span id="countdown">60</span> 秒後に自動更新</span>
+      <button class="btn" id="refresh-btn" style="font-size:12px; padding:5px 14px;" onclick="fetchMcStatus()">
+        🔄 今すぐ更新
+      </button>
+    </div>
+
+
     <!-- ========== サーバー設定 ========== -->
-    <h2 class="guide-section-label">🖥️ サーバー設定</h2>
+    <h2 class="guide-section-label" style="margin-top: 36px;">🖥️ サーバー設定</h2>
     <div class="def-grid">
       <div class="def-row"><div class="def-key">バージョン</div><div class="def-val accent">26.1.2</div></div>
       <div class="def-row"><div class="def-key">エディション</div><div class="def-val">Java Edition</div></div>
@@ -220,5 +280,115 @@
       <a href="https://discord.gg/yRX52ctpnq" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
     </footer>
   </main>
+
+<script>
+/* =====================================================
+   Minecraft Server Status — IP: 162.43.44.103
+   API: mcsrvstat.us (CORS対応・認証不要・無料)
+   ===================================================== */
+(function () {
+  var QUERY_URL   = 'https://api.mcsrvstat.us/3/162.43.44.103';
+  var REFRESH_SEC = 60;
+
+  var cdTimer, cdVal = REFRESH_SEC;
+
+  function showState(id) {
+    ['loading', 'online', 'offline', 'error'].forEach(function (s) {
+      var el = document.getElementById('state-' + s);
+      if (el) el.style.display = (s === id) ? '' : 'none';
+    });
+  }
+
+  function startCountdown() {
+    clearInterval(cdTimer);
+    cdVal = REFRESH_SEC;
+    cdTimer = setInterval(function () {
+      cdVal--;
+      var el = document.getElementById('countdown');
+      if (el) el.textContent = cdVal > 0 ? cdVal : REFRESH_SEC;
+      if (cdVal <= 0) { cdVal = REFRESH_SEC; fetchMcStatus(); }
+    }, 1000);
+  }
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  function fetchMcStatus() {
+    showState('loading');
+    var refreshBtn = document.getElementById('refresh-btn');
+    if (refreshBtn) refreshBtn.disabled = true;
+
+    /* AbortController で 12秒で諦める (mcsrvstat.us は時々遅い) */
+    var ctrl  = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 12000);
+
+    fetch(QUERY_URL, { cache: 'no-store', signal: ctrl.signal })
+      .then(function (res) {
+        clearTimeout(timer);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data || typeof data.online === 'undefined') throw new Error('No data');
+
+        if (data.online) {
+          var players = data.players || {};
+          var cnt = players.online || 0;
+          var max = players.max    || 20;
+          var pct = max > 0 ? Math.round(cnt / max * 100) : 0;
+
+          document.getElementById('player-now').textContent   = cnt;
+          document.getElementById('player-now-2').textContent = cnt;
+          document.getElementById('player-max').textContent   = max;
+          var bar = document.getElementById('player-bar');
+          bar.style.width = pct + '%';
+          bar.classList.toggle('full', pct >= 100);
+
+          /* プレイヤーリスト (サーバー側で公開している場合のみ) */
+          var names = [];
+          if (Array.isArray(players.list)) {
+            names = players.list
+              .map(function (p) { return (typeof p === 'string') ? p : (p && p.name); })
+              .filter(function (n) { return n; });
+          }
+          var listEl  = document.getElementById('player-list');
+          var listSec = document.getElementById('player-list-section');
+          if (names.length > 0) {
+            listEl.innerHTML = names.map(function (n) {
+              return '<div class="player-row">' + esc(n) + '</div>';
+            }).join('');
+            listSec.style.display = '';
+          } else {
+            listSec.style.display = 'none';
+          }
+
+          showState('online');
+        } else {
+          showState('offline');
+        }
+
+        document.getElementById('last-updated').textContent =
+          new Date().toLocaleTimeString('ja-JP');
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        showState('error');
+      })
+      .then(function () {
+        if (refreshBtn) refreshBtn.disabled = false;
+        startCountdown();
+      });
+  }
+
+  /* onclick handler 用にグローバル公開 */
+  window.fetchMcStatus = fetchMcStatus;
+
+  fetchMcStatus();
+})();
+</script>
+
 </body>
 </html>
