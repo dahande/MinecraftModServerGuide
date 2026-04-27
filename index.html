@@ -20,7 +20,7 @@
   <!-- OGP / SNS プレビュー -->
   <meta property="og:type"        content="website">
   <meta property="og:title"       content="のんびりサバイバル鯖">
-  <meta property="og:description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die 稼働中！接続手順・MODガイドはこちら。">
+  <meta property="og:description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die・Minecraft 稼働中！接続手順・MODガイドはこちら。">
   <meta property="og:url"         content="https://dahande.github.io/MinecraftModServerGuide/">
   <meta property="og:image"       content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <meta property="og:image:width"  content="1200">
@@ -31,7 +31,7 @@
   <meta property="og:site_name"   content="のんびりサバイバル鯖">
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="のんびりサバイバル鯖">
-  <meta name="twitter:description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die 稼働中！">
+  <meta name="twitter:description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die・Minecraft 稼働中！">
   <meta name="twitter:image"       content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
   <meta name="description" content="みんなで気軽に楽しめるゲームサーバー。7 Days to Die・Minecraft・ARK・Icarus 対応。接続手順・MODガイドはこちら。">
   <meta name="keywords" content="ゲームサーバー, マルチプレイ, 7 Days to Die, 7DTD, Minecraft, ARK, Icarus, MOD, サーバー接続, のんびりサバイバル鯖, PvP, サバイバル">
@@ -80,7 +80,7 @@
       <p class="hero-sub">みんなで気軽に楽しめるゲームサーバー</p>
       <div class="hero-games">
         <span class="game-tag game-tag--7dtd">🧟 7 Days to Die</span>
-        <span class="game-tag game-tag--mc is-dim">⛏️ Minecraft</span>
+        <span class="game-tag game-tag--mc">⛏️ Minecraft</span>
         <span class="game-tag game-tag--ark is-dim">🦕 ARK</span>
         <span class="game-tag game-tag--icarus is-dim">🚀 Icarus</span>
       </div>
@@ -316,9 +316,14 @@
             }
           }
 
-          /* 最新記事をモーダルで案内 (一度閉じたら同じIDは再表示しない) */
+          /* ポップアップ対象の選定:
+             1. data-popup="featured" が付いた記事を優先
+             2. なければ最新記事 (articles[0])
+             一度閉じたら同じIDは再表示しない */
           if (articles.length) {
-            setTimeout(() => showLatestNewsModal(articles[0]), 600);
+            const featured = articles.find(a => a.dataset.popup === 'featured');
+            const target   = featured || articles[0];
+            setTimeout(() => showLatestNewsModal(target), 600);
           }
         })
         .catch(() => {
