@@ -50,9 +50,15 @@
   </url>
   <url>
     <loc>https://dahande.github.io/MinecraftModServerGuide/server/MinecraftConnect.html</loc>
-    <lastmod>2026-04-15</lastmod>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://dahande.github.io/MinecraftModServerGuide/server/MinecraftRules.html</loc>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://dahande.github.io/MinecraftModServerGuide/server/MinecraftCommands.html</loc>
