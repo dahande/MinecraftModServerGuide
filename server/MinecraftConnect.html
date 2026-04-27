@@ -161,13 +161,23 @@
     <!-- ========== サーバー設定 ========== -->
     <h2 class="guide-section-label" style="margin-top: 36px;">🖥️ サーバー設定</h2>
     <div class="def-grid">
-      <div class="def-row"><div class="def-key">バージョン</div><div class="def-val accent">26.1.2</div></div>
+      <div class="def-row">
+        <div class="def-key">バージョン</div>
+        <div class="def-val accent" id="cfg-version">26.1.2</div>
+      </div>
       <div class="def-row"><div class="def-key">エディション</div><div class="def-val">Java Edition</div></div>
       <div class="def-row"><div class="def-key">ゲームモード</div><div class="def-val">サバイバル</div></div>
       <div class="def-row"><div class="def-key">難易度</div><div class="def-val">ノーマル</div></div>
       <div class="def-row"><div class="def-key">MOD</div><div class="def-val">なし (バニラ運用)</div></div>
       <div class="def-row"><div class="def-key">ホワイトリスト</div><div class="def-val warn">必須 (事前申請制)</div></div>
       <div class="def-row"><div class="def-key">サーバー再起動</div><div class="def-val accent">毎日 6:00 / 18:00</div></div>
+      <div class="def-row">
+        <div class="def-key">ワールドシード値</div>
+        <div class="def-val" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span class="server-info-value" style="font-family:monospace;">6394437466470878695</span>
+          <button class="copy-btn" data-copy="6394437466470878695" style="font-size:11px; padding:3px 8px;">📋 コピー</button>
+        </div>
+      </div>
     </div>
 
     <div class="tips" style="margin-top: 16px; margin-bottom: 28px; font-size: 13px;">
@@ -333,6 +343,19 @@
       })
       .then(function (data) {
         if (!data || typeof data.online === 'undefined') throw new Error('No data');
+
+        /* バージョン動的更新 (オフラインでも cache から返ることがある) */
+        if (data.version) {
+          var verRaw = (typeof data.version === 'string')
+            ? data.version
+            : (data.version.name_clean || data.version.name || '');
+          /* "Paper 1.20.4" のようにソフトウェア名が混じることがあるので
+             バージョン番号 (X.Y.Z) だけ取り出す */
+          var m = String(verRaw).match(/(\d+\.\d+(?:\.\d+)?)/);
+          var ver = m ? m[1] : verRaw;
+          var verEl = document.getElementById('cfg-version');
+          if (verEl && ver) verEl.textContent = ver;
+        }
 
         if (data.online) {
           var players = data.players || {};
