@@ -14,68 +14,166 @@
   </script>
   <title>Minecraft コマンド一覧 – のんびりサバイバル鯖</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <meta name="description" content="Minecraftサーバーで使えるコマンド一覧。ホーム設定・テレポート・一括破壊などのコマンドをキーワード検索対応で解説。">
-  <meta name="keywords" content="Minecraft, マインクラフト, コマンド, trigger, sethome, home, 一括破壊, テレポート, サーバー, のんびりサバイバル鯖">
+  <meta name="description" content="のんびりサバイバル鯖 Minecraftサーバーで使えるカスタムコマンド一覧。一括破壊・座標表示・チェックポイント機能を /trigger で提供。">
+  <meta name="keywords" content="Minecraft, マインクラフト, コマンド, trigger, TimberToggle, 一括破壊, 座標表示, sethome, home, チェックポイント, バニラ, のんびりサバイバル鯖">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Minecraft コマンド一覧 – のんびりサバイバル鯖">
-  <meta property="og:description" content="Minecraftサーバーで使えるコマンド一覧。キーワード検索対応。">
+  <meta property="og:description" content="一括破壊・座標表示・チェックポイント等のカスタム /trigger コマンド一覧。">
   <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/MinecraftCommands.html">
-  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp-minecraft.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="のんびりサバイバル鯖">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖 Minecraft サーバー">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="のんびりサバイバル鯖">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Minecraft コマンド一覧 – のんびりサバイバル鯖">
-  <meta name="twitter:description" content="Minecraftサーバーで使えるコマンド一覧。">
-  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp.png">
+  <meta name="twitter:description" content="一括破壊・座標表示・チェックポイント等の /trigger コマンド一覧。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/twitter-minecraft.png">
+  <meta name="twitter:image:alt" content="のんびりサバイバル鯖 Minecraft コマンド一覧">
   <link rel="canonical" href="https://dahande.github.io/MinecraftModServerGuide/server/MinecraftCommands.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftCommands.html",
+        "url": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftCommands.html",
+        "name": "Minecraft コマンド一覧",
+        "description": "のんびりサバイバル鯖 Minecraft サーバーのカスタムコマンド一覧 (/trigger 系)。",
+        "inLanguage": "ja-JP",
+        "about": { "@type": "VideoGame", "name": "Minecraft Java Edition" },
+        "isPartOf": { "@id": "https://dahande.github.io/MinecraftModServerGuide/#website" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://dahande.github.io/MinecraftModServerGuide/" },
+          { "@type": "ListItem", "position": 2, "name": "Minecraft ガイド", "item": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftGuide.html" },
+          { "@type": "ListItem", "position": 3, "name": "コマンド一覧", "item": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftCommands.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="../cssFile/Styles.css" />
   <script src="../js/main.js" defer></script>
 </head>
 <body class="page-mc">
   <main class="wrapper">
-    <header>
-      <h1>コマンド一覧</h1>
 
+    <header>
+      <h1>⛏️ Minecraft コマンド一覧</h1>
+      <div class="meta">
+        <div>のんびりサバイバル鯖 カスタム /trigger コマンド</div>
+        <div>最終更新: 2026-04-25</div>
+      </div>
       <p class="backlink">
         <a href="../index.html" class="btn btn-back">← 戻る</a>
+        &nbsp;
+        <a href="./MinecraftGuide.html" class="btn">ガイド一覧へ</a>
       </p>
-      
       <div class="hr"></div>
     </header>
 
-    <div class="table-tools">
-      <input id="cmd-filter" class="input" type="text" placeholder="キーワードで絞り込み（例: home, tpa, party）">
+
+    <div class="tips" style="margin-bottom: 20px;">
+      💡 これらは <b>サーバー側のデータパック</b> で提供されているカスタムコマンドです。すべて <code>/trigger</code> で実行します。
+      MOD導入は不要、バニラクライアントから入力できます。
     </div>
 
+
+    <!-- 検索フィルタ -->
+    <div class="table-tools" style="margin-bottom: 14px;">
+      <input id="cmd-filter" class="input" type="text" placeholder="🔍 キーワードで絞り込み (例: home, 座標, 破壊)">
+    </div>
+
+
+    <!-- ========== コマンド表 ========== -->
     <div class="table-scroll">
       <table class="table">
         <thead>
-          <tr><th>コマンド</th><th>意味 / 使い方</th><th>例</th></tr>
+          <tr>
+            <th style="width:14%;">カテゴリ</th>
+            <th style="width:30%;">コマンド</th>
+            <th>説明 / 使い方</th>
+            <th style="width:25%;">例</th>
+          </tr>
         </thead>
         <tbody id="cmd-body">
-<tr>
-  <td><code>/trigger all_setting</code></td>
-  <td>一括破壊コマンドの設定メニューを開く（オフ/オン、範囲などを調整）</td>
-  <td><code>/trigger all_setting</code></td>
-</tr>
-<tr>
-  <td><code>/trigger sethome add &lt;n&gt;</code></td>
-  <td>チェックポイント <em>n</em> を登録（例: 1～9など任意のスロット番号）</td>
-  <td><code>/trigger sethome add 1</code></td>
-</tr>
-<tr>
-  <td><code>/trigger home set &lt;n&gt;</code></td>
-  <td>登録済みのチェックポイント <em>n</em> に移動</td>
-  <td><code>/trigger home set 1</code></td>
-</tr>
+
+          <!-- 一括破壊 -->
+          <tr>
+            <td>🪓 一括破壊</td>
+            <td><code>/trigger TimberToggle</code></td>
+            <td>木の<b>一括伐採</b>のオン/オフを切替。オン時に斧で原木を壊すと、繋がっている木全体を一気に伐採できます。</td>
+            <td><code>/trigger TimberToggle</code></td>
+          </tr>
+
+          <!-- 座標表示 -->
+          <tr>
+            <td>📍 座標表示</td>
+            <td><code>/trigger ch_toggle</code></td>
+            <td>アクションバーへの<b>座標表示</b>のオン/オフを切替。常に X / Y / Z を確認できます。</td>
+            <td><code>/trigger ch_toggle</code></td>
+          </tr>
+
+          <!-- チェックポイント設定 -->
+          <tr>
+            <td>🏠 チェックポイント</td>
+            <td><code>/trigger sethome add &lt;n&gt;</code></td>
+            <td>現在地を<b>チェックポイントスロット n</b> に登録 (n は任意の番号、例: 1〜9)。</td>
+            <td><code>/trigger sethome add 1</code></td>
+          </tr>
+
+          <!-- チェックポイント移動 -->
+          <tr>
+            <td>🏠 チェックポイント</td>
+            <td><code>/trigger home set &lt;n&gt;</code></td>
+            <td>登録済みの<b>チェックポイントスロット n</b> に瞬間移動。</td>
+            <td><code>/trigger home set 1</code></td>
+          </tr>
 
         </tbody>
       </table>
     </div>
+
+
+    <!-- ========== 使い方ヒント ========== -->
+    <h2 class="guide-section-label" style="margin-top: 36px;">📝 使い方ヒント</h2>
+    <ul style="padding-left: 20px; line-height: 1.9; color: var(--ink-2);">
+      <li><code>/trigger</code> はバニラ Minecraft の組み込みコマンドです。datapack側で許可された範囲だけ実行できます。</li>
+      <li>チェックポイントは番号 (1〜9 程度) を変えれば<b>複数登録</b>できます。家・ネザー出口・ビレッジ等を分けて登録すると便利。</li>
+      <li>機能のオン/オフは<b>プレイヤー単位</b>で記憶されます。あなたが ON にしても他の人には影響しません。</li>
+      <li>うまく動かないときは <code>/trigger TimberToggle</code> のように引数なしで打つと「現在の状態」が表示されます (機能による)。</li>
+    </ul>
+
+
+    <!-- ========== 関連ページ ========== -->
+    <h2 class="guide-section-label" style="margin-top: 36px;">🔗 関連ページ</h2>
+    <div class="guide-grid">
+      <a class="guide-card" href="./MinecraftConnect.html">
+        <div class="guide-card__icon">🔌</div>
+        <div class="guide-card__body">
+          <div class="guide-card__title">接続手順・サーバー情報</div>
+          <p class="guide-card__desc">IP・ポート・バージョン・シード値・接続状況。</p>
+        </div>
+        <span class="guide-card__arrow">→</span>
+      </a>
+      <a class="guide-card" href="./MinecraftRules.html">
+        <div class="guide-card__icon">📜</div>
+        <div class="guide-card__body">
+          <div class="guide-card__title">サーバールール</div>
+          <p class="guide-card__desc">参加前に必ず確認してください。</p>
+        </div>
+        <span class="guide-card__arrow">→</span>
+      </a>
+    </div>
+
 
     <footer class="footer">
       © のんびりサバイバル鯖
@@ -84,7 +182,7 @@
   </main>
 
   <script>
-    // 超簡易フィルタ
+    /* キーワード絞り込み */
     const input = document.getElementById('cmd-filter');
     const body  = document.getElementById('cmd-body');
     input?.addEventListener('input', () => {

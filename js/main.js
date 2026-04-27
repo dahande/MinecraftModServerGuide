@@ -159,6 +159,7 @@ document.addEventListener('keydown', function (e) {
     { icon: '⛏️', text: 'Minecraft', href: 'server/MinecraftGuide.html' },
     { icon: '🔌', text: '接続手順・サーバー情報', href: 'server/MinecraftConnect.html', sub: true },
     { icon: '📜', text: 'サーバールール', href: 'server/MinecraftRules.html', sub: true },
+    { icon: '⌨️', text: 'コマンド一覧', href: 'server/MinecraftCommands.html', sub: true },
     { icon: '📝', text: 'ホワイトリスト申請', href: 'https://discord.com/channels/1189882860425986121/1497547320974377061', external: true, sub: true },
     { icon: '🦕', text: 'ARK', href: 'server/ARKConnect.html' },
     { icon: '🚀', text: 'Icarus', href: 'server/IcarusConnect.html' },
