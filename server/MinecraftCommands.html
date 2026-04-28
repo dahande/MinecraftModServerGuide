@@ -93,63 +93,58 @@
     </div>
 
 
-    <!-- ========== コマンド表 ========== -->
-    <div class="table-scroll">
-      <table class="table">
-        <thead>
-          <tr>
-            <th style="width:14%;">カテゴリ</th>
-            <th style="width:30%;">コマンド</th>
-            <th>説明 / 使い方</th>
-            <th style="width:25%;">例</th>
-          </tr>
-        </thead>
-        <tbody id="cmd-body">
+    <!-- ========== コマンド一覧 (カード形式) ========== -->
+    <div class="cmd-list" id="cmd-list">
 
-          <!-- 一括破壊 -->
-          <tr>
-            <td>🪓 一括破壊</td>
-            <td><code>/trigger TimberToggle</code></td>
-            <td>木の<b>一括伐採</b>のオン/オフを切替。オン時に斧で原木を壊すと、繋がっている木全体を一気に伐採できます。</td>
-            <td><code>/trigger TimberToggle</code></td>
-          </tr>
+      <!-- 一括破壊 -->
+      <article class="cmd-card">
+        <div class="cmd-card__cat">🪓 一括破壊</div>
+        <code class="cmd-card__cmd">/trigger TimberToggle</code>
+        <p class="cmd-card__desc">
+          木の<b>一括伐採</b>のオン/オフを切替。<br>
+          オン時に斧で原木を壊すと、繋がっている木全体を一気に伐採できます。
+        </p>
+      </article>
 
-          <!-- 座標表示 -->
-          <tr>
-            <td>📍 座標表示</td>
-            <td><code>/trigger ch_toggle</code></td>
-            <td>アクションバーへの<b>座標表示</b>のオン/オフを切替。常に X / Y / Z を確認できます。</td>
-            <td><code>/trigger ch_toggle</code></td>
-          </tr>
+      <!-- 座標表示 -->
+      <article class="cmd-card">
+        <div class="cmd-card__cat">📍 座標表示</div>
+        <code class="cmd-card__cmd">/trigger ch_toggle</code>
+        <p class="cmd-card__desc">
+          アクションバーへの<b>座標表示</b>のオン/オフを切替。<br>
+          常に X / Y / Z を確認できます。
+        </p>
+      </article>
 
-          <!-- チェックポイント設定 -->
-          <tr>
-            <td>🏠 チェックポイント</td>
-            <td><code>/trigger sethome add &lt;n&gt;</code></td>
-            <td>現在地を<b>チェックポイントスロット n</b> に登録 (n は任意の番号、例: 1〜9)。</td>
-            <td><code>/trigger sethome add 1</code></td>
-          </tr>
+      <!-- チェックポイント設定 -->
+      <article class="cmd-card">
+        <div class="cmd-card__cat">🏠 ホーム設定</div>
+        <code class="cmd-card__cmd">/trigger sethome add 1</code>
+        <p class="cmd-card__desc">
+          現在地を<b>ホーム (テレポート地点)</b> として登録。<br>
+          <span style="color:#fbbf24;">※ 登録できるのは <b>1ヶ所のみ</b></span> です。再度実行すると上書きされます。
+        </p>
+      </article>
 
-          <!-- チェックポイント移動 -->
-          <tr>
-            <td>🏠 チェックポイント</td>
-            <td><code>/trigger home set &lt;n&gt;</code></td>
-            <td>登録済みの<b>チェックポイントスロット n</b> に瞬間移動。</td>
-            <td><code>/trigger home set 1</code></td>
-          </tr>
+      <!-- チェックポイント移動 -->
+      <article class="cmd-card">
+        <div class="cmd-card__cat">🏠 ホーム移動</div>
+        <code class="cmd-card__cmd">/trigger home set 1</code>
+        <p class="cmd-card__desc">
+          登録済みの<b>ホームに瞬間移動</b>します。<br>
+          事前に <code>/trigger sethome add 1</code> でホームを登録しておいてください。
+        </p>
+      </article>
 
-        </tbody>
-      </table>
     </div>
 
 
     <!-- ========== 使い方ヒント ========== -->
     <h2 class="guide-section-label" style="margin-top: 36px;">📝 使い方ヒント</h2>
     <ul style="padding-left: 20px; line-height: 1.9; color: var(--ink-2);">
-      <li><code>/trigger</code> はバニラ Minecraft の組み込みコマンドです。datapack側で許可された範囲だけ実行できます。</li>
-      <li>チェックポイントは番号 (1〜9 程度) を変えれば<b>複数登録</b>できます。家・ネザー出口・ビレッジ等を分けて登録すると便利。</li>
+      <li><code>/trigger</code> はバニラ Minecraft の組み込みコマンドです。datapack側で許可された範囲だけ実行できます。MOD導入は不要。</li>
       <li>機能のオン/オフは<b>プレイヤー単位</b>で記憶されます。あなたが ON にしても他の人には影響しません。</li>
-      <li>うまく動かないときは <code>/trigger TimberToggle</code> のように引数なしで打つと「現在の状態」が表示されます (機能による)。</li>
+      <li>ホームの登録場所を変えたいときは、移動したい地点で <code>/trigger sethome add 1</code> をもう一度実行すれば上書きされます。</li>
     </ul>
 
 
@@ -184,11 +179,11 @@
   <script>
     /* キーワード絞り込み */
     const input = document.getElementById('cmd-filter');
-    const body  = document.getElementById('cmd-body');
+    const list  = document.getElementById('cmd-list');
     input?.addEventListener('input', () => {
       const q = input.value.toLowerCase();
-      [...body.querySelectorAll('tr')].forEach(tr => {
-        tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+      [...list.querySelectorAll('.cmd-card')].forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
       });
     });
   </script>
