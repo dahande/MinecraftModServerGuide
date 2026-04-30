@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVYBSWNT91"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SVYBSWNT91');
+  </script>
+  <title>Minecraft サーバー情報・ステータス – のんびりサバイバル鯖</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="description" content="のんびりサバイバル鯖 Minecraftサーバーのリアルタイム接続状況とサーバー設定を一覧。IP・ポート・バージョン・シード値・再起動時間。">
+  <meta name="keywords" content="Minecraft, マインクラフト, サーバー情報, サーバーステータス, 接続人数, バニラ, シード値, 再起動時間, のんびりサバイバル鯖">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Minecraft サーバー情報・ステータス – のんびりサバイバル鯖">
+  <meta property="og:description" content="Minecraftサーバーのリアルタイム接続状況とサーバー設定を一覧。">
+  <meta property="og:url" content="https://dahande.github.io/MinecraftModServerGuide/server/MinecraftServerInfo.html">
+  <meta property="og:image" content="https://dahande.github.io/MinecraftModServerGuide/image/ogp-minecraft.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="のんびりサバイバル鯖 Minecraft サーバー">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="のんびりサバイバル鯖">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Minecraft サーバー情報・ステータス – のんびりサバイバル鯖">
+  <meta name="twitter:description" content="Minecraftサーバーのリアルタイム接続状況と設定一覧。">
+  <meta name="twitter:image" content="https://dahande.github.io/MinecraftModServerGuide/image/twitter-minecraft.png">
+  <meta name="twitter:image:alt" content="のんびりサバイバル鯖 Minecraft サーバー情報">
+  <link rel="canonical" href="https://dahande.github.io/MinecraftModServerGuide/server/MinecraftServerInfo.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftServerInfo.html",
+        "url": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftServerInfo.html",
+        "name": "Minecraft サーバー情報・ステータス",
+        "description": "Minecraftサーバーのリアルタイム接続状況と全設定を掲載。",
+        "inLanguage": "ja-JP",
+        "about": { "@type": "VideoGame", "name": "Minecraft Java Edition" },
+        "isPartOf": { "@id": "https://dahande.github.io/MinecraftModServerGuide/#website" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://dahande.github.io/MinecraftModServerGuide/" },
+          { "@type": "ListItem", "position": 2, "name": "Minecraft ガイド", "item": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftGuide.html" },
+          { "@type": "ListItem", "position": 3, "name": "サーバー情報・ステータス", "item": "https://dahande.github.io/MinecraftModServerGuide/server/MinecraftServerInfo.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="../cssFile/Styles.css" />
+  <script src="../js/main.js" defer></script>
+</head>
+<body class="page-mc">
+  <main class="wrapper">
+
+    <header>
+      <h1>⛏️ Minecraft サーバー情報・ステータス</h1>
+
+      <div class="mod-badges">
+        <span class="mod-badge mod-badge--server">⛏️ Java Edition</span>
+        <span class="mod-badge mod-badge--client">🌱 バニラ</span>
+        <span class="mod-badge mod-badge--eac">🛡️ ホワイトリスト制</span>
+      </div>
+
+      <div class="meta">
+        <div>バージョン: 26.1.2</div>
+        <div>最終更新: 2026-04-28</div>
+      </div>
+
+      <p class="backlink">
+        <a href="../index.html" class="btn btn-back">← 戻る</a>
+        &nbsp;
+        <a href="./MinecraftConnect.html" class="btn">🔌 接続手順へ</a>
+        &nbsp;
+        <a href="./MinecraftRules.html" class="btn">📜 サーバールール</a>
+      </p>
+
+      <div class="hr"></div>
+    </header>
+
+
+    <!-- ========== 接続情報 ========== -->
+    <div class="download-card" style="margin-bottom: 28px;">
+      <div class="download-card__title">🔌 サーバー接続情報</div>
+      <div class="download-card__actions">
+        <div class="server-info-row">
+          <b>IP:</b>&nbsp;<span class="server-info-value">162.43.44.103</span>
+          <button class="copy-btn" data-copy="162.43.44.103">📋 コピー</button>
+        </div>
+        <div class="server-info-row">
+          <b>ポート:</b>&nbsp;<span class="server-info-value">25565</span>
+          <span style="font-size:11px; color:var(--muted); margin-left:6px;">(デフォルト・省略可)</span>
+        </div>
+        <div class="server-info-row">
+          <b>PW:</b>&nbsp;<span class="server-info-value">なし</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips" style="margin-bottom: 28px;">
+      🔌 詳しい接続方法は <a href="./MinecraftConnect.html" style="color:var(--page-accent);">接続手順ページ</a> をご確認ください。
+    </div>
+
+
+    <!-- ========== リアルタイムステータス ========== -->
+    <h2 class="guide-section-label" id="status">📡 リアルタイムステータス</h2>
+
+    <div class="status-panel" id="status-panel">
+
+      <!-- ローディング -->
+      <div class="status-state" id="state-loading">
+        <div class="status-spinner"></div>
+        <p style="color:var(--muted); font-size:14px; margin:0;">サーバー情報を取得中…</p>
+      </div>
+
+      <!-- 稼働中 -->
+      <div class="status-state" id="state-online" style="display:none;">
+        <span class="status-badge status-badge--online" style="font-size:13px; padding:5px 16px;">稼働中</span>
+
+        <div class="player-count-display">
+          <span class="cnt-now" id="player-now">0</span>
+          <span class="cnt-sep">/</span>
+          <span class="cnt-max" id="player-max">20</span>
+          <span class="cnt-unit">人</span>
+        </div>
+
+        <div class="player-bar-wrap">
+          <div class="player-bar" id="player-bar" style="width:0%"></div>
+        </div>
+
+        <p style="font-size:12px; color:var(--muted); margin:4px 0 0;">
+          現在 <span id="player-now-2">0</span> 人がプレイ中
+        </p>
+
+        <!-- プレイヤーリスト (API が返した場合のみ表示) -->
+        <div class="player-list-section" id="player-list-section" style="display:none; width:100%;">
+          <div class="player-list-label">接続中プレイヤー</div>
+          <div id="player-list"></div>
+        </div>
+      </div>
+
+      <!-- オフライン -->
+      <div class="status-state" id="state-offline" style="display:none;">
+        <span class="status-badge status-badge--offline" style="font-size:13px; padding:5px 16px;">オフライン</span>
+        <p style="color:var(--muted); font-size:14px; margin:0;">現在サーバーは停止中です。</p>
+      </div>
+
+      <!-- エラー -->
+      <div class="status-state" id="state-error" style="display:none;">
+        <p style="color:var(--muted); font-size:14px; margin:0;">⚠️ データの取得に失敗しました</p>
+        <button class="btn" onclick="fetchMcStatus()" style="margin-top:4px;">再試行</button>
+      </div>
+
+    </div>
+
+    <div class="status-footer">
+      <span>最終更新: <span id="last-updated" style="font-family:monospace;">--:--:--</span></span>
+      <span class="status-countdown"><span id="countdown">60</span> 秒後に自動更新</span>
+      <button class="btn" id="refresh-btn" style="font-size:12px; padding:5px 14px;" onclick="fetchMcStatus()">
+        🔄 今すぐ更新
+      </button>
+    </div>
+
+
+    <!-- ========== サーバー設定 ========== -->
+    <h2 class="guide-section-label" style="margin-top: 36px;">🖥️ サーバー設定</h2>
+    <div class="def-grid">
+      <div class="def-row">
+        <div class="def-key">バージョン</div>
+        <div class="def-val accent" id="cfg-version">26.1.2</div>
+      </div>
+      <div class="def-row"><div class="def-key">エディション</div><div class="def-val">Java Edition</div></div>
+      <div class="def-row"><div class="def-key">ゲームモード</div><div class="def-val">サバイバル</div></div>
+      <div class="def-row"><div class="def-key">難易度</div><div class="def-val">ノーマル</div></div>
+      <div class="def-row"><div class="def-key">MOD</div><div class="def-val">なし (バニラ運用)</div></div>
+      <div class="def-row"><div class="def-key">ホワイトリスト</div><div class="def-val warn">必須 (事前申請制)</div></div>
+      <div class="def-row"><div class="def-key">サーバー再起動</div><div class="def-val accent">毎日 6:00 / 18:00</div></div>
+      <div class="def-row">
+        <div class="def-key">ワールドシード値</div>
+        <div class="def-val" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span class="server-info-value" style="font-family:monospace;">6394437466470878695</span>
+          <button class="copy-btn" data-copy="6394437466470878695" style="font-size:11px; padding:3px 8px;">📋 コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips" style="margin-top: 16px; margin-bottom: 28px; font-size: 13px;">
+      💡 再起動時間 (6:00 / 18:00) の前後数分は接続が切れます。建築・採掘の途中の場合はキリの良いところで待機してください。
+    </div>
+
+
+    <!-- ========== Discord ========== -->
+    <a class="discord-banner" href="https://discord.gg/yRX52ctpnq" target="_blank" rel="noopener">
+      <div class="discord-banner__left">
+        <svg class="discord-banner__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
+          <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+        </svg>
+        <div>
+          <div class="discord-banner__title">のんびりサバイバル鯖 Discord</div>
+          <div class="discord-banner__desc">サーバーの情報共有・みんなとの交流はこちら！</div>
+        </div>
+      </div>
+      <span class="discord-banner__btn">参加する →</span>
+    </a>
+
+
+    <!-- ========== 関連ページ ========== -->
+    <h2 class="guide-section-label" style="margin-top: 36px;">🔗 関連ページ</h2>
+    <div class="guide-grid">
+      <a class="guide-card" href="./MinecraftConnect.html">
+        <div class="guide-card__icon">🔌</div>
+        <div class="guide-card__body">
+          <div class="guide-card__title">接続手順</div>
+          <p class="guide-card__desc">サーバー参加までの手順をスクリーンショット付きで解説。</p>
+        </div>
+        <span class="guide-card__arrow">→</span>
+      </a>
+      <a class="guide-card" href="./MinecraftRules.html">
+        <div class="guide-card__icon">📜</div>
+        <div class="guide-card__body">
+          <div class="guide-card__title">サーバールール</div>
+          <p class="guide-card__desc">参加前に必ず確認してください。</p>
+        </div>
+        <span class="guide-card__arrow">→</span>
+      </a>
+      <a class="guide-card" href="./MinecraftCommands.html">
+        <div class="guide-card__icon">⌨️</div>
+        <div class="guide-card__body">
+          <div class="guide-card__title">コマンド一覧</div>
+          <p class="guide-card__desc">一括破壊・座標表示・ホーム機能等の /trigger コマンド。</p>
+        </div>
+        <span class="guide-card__arrow">→</span>
+      </a>
+    </div>
+
+
+    <footer class="footer">
+      © のんびりサバイバル鯖
+      <a href="https://discord.gg/yRX52ctpnq" target="_blank" rel="noopener" class="footer-discord">Discord 参加 →</a>
+    </footer>
+  </main>
+
+
+<script>
+/* =====================================================
+   Minecraft Server Status — IP: 162.43.44.103
+   API: mcsrvstat.us (CORS対応・認証不要・無料)
+   ===================================================== */
+(function () {
+  var QUERY_URL   = 'https://api.mcsrvstat.us/3/162.43.44.103';
+  var REFRESH_SEC = 60;
+
+  var cdTimer, cdVal = REFRESH_SEC;
+
+  function showState(id) {
+    ['loading', 'online', 'offline', 'error'].forEach(function (s) {
+      var el = document.getElementById('state-' + s);
+      if (el) el.style.display = (s === id) ? '' : 'none';
+    });
+  }
+
+  function startCountdown() {
+    clearInterval(cdTimer);
+    cdVal = REFRESH_SEC;
+    cdTimer = setInterval(function () {
+      cdVal--;
+      var el = document.getElementById('countdown');
+      if (el) el.textContent = cdVal > 0 ? cdVal : REFRESH_SEC;
+      if (cdVal <= 0) { cdVal = REFRESH_SEC; fetchMcStatus(); }
+    }, 1000);
+  }
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  function fetchMcStatus() {
+    showState('loading');
+    var refreshBtn = document.getElementById('refresh-btn');
+    if (refreshBtn) refreshBtn.disabled = true;
+
+    /* AbortController で 12秒で諦める (mcsrvstat.us は時々遅い) */
+    var ctrl  = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 12000);
+
+    fetch(QUERY_URL, { cache: 'no-store', signal: ctrl.signal })
+      .then(function (res) {
+        clearTimeout(timer);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data || typeof data.online === 'undefined') throw new Error('No data');
+
+        /* バージョン動的更新 (オフラインでも cache から返ることがある) */
+        if (data.version) {
+          var verRaw = (typeof data.version === 'string')
+            ? data.version
+            : (data.version.name_clean || data.version.name || '');
+          /* "Paper 1.20.4" のようにソフトウェア名が混じることがあるので
+             バージョン番号 (X.Y.Z) だけ取り出す */
+          var m = String(verRaw).match(/(\d+\.\d+(?:\.\d+)?)/);
+          var ver = m ? m[1] : verRaw;
+          var verEl = document.getElementById('cfg-version');
+          if (verEl && ver) verEl.textContent = ver;
+        }
+
+        if (data.online) {
+          var players = data.players || {};
+          var cnt = players.online || 0;
+          var max = players.max    || 20;
+          var pct = max > 0 ? Math.round(cnt / max * 100) : 0;
+
+          document.getElementById('player-now').textContent   = cnt;
+          document.getElementById('player-now-2').textContent = cnt;
+          document.getElementById('player-max').textContent   = max;
+          var bar = document.getElementById('player-bar');
+          bar.style.width = pct + '%';
+          bar.classList.toggle('full', pct >= 100);
+
+          /* プレイヤーリスト (サーバー側で公開している場合のみ) */
+          var names = [];
+          if (Array.isArray(players.list)) {
+            names = players.list
+              .map(function (p) { return (typeof p === 'string') ? p : (p && p.name); })
+              .filter(function (n) { return n; });
+          }
+          var listEl  = document.getElementById('player-list');
+          var listSec = document.getElementById('player-list-section');
+          if (names.length > 0) {
+            listEl.innerHTML = names.map(function (n) {
+              return '<div class="player-row">' + esc(n) + '</div>';
+            }).join('');
+            listSec.style.display = '';
+          } else {
+            listSec.style.display = 'none';
+          }
+
+          showState('online');
+        } else {
+          showState('offline');
+        }
+
+        document.getElementById('last-updated').textContent =
+          new Date().toLocaleTimeString('ja-JP');
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        showState('error');
+      })
+      .then(function () {
+        if (refreshBtn) refreshBtn.disabled = false;
+        startCountdown();
+      });
+  }
+
+  /* onclick handler 用にグローバル公開 */
+  window.fetchMcStatus = fetchMcStatus;
+
+  fetchMcStatus();
+})();
+</script>
+
+</body>
+</html>

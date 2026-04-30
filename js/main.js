@@ -105,7 +105,7 @@ document.addEventListener('keydown', function (e) {
       target: '2026-04-25T21:00:00+09:00',
       showFromDays: 30,
       hideAfterHrs: 2,
-      href: 'server/MinecraftConnect.html'
+      href: 'server/MinecraftServerInfo.html#status'
     },
     {
       icon: '🧟',
@@ -157,7 +157,8 @@ document.addEventListener('keydown', function (e) {
     { icon: '📋', text: 'サーバー情報・ステータス', href: 'server/7DaysServerInfo.html', sub: true },
     { sep: true },
     { icon: '⛏️', text: 'Minecraft', href: 'server/MinecraftGuide.html' },
-    { icon: '🔌', text: '接続手順・サーバー情報', href: 'server/MinecraftConnect.html', sub: true },
+    { icon: '📡', text: 'サーバー情報・ステータス', href: 'server/MinecraftServerInfo.html', sub: true },
+    { icon: '🔌', text: '接続手順', href: 'server/MinecraftConnect.html', sub: true },
     { icon: '📜', text: 'サーバールール', href: 'server/MinecraftRules.html', sub: true },
     { icon: '⌨️', text: 'コマンド一覧', href: 'server/MinecraftCommands.html', sub: true },
     { icon: '📝', text: 'ホワイトリスト申請', href: 'https://discord.com/channels/1189882860425986121/1497547320974377061', external: true, sub: true },
