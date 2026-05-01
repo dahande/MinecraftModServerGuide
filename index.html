@@ -340,8 +340,24 @@
     function showLatestNewsModal(article) {
       const id = article.id || '';
       if (!id) return;
-      const DISMISS_KEY = 'news-last-dismissed';
-      if (localStorage.getItem(DISMISS_KEY) === id) return;
+
+      /* イベント期間中は毎日1回ポップアップ、それ以外は1度閉じれば二度と出さない */
+      const fromStr  = article.dataset.popupFrom;
+      const untilStr = article.dataset.popupUntil;
+      const now = Date.now();
+      const inWindow = (fromStr || untilStr)
+        && now >= (fromStr  ? Date.parse(fromStr)  : -Infinity)
+        && now <= (untilStr ? Date.parse(untilStr) :  Infinity);
+
+      let storeKey, storeVal;
+      if (inWindow) {
+        storeKey = `news-popup-day-${id}`;
+        storeVal = new Date().toISOString().slice(0, 10);  /* YYYY-MM-DD (UTC) */
+      } else {
+        storeKey = 'news-last-dismissed';
+        storeVal = id;
+      }
+      if (localStorage.getItem(storeKey) === storeVal) return;
 
       const tagEl   = article.querySelector('.news-item__tag');
       const dateEl  = article.querySelector('.news-article__date');
@@ -403,7 +419,7 @@
           close();
         } else if (e.target.dataset.role === 'read') {
           /* リンク遷移前にdismiss記録だけ行う */
-          localStorage.setItem(DISMISS_KEY, id);
+          localStorage.setItem(storeKey, storeVal);
         }
       });
       const onKey = e => { if (e.key === 'Escape') close(); };
