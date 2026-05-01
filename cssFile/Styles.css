@@ -2343,6 +2343,33 @@ body { padding-top: 62px; }
   color: var(--muted);
 }
 
+/* どのゲームのお知らせかを示すバッジ (タイトル直前) */
+.news-modal__game {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 2px;
+}
+.news-modal__game-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.news-modal__game--7dtd   { color: var(--c-7dtd);   background: rgba(248, 113, 113, 0.10); }
+.news-modal__game--mc     { color: var(--c-mc);     background: rgba(74,  222, 128, 0.10); }
+.news-modal__game--ark    { color: var(--c-ark);    background: rgba(251, 146, 60,  0.12); }
+.news-modal__game--icarus { color: var(--c-icarus); background: rgba(181, 124, 248, 0.12); }
+@media (max-width: 480px) {
+  .news-modal__game { font-size: 12px; padding: 4px 10px; }
+}
+
 .news-modal__title {
   margin: 0;
   font-size: 20px;

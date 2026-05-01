@@ -370,6 +370,18 @@
       let preview = firstP ? firstP.textContent.replace(/\s+/g, ' ').trim() : '';
       if (preview.length > 160) preview = preview.slice(0, 157) + '…';
 
+      /* data-game からゲーム名バッジを生成 */
+      const GAMES = {
+        '7dtd':      { label: '7 Days to Die', icon: '🧟', cls: 'news-modal__game--7dtd' },
+        'minecraft': { label: 'Minecraft',     icon: '⛏️', cls: 'news-modal__game--mc'   },
+        'ark':       { label: 'ARK',           icon: '🦕', cls: 'news-modal__game--ark'  },
+        'icarus':    { label: 'Icarus',        icon: '🚀', cls: 'news-modal__game--icarus' }
+      };
+      const game = GAMES[(article.dataset.game || '').toLowerCase()];
+      const gameBadge = game
+        ? `<div class="news-modal__game ${game.cls}"><span class="news-modal__game-icon">${game.icon}</span>${esc(game.label)}</div>`
+        : '';
+
       const esc = s => String(s).replace(/[&<>"]/g, c => ({
         '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
       }[c]));
@@ -382,6 +394,7 @@
       modal.innerHTML = `
         <div class="news-modal__panel">
           <button class="news-modal__close" data-role="close" aria-label="閉じる">✕</button>
+          ${gameBadge}
           <div class="news-modal__head">
             ${tag}
             <span class="news-modal__date">${esc(date)}</span>
