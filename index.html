@@ -370,6 +370,10 @@
       let preview = firstP ? firstP.textContent.replace(/\s+/g, ' ').trim() : '';
       if (preview.length > 160) preview = preview.slice(0, 157) + '…';
 
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
+      }[c]));
+
       /* data-game からゲーム名バッジを生成 */
       const GAMES = {
         '7dtd':      { label: '7 Days to Die', icon: '🧟', cls: 'news-modal__game--7dtd' },
@@ -381,10 +385,6 @@
       const gameBadge = game
         ? `<div class="news-modal__game ${game.cls}"><span class="news-modal__game-icon">${game.icon}</span>${esc(game.label)}</div>`
         : '';
-
-      const esc = s => String(s).replace(/[&<>"]/g, c => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
-      }[c]));
 
       const modal = document.createElement('div');
       modal.className = 'news-modal';
@@ -418,7 +418,7 @@
       });
 
       const close = () => {
-        localStorage.setItem(DISMISS_KEY, id);
+        localStorage.setItem(storeKey, storeVal);
         modal.classList.remove('is-open');
         document.removeEventListener('keydown', onKey);
         setTimeout(() => {
