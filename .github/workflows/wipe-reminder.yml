@@ -1,0 +1,39 @@
+name: 7DTD Wipe Reminder
+
+# 6/12 24:00 のワイプに向けた段階的リマインダーを Discord に投稿。
+# 各 cron は対応する1リマインダーを送る。
+# GitHub Actions の schedule は数十分の遅延が起こり得るが、リマインダー用途では問題なし。
+
+on:
+  schedule:
+    - cron: '0 12 13 5 *'   # 5/13 21:00 JST  (1ヶ月前)
+    - cron: '0 12 29 5 *'   # 5/29 21:00 JST  (2週間前)
+    - cron: '0 12 5 6 *'    # 6/5  21:00 JST  (1週間前)
+    - cron: '0 12 11 6 *'   # 6/11 21:00 JST  (前日)
+    - cron: '0 9 12 6 *'    # 6/12 18:00 JST  (当日6時間前)
+    - cron: '0 14 12 6 *'   # 6/12 23:00 JST  (1時間前)
+  workflow_dispatch:        # 手動テスト用
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wipe-reminder
+  cancel-in-progress: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Post wipe reminder
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SITE_URL: 'https://dahande.github.io/MinecraftModServerGuide'
+        run: python scripts/post_wipe_reminder.py
