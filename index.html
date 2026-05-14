@@ -321,12 +321,29 @@
           }
 
           /* ポップアップ対象の選定:
-             1. data-popup="featured" が付いた記事を優先
-             2. なければ最新記事 (articles[0])
-             一度閉じたら同じIDは再表示しない */
+             1. data-popup="featured" のうち popup-from / popup-until 期間に入って
+                いる記事を抽出
+             2. 終了日 (popup-until) が最も近い = 最も緊急な記事を表示
+                例: GW告知(5/6終了) と ワイプ告知(6/13終了) が共存する場合、
+                先に GW告知 → GW終了後にワイプ告知へ自動切替
+             3. 期間ものが何もなければ featured 全体 → 最終的に最新記事 */
           if (articles.length) {
-            const featured = articles.find(a => a.dataset.popup === 'featured');
-            const target   = featured || articles[0];
+            const now = Date.now();
+            const featured = articles.filter(a => a.dataset.popup === 'featured');
+            const inWindow = featured.filter(a => {
+              const fromStr  = a.dataset.popupFrom;
+              const untilStr = a.dataset.popupUntil;
+              if (!fromStr && !untilStr) return false;
+              const from  = fromStr  ? Date.parse(fromStr)  : -Infinity;
+              const until = untilStr ? Date.parse(untilStr) :  Infinity;
+              return now >= from && now <= until;
+            });
+            inWindow.sort((a, b) => {
+              const u1 = a.dataset.popupUntil ? Date.parse(a.dataset.popupUntil) : Infinity;
+              const u2 = b.dataset.popupUntil ? Date.parse(b.dataset.popupUntil) : Infinity;
+              return u1 - u2;
+            });
+            const target = inWindow[0] || featured[0] || articles[0];
             setTimeout(() => showLatestNewsModal(target), 600);
           }
         })
