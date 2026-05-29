@@ -70,10 +70,17 @@ REMINDERS = [
 ]
 
 WINDOW_MIN = 90  # 発火時刻 ±90分の遅延までは対応 (GitHub Actions cron 遅延対策)
+FORCE_SEND = os.environ.get("FORCE_SEND", "").strip().lower() in ("1", "true", "yes")
 
 
 def pick_reminder():
     now = datetime.now(tz=JST)
+
+    # FORCE_SEND=1 のとき: 最も近い将来（または直近過去）のリマインダーを返す
+    if FORCE_SEND:
+        closest = min(REMINDERS, key=lambda r: abs((now - r[0]).total_seconds()))
+        return closest
+
     closest = None
     min_diff = None
     for at, title, body in REMINDERS:

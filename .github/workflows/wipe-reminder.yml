@@ -36,4 +36,5 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SITE_URL: 'https://dahande.github.io/MinecraftModServerGuide'
+          FORCE_SEND: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
         run: python scripts/post_wipe_reminder.py
