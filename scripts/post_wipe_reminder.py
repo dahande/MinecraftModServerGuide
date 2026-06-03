@@ -2,12 +2,22 @@
 """
 7DTD サーバーワイプの段階的リマインダーを Discord に投稿する。
 
-実行時の現在時刻 (UTC) に対応するリマインダーを選び、@everyone 付きで送信。
-GitHub Actions の schedule から呼ばれ、リマインダー時刻ごとに 1 回ずつ発火する想定。
+「送信済みリマインダーID」を状態ファイル (.github/wipe-reminders-sent.json) に
+記録し、未送信かつ発火時刻を過ぎたものを送る。これにより GitHub Actions の
+cron 遅延 (数十分〜数時間) があっても取りこぼさず、かつ二重送信もしない。
+
+動作モード:
+  通常 (schedule):  now >= 発火時刻 で未送信のリマインダーのうち「最新の1件」を送信。
+                    それより前の未送信リマインダーは (送信済み扱いにして) 黙って繰り上げ。
+                    → 遅延で1件飛ばしても、過去分を連投せず現在相当の1件だけ届く。
+  FORCE_SEND=1:     状態に関わらず「現在時刻に最も近い」1件を即送信 (手動テスト/即時送信用)。
+  どちらの場合も「送信した発火時刻以前」のIDを全て送信済みとして記録する。
 
 環境変数:
   DISCORD_WEBHOOK_URL  (必須)  投稿先 (7DTDチャンネル) Webhook URL
   SITE_URL             任意    記事リンクの基点
+  FORCE_SEND           任意    1/true で即時送信モード (workflow_dispatch 時に自動付与)
+  WIPE_STATE_PATH      任意    状態ファイルのパス上書き (テスト用)
 """
 import json
 import os
@@ -16,6 +26,7 @@ import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 
 SITE_URL = os.environ.get(
@@ -69,27 +80,54 @@ REMINDERS = [
     ),
 ]
 
-WINDOW_MIN = 90  # 発火時刻 ±90分の遅延までは対応 (GitHub Actions cron 遅延対策)
 FORCE_SEND = os.environ.get("FORCE_SEND", "").strip().lower() in ("1", "true", "yes")
 
+REPO       = Path(__file__).resolve().parent.parent
+STATE_PATH = Path(
+    os.environ.get("WIPE_STATE_PATH", str(REPO / ".github" / "wipe-reminders-sent.json"))
+)
 
-def pick_reminder():
-    now = datetime.now(tz=JST)
 
-    # FORCE_SEND=1 のとき: 最も近い将来（または直近過去）のリマインダーを返す
+def reminder_id(at):
+    """発火時刻から安定したIDを作る (例: 20260612T2300)。"""
+    return at.strftime("%Y%m%dT%H%M")
+
+
+def load_sent():
+    if STATE_PATH.exists():
+        try:
+            data = json.loads(STATE_PATH.read_text(encoding="utf-8"))
+            return set(data.get("sent", []))
+        except (json.JSONDecodeError, OSError):
+            pass
+    return set()
+
+
+def save_sent(sent):
+    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    STATE_PATH.write_text(
+        json.dumps({"sent": sorted(sent)}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def pick_reminder(now, sent):
+    """送信すべき (at, title, body) を返す。なければ None。
+
+    - FORCE_SEND: now に最も近い1件 (状態を無視。手動の即時送信/テスト用)。
+    - 通常:       発火時刻を過ぎていて (now >= at) 未送信のうち「最新の1件」。
+                  cron が遅延して複数を跨いでも、最新だけ送り過去分は繰り上げる。
+    """
     if FORCE_SEND:
-        closest = min(REMINDERS, key=lambda r: abs((now - r[0]).total_seconds()))
-        return closest
+        return min(REMINDERS, key=lambda r: abs((now - r[0]).total_seconds()))
 
-    closest = None
-    min_diff = None
-    for at, title, body in REMINDERS:
-        diff = abs((now - at).total_seconds()) / 60.0
-        if diff <= WINDOW_MIN:
-            if min_diff is None or diff < min_diff:
-                closest = (at, title, body)
-                min_diff = diff
-    return closest
+    due_unsent = [
+        r for r in REMINDERS
+        if now >= r[0] and reminder_id(r[0]) not in sent
+    ]
+    if not due_unsent:
+        return None
+    return max(due_unsent, key=lambda r: r[0])
 
 
 def build_embed(title, body):
@@ -147,15 +185,27 @@ def main():
         print("DISCORD_WEBHOOK_URL is not set; skipping.")
         return 0
 
-    picked = pick_reminder()
+    now  = datetime.now(tz=JST)
+    sent = load_sent()
+
+    picked = pick_reminder(now, sent)
     if picked is None:
-        now = datetime.now(tz=JST).strftime("%Y-%m-%d %H:%M JST")
-        print(f"no reminder matches now ({now}); skipping.")
+        print(f"no due/unsent reminder at {now:%Y-%m-%d %H:%M JST}; skipping.")
         return 0
 
     at, title, body = picked
     post_to_discord(build_embed(title, body))
-    print(f"posted: {at.isoformat()} / {title}")
+
+    # 送信した発火時刻「以前」のリマインダーは全て送信済みとして記録する。
+    # → 取りこぼした過去分を黙って繰り上げ、かつ後続 cron での二重送信を防ぐ。
+    newly      = {reminder_id(r[0]) for r in REMINDERS if r[0] <= at}
+    superseded = newly - sent - {reminder_id(at)}
+    sent      |= newly
+    save_sent(sent)
+
+    print(f"posted: {reminder_id(at)} ({at:%Y-%m-%d %H:%M JST}) / {title}")
+    if superseded:
+        print(f"superseded (marked sent without posting): {sorted(superseded)}")
     return 0
 
 

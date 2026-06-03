@@ -1,8 +1,9 @@
 name: 7DTD Wipe Reminder
 
 # 6/12 24:00 のワイプに向けた段階的リマインダーを Discord に投稿。
-# 各 cron は対応する1リマインダーを送る。
-# GitHub Actions の schedule は数十分の遅延が起こり得るが、リマインダー用途では問題なし。
+# 送信済みIDを .github/wipe-reminders-sent.json に記録し、未送信かつ発火済みの
+# 「最新1件」だけを送る。これにより GitHub Actions の cron 遅延・取りこぼしが
+# あっても確実に届き、かつ二重送信もしない。
 
 on:
   schedule:
@@ -12,10 +13,10 @@ on:
     - cron: '0 12 11 6 *'   # 6/11 21:00 JST  (前日)
     - cron: '0 9 12 6 *'    # 6/12 18:00 JST  (当日6時間前)
     - cron: '0 14 12 6 *'   # 6/12 23:00 JST  (1時間前)
-  workflow_dispatch:        # 手動テスト用
+  workflow_dispatch:        # 手動実行 (FORCE_SEND=1 で状態無視の即時送信)
 
 permissions:
-  contents: read
+  contents: write   # 送信済み状態ファイルをコミットするため
 
 concurrency:
   group: wipe-reminder
@@ -38,3 +39,24 @@ jobs:
           SITE_URL: 'https://dahande.github.io/MinecraftModServerGuide'
           FORCE_SEND: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
         run: python scripts/post_wipe_reminder.py
+
+      - name: Commit sent-state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ ! -f .github/wipe-reminders-sent.json ]; then
+            echo "State file was not produced; nothing to commit."
+            exit 0
+          fi
+          git add .github/wipe-reminders-sent.json
+          if git diff --cached --quiet -- .github/wipe-reminders-sent.json; then
+            echo "No state change."
+            exit 0
+          fi
+          git commit -m "chore: update wipe-reminders-sent state [skip ci]"
+          for i in 1 2 3 4; do
+            if git push; then exit 0; fi
+            sleep $((2 ** i))
+            git pull --rebase --autostash || true
+          done
+          git push
