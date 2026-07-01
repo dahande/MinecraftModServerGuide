@@ -321,12 +321,11 @@
           }
 
           /* ポップアップ対象の選定:
-             1. data-popup="featured" のうち popup-from / popup-until 期間に入って
-                いる記事を抽出
-             2. 終了日 (popup-until) が最も近い = 最も緊急な記事を表示
-                例: GW告知(5/6終了) と ワイプ告知(6/13終了) が共存する場合、
-                先に GW告知 → GW終了後にワイプ告知へ自動切替
-             3. 期間ものが何もなければ featured 全体 → 最終的に最新記事 */
+             data-popup="featured" のうち popup-from / popup-until 期間に
+             入っている記事だけを抽出し、終了日 (popup-until) が最も近い =
+             最も緊急な記事を表示する。
+             期間内の告知が一つも無ければポップアップは表示しない
+             (古い・終了済みの告知を出し続けないため)。 */
           if (articles.length) {
             const now = Date.now();
             const featured = articles.filter(a => a.dataset.popup === 'featured');
@@ -343,8 +342,10 @@
               const u2 = b.dataset.popupUntil ? Date.parse(b.dataset.popupUntil) : Infinity;
               return u1 - u2;
             });
-            const target = inWindow[0] || featured[0] || articles[0];
-            setTimeout(() => showLatestNewsModal(target), 600);
+            const target = inWindow[0];
+            if (target) {
+              setTimeout(() => showLatestNewsModal(target), 600);
+            }
           }
         })
         .catch(() => {
